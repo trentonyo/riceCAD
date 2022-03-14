@@ -112,9 +112,9 @@ and open the template in the editor.
             }
 
             //Initialize matrix
-            let width = 4;
-            let depth = 4;
-            let height = 4;
+            let width = 24;
+            let depth = 24;
+            let height = 24;
 
             var matrix = generateMatrix(width, depth, height);
             updateWorkingPlane(width, depth);
@@ -243,14 +243,14 @@ and open the template in the editor.
             addBlock(0, 0, 14, cyanCode);
             addBlock(0, 0, 15, lightGrayCode);
 
-            for (var z = 0; z < copyOfMatrix.length; z++)
+            for (var z = 0; z < matrix.length; z++)
             {
-                for (var y = 0; y < copyOfMatrix[z].length; y++)
+                for (var y = 0; y < matrix[z].length; y++)
                 {
-                    for (var x = 0; x < copyOfMatrix[z][y].length; x++)
+                    for (var x = 0; x < matrix[z][y].length; x++)
                     {
                         //Check if there is a block in the first place
-                        if (copyOfMatrix[z][y][x] === 0)
+                        if (matrix[z][y][x] === 0)
                         {
                             //There is NOT A block here
                         }
