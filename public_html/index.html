@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>riceCAD</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="../playcanvas-latest.js"></script>
+        <script src="materials.js"></script>
+    </head>
+    <body>
+        <table>
+            <tr>
+                <td id="editor_title" colspan="3">riceCAD v0.0.0</td>
+            </tr>
+            <tr>
+                <td id="editor_lpanel">Left panel</td>
+                <td id="editor">        
+                    <canvas id="application-canvas" width="800" height="600"></canvas>
+                </td>
+                <td id="editor_rpanel">Right panel</td>
+            </tr>
+            <tr>
+                <td id="edit_bpanel" colspan="3">Bottom panel</td>
+            </tr>
+        </table>
+        
+        <script>
+            var canvas = document.getElementById("application-canvas");
+            var app = new pc.Application(canvas);
+            app.start();
+            
+            app.setCanvasFillMode(pc.FILLMODE_NONE);
+            app.setCanvasResolution(pc.RESOLUTION_AUTO);
+            
+            var camera = new pc.Entity();
+            camera.addComponent("camera", {
+                clearColor: new pc.Color(0.0, 1.0, 1.0)
+            });
+            
+            app.root.addChild(camera);
+            //camera.setRotation(0, 10, 0);
+            camera.rotate(-30, 30, 0);
+            camera.setPosition(10, 10, 10);
+            //                 ri     away
+            app.scene.ambientLight = new pc.Color(0.5, 0.5, 0.5);
+            var light = new pc.Entity();
+            light.addComponent('light');
+            app.root.addChild(light);
+            light.rotate(45, 0, 0);
+            
+            var workingPlane = new pc.Entity();
+            workingPlane.addComponent("model", { type: "plane" });
+            workingPlane.rotate(0, 0, 0);
+            workingPlane.setPosition(5, 0, 5);
+            workingPlane.setLocalScale(10, 10, 10);
+            app.root.addChild(workingPlane);
+           
+            //Camera and scene initialized
+    
+           
+            //Initialize matrix
+            var width = 10;
+            var depth = 10;
+            var height = 10;
+            
+            var matrix = [];
+            
+            for (var i = 0; i < height; i++)
+            {
+                matrix.push([]);
+                for (var j = 0; j < depth; j++)
+                {
+                    matrix[i].push([]);
+                    for (var k = 0; k < depth; k++)
+                    {
+                        matrix[i][j].push(0);
+                    }
+                }
+            }
+            
+            class Block 
+            {
+                constructor(x, y, z, b)
+                {
+                    this.x = x;
+                    this.y = y;
+                    this.z = z;
+                    this.b = b;
+                    
+                    if(b > 0)
+                    {
+                        var e = new pc.Entity();
+                        e.addComponent("model", { type: "box", isStatic: true });
+                        
+                        switch (b) {
+                            case blackCode:
+                                e.model.model.meshInstances[0].material = blackMaterial;
+                                break;
+                            case redCode:
+                                e.model.model.meshInstances[0].material = redMaterial;
+                                break;
+                            case greenCode:
+                                e.model.model.meshInstances[0].material = greenMaterial;
+                                break;
+                            case brownCode:
+                                e.model.model.meshInstances[0].material = brownMaterial;
+                                break;
+                            case blueCode:
+                                e.model.model.meshInstances[0].material = blueMaterial;
+                                break;
+                            case purpleCode:
+                                e.model.model.meshInstances[0].material = purpleMaterial;
+                                break;
+                            case cyanCode:
+                                e.model.model.meshInstances[0].material = cyanMaterial;
+                                break;
+                            case lightGrayCode:
+                                e.model.model.meshInstances[0].material = lightGrayMaterial;
+                                break;
+                            case grayCode:
+                                e.model.model.meshInstances[0].material = grayMaterial;
+                                break;
+                            case pinkCode:
+                                e.model.model.meshInstances[0].material = pinkMaterial;
+                                break;
+                            case limeCode:
+                                e.model.model.meshInstances[0].material = limeMaterial;
+                                break;
+                            case yellowCode:
+                                e.model.model.meshInstances[0].material = yellowMaterial;
+                                break;
+                            case lightBlueCode:
+                                e.model.model.meshInstances[0].material = lightBlueMaterial;
+                                break;
+                            case magentaCode:
+                                e.model.model.meshInstances[0].material = magentaMaterial;
+                                break;
+                            case orangeCode:
+                                e.model.model.meshInstances[0].material = orangeMaterial;
+                                break;
+                            case whiteCode:
+                                e.model.model.meshInstances[0].material = whiteMaterial;
+                                break;
+                            default:
+                                e.model.model.meshInstances[0].material = whiteMaterial;
+                        }
+
+                        app.root.addChild(e);
+                        e.setPosition(x + 0.5, y + 0.5, z + 0.5);
+
+                        this.e = e;
+                    }
+                }
+            }
+
+            function addBlock(x, y, z, b)
+            {
+                var toAdd = new Block(x, y, z, b);
+                
+                matrix[z][y][x] = toAdd;
+            }
+ 
+            addBlock(0, 0, 0, blackCode);
+            addBlock(1, 0, 0, redCode);
+            addBlock(2, 0, 0, greenCode);
+            addBlock(3, 0, 0, brownCode);
+            addBlock(0, 1, 0, blueCode);
+            addBlock(1, 1, 0, purpleCode);
+            addBlock(2, 1, 0, cyanCode);
+            addBlock(3, 1, 0, lightGrayCode);
+            addBlock(0, 2, 0, grayCode);
+            addBlock(1, 2, 0, pinkCode);
+            addBlock(2, 2, 0, limeCode);
+            addBlock(3, 2, 0, yellowCode);
+            addBlock(0, 3, 0, lightBlueCode);
+            addBlock(1, 3, 0, magentaCode);
+            addBlock(2, 3, 0, orangeCode);
+            addBlock(3, 3, 0, whiteCode);
+           
+            for (var z = 0; z < matrix.length; z++) 
+            {
+                for (var y = 0; y < matrix[z].length; y++) 
+                {
+                    for (var x = 0; x < matrix[z][y].length; x++) 
+                    {
+                        //Check if there is a block in the first place
+                        if (typeof(matrix[z][y][x]) === 'undefined') 
+                        {
+                            //There is NOT A block here
+                        }
+                        else
+                        {
+                            //There is a block here
+                        }
+                    }
+                }
+            }
+           
+        </script>
+    </body>
+</html>
