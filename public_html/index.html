@@ -75,7 +75,7 @@ and open the template in the editor.
 
             //Camera and scene initialized
     
-
+            //Returns a matrix of the given size, initialized to 0
             function generateMatrix(width, depth, height)
             {
                 var output = [];
@@ -96,34 +96,29 @@ and open the template in the editor.
                 return output;
             }
 
+            //Copies all values from first into second
             function transferMatrices(first, fWidth, fDepth, fHeight, second)
             {
-
+                for (var i = 0; i < fHeight; i++)
+                {
+                    for (var j = 0; j < fDepth; j++)
+                    {
+                        for (var k = 0; k < fWidth; k++)
+                        {
+                            second[i][j][k] = first[i][j][k];
+                        }
+                    }
+                }
             }
 
             //Initialize matrix
-            let width = 16;
-            let depth = 16;
-            let height = 16;
+            let width = 4;
+            let depth = 4;
+            let height = 4;
 
-            matrix = generateMatrix(width, depth, height);
+            var matrix = generateMatrix(width, depth, height);
             updateWorkingPlane(width, depth);
 
-            /*var matrix = [];
-
-            for (var i = 0; i < height; i++)
-            {
-                matrix.push([]);
-                for (var j = 0; j < depth; j++)
-                {
-                    matrix[i].push([]);
-                    for (var k = 0; k < depth; k++)
-                    {
-                        matrix[i][j].push(0);
-                    }
-                }
-            }*/
-            
             class Block 
             {
                 constructor(x, y, z, b)
@@ -203,6 +198,31 @@ and open the template in the editor.
             {
                 var toAdd = new Block(x, y, z, b);
 
+                var resize = false;
+                if(x > width)
+                {
+                    resize = true;
+                    width = x;
+                }
+                if(y > depth)
+                {
+                    resize = true;
+                    depth = y;
+                }
+                if(z > height)
+                {
+                    resize = true;
+                    height = z;
+                }
+
+                if (resize) {
+                    var tmp = generateMatrix(width, depth, height);
+                    transferMatrices(matrix, width, depth, height, tmp);
+                    updateWorkingPlane(width, depth);
+
+                    matrix = tmp;
+                }
+
                 matrix[z][y][x] = toAdd;
             }
  
@@ -223,22 +243,21 @@ and open the template in the editor.
             addBlock(0, 0, 14, cyanCode);
             addBlock(0, 0, 15, lightGrayCode);
 
-            console.log(matrix);
-
-            for (var z = 0; z < matrix.length; z++) 
+            for (var z = 0; z < copyOfMatrix.length; z++)
             {
-                for (var y = 0; y < matrix[z].length; y++) 
+                for (var y = 0; y < copyOfMatrix[z].length; y++)
                 {
-                    for (var x = 0; x < matrix[z][y].length; x++) 
+                    for (var x = 0; x < copyOfMatrix[z][y].length; x++)
                     {
                         //Check if there is a block in the first place
-                        if (typeof(matrix[z][y][x]) === 'undefined') 
+                        if (copyOfMatrix[z][y][x] === 0)
                         {
                             //There is NOT A block here
                         }
                         else
                         {
                             //There is a block here
+                            console.log("Found a block at " + x + ", " + y + ", " + z + ", ");
                         }
                     }
                 }
