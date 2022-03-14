@@ -64,19 +64,53 @@ and open the template in the editor.
             workingPlane.addComponent("model", { type: "plane" });
             workingPlane.rotate(0, 0, 0);
             workingPlane.setPosition(5, 0, 5);
-            workingPlane.setLocalScale(10, 10, 10);
+            workingPlane.setLocalScale(10, 0, 10);
             app.root.addChild(workingPlane);
-           
+
+            function updateWorkingPlane(width, depth)
+            {
+                workingPlane.setPosition(width / 2, 0, depth / 2);
+                workingPlane.setLocalScale(width, 0, depth);
+            }
+
             //Camera and scene initialized
     
-           
+
+            function generateMatrix(width, depth, height)
+            {
+                var output = [];
+
+                for (var i = 0; i < height; i++)
+                {
+                    output.push([]);
+                    for (var j = 0; j < depth; j++)
+                    {
+                        output[i].push([]);
+                        for (var k = 0; k < depth; k++)
+                        {
+                            output[i][j].push(0);
+                        }
+                    }
+                }
+
+                return output;
+            }
+
+            function transferMatrices(first, fWidth, fDepth, fHeight, second)
+            {
+
+            }
+
             //Initialize matrix
-            var width = 10;
-            var depth = 10;
-            var height = 10;
-            
-            var matrix = [];
-            
+            let width = 16;
+            let depth = 16;
+            let height = 16;
+
+            matrix = generateMatrix(width, depth, height);
+            updateWorkingPlane(width, depth);
+
+            /*var matrix = [];
+
             for (var i = 0; i < height; i++)
             {
                 matrix.push([]);
@@ -88,7 +122,7 @@ and open the template in the editor.
                         matrix[i][j].push(0);
                     }
                 }
-            }
+            }*/
             
             class Block 
             {
@@ -168,27 +202,29 @@ and open the template in the editor.
             function addBlock(x, y, z, b)
             {
                 var toAdd = new Block(x, y, z, b);
-                
+
                 matrix[z][y][x] = toAdd;
             }
  
             addBlock(0, 0, 0, blackCode);
-            addBlock(1, 0, 0, redCode);
-            addBlock(2, 0, 0, greenCode);
-            addBlock(3, 0, 0, brownCode);
-            addBlock(0, 1, 0, blueCode);
-            addBlock(1, 1, 0, purpleCode);
-            addBlock(2, 1, 0, cyanCode);
-            addBlock(3, 1, 0, lightGrayCode);
-            addBlock(0, 2, 0, grayCode);
-            addBlock(1, 2, 0, pinkCode);
-            addBlock(2, 2, 0, limeCode);
-            addBlock(3, 2, 0, yellowCode);
-            addBlock(0, 3, 0, lightBlueCode);
-            addBlock(1, 3, 0, magentaCode);
-            addBlock(2, 3, 0, orangeCode);
-            addBlock(3, 3, 0, whiteCode);
-           
+            addBlock(0, 0, 1, redCode);
+            addBlock(0, 0, 2, greenCode);
+            addBlock(0, 0, 3, brownCode);
+            addBlock(0, 0, 4, blueCode);
+            addBlock(0, 0, 5, purpleCode);
+            addBlock(0, 0, 6, cyanCode);
+            addBlock(0, 0, 7, lightGrayCode);
+            addBlock(0, 0, 8, grayCode);
+            addBlock(0, 0, 9, pinkCode);
+            addBlock(0, 0, 10, cyanCode);
+            addBlock(0, 0, 11, lightGrayCode);
+            addBlock(0, 0, 12, grayCode);
+            addBlock(0, 0, 13, pinkCode);
+            addBlock(0, 0, 14, cyanCode);
+            addBlock(0, 0, 15, lightGrayCode);
+
+            console.log(matrix);
+
             for (var z = 0; z < matrix.length; z++) 
             {
                 for (var y = 0; y < matrix[z].length; y++) 
