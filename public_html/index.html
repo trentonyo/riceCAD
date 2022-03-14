@@ -10,9 +10,9 @@ and open the template in the editor.
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="../playcanvas-latest.js"></script>
-        <script src="materials.js"></script>
     </head>
     <body>
+        <script src="materials.js"></script>
         <table>
             <tr>
                 <td id="editor_title" colspan="3">riceCAD v0.0.0</td>
@@ -36,16 +36,23 @@ and open the template in the editor.
             
             app.setCanvasFillMode(pc.FILLMODE_NONE);
             app.setCanvasResolution(pc.RESOLUTION_AUTO);
-            
+
             var camera = new pc.Entity();
             camera.addComponent("camera", {
                 clearColor: new pc.Color(0.0, 1.0, 1.0)
             });
-            
+
             app.root.addChild(camera);
-            //camera.setRotation(0, 10, 0);
-            camera.rotate(-30, 30, 0);
-            camera.setPosition(10, 10, 10);
+
+            function cameraToOrigin()
+            {
+                camera.setRotation(-0.26, 0, 0, 0.97);
+
+                camera.setPosition(0, 10, 10);
+            }
+
+            cameraToOrigin();
+
             //                 ri     away
             app.scene.ambientLight = new pc.Color(0.5, 0.5, 0.5);
             var light = new pc.Entity();
@@ -200,7 +207,66 @@ and open the template in the editor.
                     }
                 }
             }
-           
+
+            const mouse = new pc.Mouse(document.body);
+            mouse.disableContextMenu();
+
+            const keyboard = new pc.Keyboard(document.body);
+
+            var x = 0;
+            var y = 0;
+
+            var rotateSpeed = 0.1;
+            var moveSpeed = 0.05;
+            var zoomModifier = 5;
+
+            mouse.on("mousemove", function (event) {
+                if (event.buttons[pc.MOUSEBUTTON_LEFT])
+                {
+                    x += event.dx;
+                    y += event.dy;
+
+                    camera.setLocalEulerAngles(rotateSpeed * y, rotateSpeed * x, 0);
+                }
+            });
+            mouse.on("mousewheel", function (event) {
+
+                camera.translateLocal(0, 0, moveSpeed * event.wheelDelta * zoomModifier);
+
+            });
+
+
+            app.on("update", function () {
+                if (keyboard.isPressed(pc.KEY_UP)) {
+                    camera.rotate(rotateSpeed, 0, 0);
+                }
+                if (keyboard.isPressed(pc.KEY_DOWN)) {
+                    camera.rotate(-rotateSpeed, 0, 0);
+                }
+                if (keyboard.isPressed(pc.KEY_LEFT)) {
+                    camera.rotate(0, rotateSpeed, 0);
+                }
+                if (keyboard.isPressed(pc.KEY_RIGHT)) {
+                    camera.rotate(0, -rotateSpeed, 0);
+                }
+                if (keyboard.isPressed(pc.KEY_W)) {
+                    camera.translate(0, moveSpeed, 0);
+                }
+                if (keyboard.isPressed(pc.KEY_S)) {
+                    camera.translate(0, -moveSpeed, 0);
+                }
+                if (keyboard.isPressed(pc.KEY_A)) {
+                    camera.translateLocal(-moveSpeed, 0, 0);
+                }
+                if (keyboard.isPressed(pc.KEY_D)) {
+                    camera.translateLocal(moveSpeed, 0, 0);
+                }
+                if (keyboard.isPressed(pc.KEY_0))
+                {
+                    cameraToOrigin();
+                }
+            });
+
         </script>
     </body>
 </html>
