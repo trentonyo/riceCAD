@@ -62,7 +62,9 @@ and open the template in the editor.
             
             function downloadChanges()
             {
-                var file = new File(["Hello, world!"], "hello world.txt", {type: "text/plain;charset=utf-8"});
+                const content = document.getElementById('editor_text');
+
+                var file = new File([content.value], "riceCAD.plan", {type: "text/plain;charset=utf-8"});
                 saveAs(file);
             }
             
