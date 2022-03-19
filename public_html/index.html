@@ -10,6 +10,7 @@ and open the template in the editor.
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="../playcanvas-latest.js"></script>
+        <script src="../FileSaver.js"></script>
     </head>
     <body>
         <script src="materials.js"></script>
@@ -22,14 +23,49 @@ and open the template in the editor.
                 <td id="editor">        
                     <canvas id="application-canvas" width="800" height="600"></canvas>
                 </td>
-                <td id="editor_rpanel">Right panel</td>
+                <td id="editor_rpanel">Right panel<br>
+                    <textarea id="editor_text" wrap="off" onchange="loadFromTextArea()">1</textarea>
+                    <button onclick="downloadChanges()">Download Changes</button>
+                </td>
             </tr>
             <tr>
-                <td id="edit_bpanel" colspan="3">Bottom panel</td>
+                <td id="edit_bpanel" colspan="3">Bottom panel
+                <input type="file" id="file-selector" accept=".plan">
+                </td>
             </tr>
         </table>
         
         <script>
+            const fileSelector = document.getElementById('file-selector');
+            fileSelector.addEventListener('change', (event) => 
+            {
+                const fileList = event.target.files;
+                console.log(fileList);
+                
+                const content = document.getElementById('editor_text');
+                const [file] = fileList;
+                const reader = new FileReader();
+
+                reader.addEventListener("load", () => 
+                {
+                    // this will then display a text file
+                    content.value = reader.result.replace(/\r/g, "\n");
+                    loadFromTextArea();
+                    
+                }, false);
+
+                if (file) {
+                  reader.readAsText(file);
+                }
+                
+            });
+            
+            function downloadChanges()
+            {
+                var file = new File(["Hello, world!"], "hello world.txt", {type: "text/plain;charset=utf-8"});
+                saveAs(file);
+            }
+            
             var canvas = document.getElementById("application-canvas");
             var app = new pc.Application(canvas);
             app.start();
@@ -106,25 +142,125 @@ and open the template in the editor.
                     {
                         for (var k = 0; k < fDepth; k++)
                         {
-                            console.log("setting [" + second[i][j][k] + "] at " + i + ", " +  j + ", " +  k + ", " + 
-                                    "to [" + first[i][j][k] + "] at " + i + ", " +  j + ", " +  k + ", ");
+                            //console.log("setting [" + second[i][j][k] + "] at " + i + ", " +  j + ", " +  k + ", " + 
+                            //        "to [" + first[i][j][k] + "] at " + i + ", " +  j + ", " +  k + ", ");
                             second[i][j][k] = first[i][j][k];
                         }
                     }
                 }
             }
 
+            function resize(fwidth, fheight, fdepth)
+            {
+                console.log("Matrix BEFORE reassignment:");
+                console.log(matrix);
+
+                matrixBuffer = generateMatrix(width, height, depth);
+                transferMatrices(matrix, fwidth, fheight, fdepth, matrixBuffer);
+
+                matrix = generateMatrix(width, height, depth);
+                console.log("Matrix has been reassigned:");
+                console.log(matrix);
+                matrix = Array.from(matrixBuffer);
+
+                updateWorkingPlane(width, depth);
+            }
+            
+            function clearMatrix(matrix)
+            {
+                for(var x = 0; x < depth; x++)
+                {
+                    for(var y = 0; y < height; y++)
+                    {
+                        for(var z = 0; z < width; z++)
+                        {
+                            matrix[x][y][z] = 0;
+                        }
+                    }
+                }
+            }
             //Initialize matrix
-            let width = 2;
-            let height = 16; 
-            let depth = 2; 
+            let width = 64;
+            let height = 100; 
+            let depth = 64; 
 
             let matrix = generateMatrix(width, height, depth);
             let matrixBuffer = generateMatrix(width, height, depth);
             
-            updateWorkingPlane(width, depth);
+            function loadFromTextArea()
+            {
+                /*matrix = generateMatrix(width, height, depth);
+                //clearMatrix(matrix);
+                */
+               
+                for(var x = 0; x < depth; x++)
+                {
+                    for(var y = 0; y < height; y++)
+                    {
+                        for(var z = 0; z < width; z++)
+                        {
+                            
+                            if(typeof(matrix[z][y][x]) !== "number")
+                            {
+                                if(matrix[z][y][x].b !== 0)
+                                {
+                                    console.log("Found a block, destroying it");
+                                    matrix[z][y][x].e.destroy();
+                                }
+                            }
+                        }
+                    }
+                }
+                
+                const content = document.getElementById('editor_text');
+                
+                var lx = 0; //Width
+                var ly = 0; //Height
+                var lz = 0; //Depth
+                
+                var layers = [];
+                layers = content.value.split("#");
+                
+                for(const layer of layers)
+                {
+                    var rows = [];
+                    rows = layer.split("\n");
+                    
+                    for(const row of rows)
+                    {
+                        if(row !== "") //Checking for excess whitespace
+                        {
+                            var blocks = [];
+                            blocks = row.split("");
+                            
+                            for(const block of blocks)
+                            {
+                                if(block !== "") //Checking for excess whitespace
+                                {
+                                    //console.log(block + ", ");
+                                    
+                                    addBlock(lx, ly, lz, parseInt(block));
+                                    
+                                    lx++;
+                                }
+                            }
+                        
+                            //console.log("/row");
+                            lx = 0;
+                            lz++;
+                        }
+                        
+                    }
+                    //console.log("/layer");
+                    lx = 0;
+                    ly++;
+                    lz = 0;
+                }
+                
+            }
 
-            console.log(matrix);
+            
+            updateWorkingPlane(width, depth);
 
             class Block 
             {
@@ -211,79 +347,42 @@ and open the template in the editor.
                 var fdepth = depth;
                 if(x > width)
                 {
-                    console.log("Increasing width to " + width);
                     resize = true;
-                    width = x;
+                    //width = x;
                 }
                 if(y > height)
                 {
-                    console.log("Increasing height to " + height);
                     resize = true;
-                    height = y;
+                    //height = y;
                 }
                 if(z > depth)
                 {
-                    console.log("Increasing depth to " + depth);
                     resize = true;
-                    depth = z;
+                    //depth = z;
                 }
 
                 if (resize) 
                 {    
-                    console.log("Matrix BEFORE reassignment:");
-                    console.log(matrix);
-                    
-                    matrixBuffer = generateMatrix(width, height, depth);
-                    transferMatrices(matrix, fwidth, fheight, fdepth, matrixBuffer);
-                    
-                    matrix = generateMatrix(width, height, depth);
-                    console.log("Matrix has been reassigned:");
-                    console.log(matrix);
-                    matrix = Array.from(matrixBuffer);
-
-                    updateWorkingPlane(width, depth);
+                    //resize(fwidth, fheight, fdepth);
+                    console.log("Resizing is still broken. Sorry.");
                 }
-                
-                console.log("Matrix type ");
-                console.log(typeof(matrix[z][y][x]));
-                console.log("Matrix value: ");
-                console.log(matrix[z][y][x]);
-                console.log("toAdd: ");
-                console.log(toAdd);
-                
-                matrix[z][y][x] = toAdd;    
+                else
+                {
+                    if(typeof(matrix[z][y][x]) !== "number")
+                    {
+                        if(matrix[z][y][x].b !== 0)
+                        {
+                            console.log("Found a block, destroying it");
+                            matrix[z][y][x].e.destroy();
+                        }
+                    }
+
+                    matrix[z][y][x] = toAdd;   
+                }
             }
- 
-            /*
-            addBlock(0, 0, 0, blackCode);
-            addBlock(0, 0, 1, redCode);
-            addBlock(0, 0, 2, greenCode);
-            addBlock(0, 1, 0, brownCode);
-            addBlock(0, 1, 1, blueCode);
-            addBlock(0, 1, 2, purpleCode);
-            addBlock(0, 2, 0, cyanCode);
-            addBlock(0, 2, 1, lightGrayCode);
-            addBlock(0, 2, 2, grayCode);
-            addBlock(1, 0, 0, blackCode);
-            addBlock(1, 0, 1, redCode);
-            addBlock(1, 0, 2, greenCode);
-            addBlock(1, 1, 0, brownCode);
-            addBlock(1, 1, 1, blueCode);
-            addBlock(1, 1, 2, purpleCode);
-            addBlock(1, 2, 0, cyanCode);
-            addBlock(1, 2, 1, lightGrayCode);
-            addBlock(1, 2, 2, grayCode);
-            addBlock(2, 0, 0, blackCode);
-            addBlock(2, 0, 1, redCode);
-            addBlock(2, 0, 2, greenCode);
-            addBlock(2, 1, 0, brownCode);
-            addBlock(2, 1, 1, blueCode);
-            addBlock(2, 1, 2, purpleCode);
-            addBlock(2, 2, 0, cyanCode);
-            addBlock(2, 2, 1, lightGrayCode);
-            addBlock(2, 2, 2, grayCode);
-            */
     
+            loadFromTextArea();
+            
             for (var z = 0; z < matrix.length; z++)
             {
                 for (var y = 0; y < matrix[z].length; y++)
@@ -375,7 +474,7 @@ and open the template in the editor.
             });
 
 
-            // Used playcanvas example update function
+            /* Used playcanvas example update function
             let time = 0;
             let step = 0;
             
@@ -384,25 +483,19 @@ and open the template in the editor.
                 time += dt; 
                 step += 1;
                 
-                if (step < 32) 
+                if(dt >= 0.25)
                 {
-                    addBlock(   Math.floor(0), 
-                                Math.floor(step - 1), 
-                                Math.floor(0), 
-                                Math.floor((step % 3) +1));
-
                     time = 0;
                 }
                 
-
                 /* Show active bodies in red and frozen bodies in gray
                 app.root.findComponents("rigidbody").forEach(function (body) 
                 {
                     body.entity.findComponents("render").forEach(function (render) {
                         render.material = body.isActive() ? red : gray;
                     });
-                }); */
-            });
+                }); /
+            });*/
 
         </script>
     </body>
