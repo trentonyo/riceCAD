@@ -292,6 +292,24 @@ and open the template in the editor.
 
 
             app.on("update", function () {
+                if (keyboard.isPressed(pc.KEY_SHIFT))
+                {
+                    if (keyboard.isPressed(pc.KEY_W)) {
+                        camera.translate(0, moveSpeed, 0);
+                    }
+                    if (keyboard.isPressed(pc.KEY_S)) {
+                        camera.translate(0, -moveSpeed, 0);
+                    }
+                }
+                else
+                {
+                    if (keyboard.isPressed(pc.KEY_W)) {
+                        camera.translateLocal(0, 0, -moveSpeed);
+                    }
+                    if (keyboard.isPressed(pc.KEY_S)) {
+                        camera.translateLocal(0, 0, moveSpeed);
+                    }
+                }
                 if (keyboard.isPressed(pc.KEY_UP)) {
                     camera.rotate(rotateSpeed, 0, 0);
                 }
@@ -303,12 +321,6 @@ and open the template in the editor.
                 }
                 if (keyboard.isPressed(pc.KEY_RIGHT)) {
                     camera.rotate(0, -rotateSpeed, 0);
-                }
-                if (keyboard.isPressed(pc.KEY_W)) {
-                    camera.translate(0, moveSpeed, 0);
-                }
-                if (keyboard.isPressed(pc.KEY_S)) {
-                    camera.translate(0, -moveSpeed, 0);
                 }
                 if (keyboard.isPressed(pc.KEY_A)) {
                     camera.translateLocal(-moveSpeed, 0, 0);
