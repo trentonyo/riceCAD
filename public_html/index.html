@@ -69,24 +69,25 @@ and open the template in the editor.
 
             function updateWorkingPlane(width, depth)
             {
-                workingPlane.setPosition(width / 2, 0, depth / 2);
-                workingPlane.setLocalScale(width, 0, depth);
+                var margin = 1;
+                workingPlane.setPosition((width + margin) / 2, 0, (depth + margin) / 2);
+                workingPlane.setLocalScale((width + margin), 0, (depth + margin));
             }
 
             //Camera and scene initialized
     
             //Returns a matrix of the given size, initialized to 0
-            function generateMatrix(width, depth, height)
+            function generateMatrix(width, height, depth)
             {
                 var output = [];
 
-                for (var i = 0; i < height; i++)
+                for (var i = 0; i < depth; i++)
                 {
                     output.push([]);
-                    for (var j = 0; j < depth; j++)
+                    for (var j = 0; j < height; j++)
                     {
                         output[i].push([]);
-                        for (var k = 0; k < depth; k++)
+                        for (var k = 0; k < width; k++)
                         {
                             output[i][j].push(0);
                         }
@@ -97,14 +98,16 @@ and open the template in the editor.
             }
 
             //Copies all values from first into second
-            function transferMatrices(first, fWidth, fDepth, fHeight, second)
+            function transferMatrices(first, fWidth, fHeight, fDepth, second)
             {
-                for (var i = 0; i < fHeight; i++)
+                for (var i = 0; i < fWidth; i++)
                 {
-                    for (var j = 0; j < fDepth; j++)
+                    for (var j = 0; j < fHeight; j++)
                     {
-                        for (var k = 0; k < fWidth; k++)
+                        for (var k = 0; k < fDepth; k++)
                         {
+                            console.log("setting [" + second[i][j][k] + "] at " + i + ", " +  j + ", " +  k + ", " + 
+                                    "to [" + first[i][j][k] + "] at " + i + ", " +  j + ", " +  k + ", ");
                             second[i][j][k] = first[i][j][k];
                         }
                     }
@@ -112,12 +115,16 @@ and open the template in the editor.
             }
 
             //Initialize matrix
-            let width = 24;
-            let depth = 24;
-            let height = 24;
+            let width = 2;
+            let height = 16; 
+            let depth = 2; 
 
-            var matrix = generateMatrix(width, depth, height);
+            let matrix = generateMatrix(width, height, depth);
+            let matrixBuffer = generateMatrix(width, height, depth);
+            
             updateWorkingPlane(width, depth);
+
+            console.log(matrix);
 
             class Block 
             {
@@ -195,54 +202,88 @@ and open the template in the editor.
             }
 
             function addBlock(x, y, z, b)
-            {
+            {   
                 var toAdd = new Block(x, y, z, b);
 
                 var resize = false;
+                var fwidth = width;
+                var fheight = height;
+                var fdepth = depth;
                 if(x > width)
                 {
+                    console.log("Increasing width to " + width);
                     resize = true;
                     width = x;
                 }
-                if(y > depth)
+                if(y > height)
                 {
+                    console.log("Increasing height to " + height);
                     resize = true;
-                    depth = y;
+                    height = y;
                 }
-                if(z > height)
+                if(z > depth)
                 {
+                    console.log("Increasing depth to " + depth);
                     resize = true;
-                    height = z;
+                    depth = z;
                 }
 
-                if (resize) {
-                    var tmp = generateMatrix(width, depth, height);
-                    transferMatrices(matrix, width, depth, height, tmp);
+                if (resize) 
+                {    
+                    console.log("Matrix BEFORE reassignment:");
+                    console.log(matrix);
+                    
+                    matrixBuffer = generateMatrix(width, height, depth);
+                    transferMatrices(matrix, fwidth, fheight, fdepth, matrixBuffer);
+                    
+                    matrix = generateMatrix(width, height, depth);
+                    console.log("Matrix has been reassigned:");
+                    console.log(matrix);
+                    matrix = Array.from(matrixBuffer);
+
                     updateWorkingPlane(width, depth);
-
-                    matrix = tmp;
                 }
-
-                matrix[z][y][x] = toAdd;
+                
+                console.log("Matrix type ");
+                console.log(typeof(matrix[z][y][x]));
+                console.log("Matrix value: ");
+                console.log(matrix[z][y][x]);
+                console.log("toAdd: ");
+                console.log(toAdd);
+                
+                matrix[z][y][x] = toAdd;    
             }
  
+            /*
             addBlock(0, 0, 0, blackCode);
             addBlock(0, 0, 1, redCode);
             addBlock(0, 0, 2, greenCode);
-            addBlock(0, 0, 3, brownCode);
-            addBlock(0, 0, 4, blueCode);
-            addBlock(0, 0, 5, purpleCode);
-            addBlock(0, 0, 6, cyanCode);
-            addBlock(0, 0, 7, lightGrayCode);
-            addBlock(0, 0, 8, grayCode);
-            addBlock(0, 0, 9, pinkCode);
-            addBlock(0, 0, 10, cyanCode);
-            addBlock(0, 0, 11, lightGrayCode);
-            addBlock(0, 0, 12, grayCode);
-            addBlock(0, 0, 13, pinkCode);
-            addBlock(0, 0, 14, cyanCode);
-            addBlock(0, 0, 15, lightGrayCode);
-
+            addBlock(0, 1, 0, brownCode);
+            addBlock(0, 1, 1, blueCode);
+            addBlock(0, 1, 2, purpleCode);
+            addBlock(0, 2, 0, cyanCode);
+            addBlock(0, 2, 1, lightGrayCode);
+            addBlock(0, 2, 2, grayCode);
+            addBlock(1, 0, 0, blackCode);
+            addBlock(1, 0, 1, redCode);
+            addBlock(1, 0, 2, greenCode);
+            addBlock(1, 1, 0, brownCode);
+            addBlock(1, 1, 1, blueCode);
+            addBlock(1, 1, 2, purpleCode);
+            addBlock(1, 2, 0, cyanCode);
+            addBlock(1, 2, 1, lightGrayCode);
+            addBlock(1, 2, 2, grayCode);
+            addBlock(2, 0, 0, blackCode);
+            addBlock(2, 0, 1, redCode);
+            addBlock(2, 0, 2, greenCode);
+            addBlock(2, 1, 0, brownCode);
+            addBlock(2, 1, 1, blueCode);
+            addBlock(2, 1, 2, purpleCode);
+            addBlock(2, 2, 0, cyanCode);
+            addBlock(2, 2, 1, lightGrayCode);
+            addBlock(2, 2, 2, grayCode);
+            */
+    
             for (var z = 0; z < matrix.length; z++)
             {
                 for (var y = 0; y < matrix[z].length; y++)
@@ -257,7 +298,6 @@ and open the template in the editor.
                         else
                         {
                             //There is a block here
-                            console.log("Found a block at " + x + ", " + y + ", " + z + ", ");
                         }
                     }
                 }
@@ -332,6 +372,36 @@ and open the template in the editor.
                 {
                     cameraToOrigin();
                 }
+            });
+
+
+            // Used playcanvas example update function
+            let time = 0;
+            let step = 0;
+            
+            app.on("update", function (dt) 
+            {
+                time += dt; 
+                step += 1;
+                
+                if (step < 32) 
+                {
+                    addBlock(   Math.floor(0), 
+                                Math.floor(step - 1), 
+                                Math.floor(0), 
+                                Math.floor((step % 3) +1));
+
+                    time = 0;
+                }
+                
+
+                /* Show active bodies in red and frozen bodies in gray
+                app.root.findComponents("rigidbody").forEach(function (body) 
+                {
+                    body.entity.findComponents("render").forEach(function (render) {
+                        render.material = body.isActive() ? red : gray;
+                    });
+                }); */
             });
 
         </script>
