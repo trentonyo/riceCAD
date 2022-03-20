@@ -82,14 +82,31 @@ and open the template in the editor.
 
             app.root.addChild(camera);
 
-            function cameraToOrigin()
-            {
-                camera.setRotation(-0.26, 0, 0, 0.97);
+            var camerasRX = [-0.26, 0.06,-0.12,-0.77,-0.26];
+            var camerasRY = [ 0.37, 0.92,-0.7 , 0.0 , 0.0 ];
+            var camerasRZ = [ 0.10, 0.17,-0.12, 0.0 , 0.0 ];
+            var camerasRW = [ 0.88,-0.35, 0.7 , 0.63, 0.97];
+            
+            var camerasPX = [ 45.0,-13.0,-23.0, 9.0 , 0.0 ];
+            var camerasPY = [ 32.0, 14.0, 17.0,35.0 ,10.0 ];
+            var camerasPZ = [ 45.0,-13.0, 12.0,-2.0 ,10.0 ];
 
-                camera.setPosition(0, 10, 10);
+            function setCamera(cam)
+            {
+                camera.setRotation( camerasRX[cam], 
+                                    camerasRY[cam], 
+                                    camerasRZ[cam], 
+                                    camerasRW[cam], 
+                                    );
+                                    
+                camera.setPosition( camerasPX[cam], 
+                                    camerasPY[cam], 
+                                    camerasPZ[cam]);
             }
 
-            cameraToOrigin();
+            //setCamera(0);
+            setCamera(0);
+            console.log(camera.rotation);
 
             //                 ri     away
             app.scene.ambientLight = new pc.Color(0.5, 0.5, 0.5);
@@ -428,13 +445,59 @@ and open the template in the editor.
             mouse.on("mousewheel", function (event) {
 
                 camera.translateLocal(0, 0, moveSpeed * event.wheelDelta * zoomModifier);
-
+                
             });
+            
+            var onKeyDown = function (e) 
+            {   
 
+                var digit = e.key - pc.KEY_0;
+                if(0 <= digit && digit < 10)
+                { 
+                    if (keyboard.isPressed(pc.KEY_SHIFT)) 
+                    {
+                        //Set a camera angle
+                        console.log("Setting camera angle " + digit + " to:");
+                        
+                        var rX = camera.rotation.x;
+                        var rY = camera.rotation.y;
+                        var rZ = camera.rotation.z;
+                        var rW = camera.rotation.w;
+                        
+                        console.log([rX, rY, rZ, rW]);
+                        
+                        var pX = camera.position.x;
+                        var pY = camera.position.y;
+                        var pZ = camera.position.z;
+                        
+                        console.log([pX, pY, pZ]);
+                        
+                        camerasRX[digit] = camera.rotation.x;
+                        camerasRY[digit] = camera.rotation.y;
+                        camerasRZ[digit] = camera.rotation.z;
+                        camerasRW[digit] = camera.rotation.w;
+                        
+                        camerasPX[digit] = camera.position.x;
+                        camerasPY[digit] = camera.position.y;
+                        camerasPZ[digit] = camera.position.z;
+                        
+                    }
+                    else
+                    {   
+                        //Pick a camera angle
+                        setCamera(digit);
+                    }
+                }
+                
+                
+                //e.event.preventDefault(); // Use original browser event to prevent browser action.
+            };
+            keyboard.on("keydown", onKeyDown, this);
 
             app.on("update", function () {
-                if (keyboard.isPressed(pc.KEY_SHIFT))
+                if (keyboard.isPressed(pc.KEY_SHIFT))   //Shift held
                 {
+                    //Move camera up/down global
                     if (keyboard.isPressed(pc.KEY_W)) {
                         camera.translate(0, moveSpeed, 0);
                     }
@@ -442,8 +505,9 @@ and open the template in the editor.
                         camera.translate(0, -moveSpeed, 0);
                     }
                 }
-                else
+                else                                    //Shift up
                 {
+                    //Move camera up/down local
                     if (keyboard.isPressed(pc.KEY_W)) {
                         camera.translateLocal(0, 0, -moveSpeed);
                     }
@@ -468,10 +532,6 @@ and open the template in the editor.
                 }
                 if (keyboard.isPressed(pc.KEY_D)) {
                     camera.translateLocal(moveSpeed, 0, 0);
-                }
-                if (keyboard.isPressed(pc.KEY_0))
-                {
-                    cameraToOrigin();
                 }
             });
 
