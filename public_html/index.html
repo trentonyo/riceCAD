@@ -9,6 +9,7 @@ and open the template in the editor.
         <title>riceCAD</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+         <link rel="stylesheet" href="main.css">
         <script src="../playcanvas-latest.js"></script>
         <script src="../FileSaver.js"></script>
     </head>
@@ -16,21 +17,29 @@ and open the template in the editor.
         <script src="materials.js"></script>
         <table>
             <tr>
-                <td id="editor_title" colspan="3">riceCAD v0.0.0</td>
+                <td id="editor_title" colspan="3">
+                    <h1>riceCAD <span id="versionNumber">v0.0.0</span></h1>
+                </td>
             </tr>
             <tr>
-                <td id="editor_lpanel">Left panel</td>
-                <td id="editor">        
+                <td class="panel" id="editor_lpanel">
+                    <h2>Left panel</h2>
+                </td>
+                <td class="panel" id="editor">        
                     <canvas id="application-canvas" width="800" height="600"></canvas>
                 </td>
-                <td id="editor_rpanel">Right panel<br>
-                    <textarea id="editor_text" wrap="off" onchange="loadFromTextArea()">1</textarea>
+                <td class="panel" id="editor_rpanel">
+                    <h2>Text Editor: <span id="projectTitle">Unnamed</span></h2>
+                    <button onclick="renameProject()">rename</button>
+                    <br>
+                    <textarea id="editor_text" wrap="off" cols="32" rows="32" onchange="loadFromTextArea()">1</textarea><br>
                     <button onclick="downloadChanges()">Download Changes</button>
                 </td>
             </tr>
             <tr>
-                <td id="edit_bpanel" colspan="3">Bottom panel
-                <input type="file" id="file-selector" accept=".plan">
+                <td class="panel" id="edit_bpanel" colspan="3">
+                    <h2>Bottom panel</h2>
+                    <input type="file" id="file-selector" accept=".plan">
                 </td>
             </tr>
         </table>
@@ -40,7 +49,6 @@ and open the template in the editor.
             fileSelector.addEventListener('change', (event) => 
             {
                 const fileList = event.target.files;
-                console.log(fileList);
                 
                 const content = document.getElementById('editor_text');
                 const [file] = fileList;
@@ -56,6 +64,8 @@ and open the template in the editor.
 
                 if (file) {
                   reader.readAsText(file);
+                  projectNameField.innerHTML = file.name.split(".")[0];
+                  unsavedChanges = false;
                 }
                 
             });
@@ -64,14 +74,26 @@ and open the template in the editor.
             {
                 const content = document.getElementById('editor_text');
 
-                var file = new File([content.value], "riceCAD.plan", {type: "text/plain;charset=utf-8"});
+                var planName = projectNameField.innerHTML + ".plan";
+                var file = new File([content.value], planName, {type: "text/plain;charset=utf-8"});
                 saveAs(file);
+                
+                unsavedChanges = false;
             }
             
+            function renameProject()
+            {
+                projectNameField.innerHTML = prompt("Rename project", "Unnamed");
+                unsavedChanges = true;
+            }
+            
+            var projectNameField = document.getElementById("projectTitle");
+            var unsavedChanges = false;
             var canvas = document.getElementById("application-canvas");
             var app = new pc.Application(canvas);
             app.start();
-            
+            document.getElementById("versionNumber").innerHTML = "v0.1.0";
+                        
             app.setCanvasFillMode(pc.FILLMODE_NONE);
             app.setCanvasResolution(pc.RESOLUTION_AUTO);
 
@@ -104,11 +126,8 @@ and open the template in the editor.
                                     camerasPZ[cam]);
             }
 
-            //setCamera(0);
             setCamera(0);
-            console.log(camera.rotation);
 
-            //                 ri     away
             app.scene.ambientLight = new pc.Color(0.5, 0.5, 0.5);
             var light = new pc.Entity();
             light.addComponent('light');
@@ -276,6 +295,7 @@ and open the template in the editor.
                     lz = 0;
                 }
                 
+                unsavedChanges = true;
             }
 
             
@@ -495,6 +515,19 @@ and open the template in the editor.
             keyboard.on("keydown", onKeyDown, this);
 
             app.on("update", function () {
+                
+                if(unsavedChanges && !projectNameField.classList.contains("unsaved"))
+                {
+                    projectNameField.classList.remove("saved");
+                    projectNameField.classList.add("unsaved");
+                }
+                
+                if(!unsavedChanges && projectNameField.classList.contains("unsaved"))
+                {
+                    projectNameField.classList.remove("unsaved");
+                    projectNameField.classList.add("saved");
+                }
+                
                 if (keyboard.isPressed(pc.KEY_SHIFT))   //Shift held
                 {
                     //Move camera up/down global
