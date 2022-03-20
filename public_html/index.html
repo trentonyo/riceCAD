@@ -35,40 +35,68 @@ and open the template in the editor.
                         Override palette <input id="colorOverride" type="checkbox"><br>
                         <table id="overrideMap" style="visibility:hidden">
                             <tr>
-                                <td>1</td>
-                                <td><select id="color1"><option>Color</option></select></td>
+                                <td>Black</td>
+                                <td><select id="color1"><option>-</option></select></td>
                             </tr>
                             <tr>
-                                <td>2</td>
-                                <td><select id="color2"><option>Color</option></select></td>
+                                <td>Red</td>
+                                <td><select id="color2"><option>1</option><option>-</option></select></td>
                             </tr>
                             <tr>
-                                <td>3</td>
-                                <td><select id="color3"><option>Color</option></select></td>
+                                <td>Green</td>
+                                <td><select id="color3"><option>2</option><option>-</option></select></td>
                             </tr>
                             <tr>
-                                <td>4</td>
-                                <td><select id="color4"><option>Color</option></select></td>
+                                <td>Brown</td>
+                                <td><select id="color4"><option>3</option><option>-</option></select></td>
                             </tr>
                             <tr>
-                                <td>5</td>
-                                <td><select id="color5"><option>Color</option></select></td>
+                                <td>Blue</td>
+                                <td><select id="color5"><option>4</option><option>-</option></select></td>
                             </tr>
                             <tr>
-                                <td>6</td>
-                                <td><select id="color6"><option>Color</option></select></td>
+                                <td>Purple</td>
+                                <td><select id="color6"><option>5</option><option>-</option></select></td>
                             </tr>
                             <tr>
-                                <td>7</td>
-                                <td><select id="color7"><option>Color</option></select></td>
+                                <td>Cyan</td>
+                                <td><select id="color7"><option>6</option><option>-</option></select></td>
                             </tr>
                             <tr>
-                                <td>8</td>
-                                <td><select id="color8"><option>Color</option></select></td>
+                                <td>Light Gray</td>
+                                <td><select id="color8"><option>7</option><option>-</option></select></td>
                             </tr>
                             <tr>
-                                <td>9</td>
-                                <td><select id="color9"><option>Color</option></select></td>
+                                <td>Gray</td>
+                                <td><select id="color9"><option>8</option><option>-</option></select></td>
+                            </tr>
+                            <tr>
+                                <td>Pink</td>
+                                <td><select id="color10"><option>9</option><option>-</option></select></td>
+                            </tr>
+                            <tr>
+                                <td>Lime</td>
+                                <td><select id="color11"><option>-</option></select></td>
+                            </tr>
+                            <tr>
+                                <td>Yellow</td>
+                                <td><select id="color12"><option>-</option></select></td>
+                            </tr>
+                            <tr>
+                                <td>Light Blue</td>
+                                <td><select id="color13"><option>-</option></select></td>
+                            </tr>
+                            <tr>
+                                <td>Magenta</td>
+                                <td><select id="color14"><option>-</option></select></td>
+                            </tr>
+                            <tr>
+                                <td>Orange</td>
+                                <td><select id="color15"><option>-</option></select></td>
+                            </tr>
+                            <tr>
+                                <td>White</td>
+                                <td><select id="color16"><option>-</option></select></td>
                             </tr>
                             
                         </table>
@@ -229,6 +257,24 @@ and open the template in the editor.
                 {
                     colorPicker.style.visibility = "hidden";
                     
+                    blackCode = 20; //oops
+                    redCode = 1;
+                    greenCode = 2;
+                    brownCode = 3;
+                    blueCode = 4;
+                    purpleCode = 5;
+                    cyanCode = 6;
+                    lightGrayCode = 7;
+                    grayCode = 8;
+                    pinkCode = 9;
+                    limeCode = 10;
+                    yellowCode = 11;
+                    lightBlueCode = 12;
+                    magentaCode = 13;
+                    orangeCode = 14;
+                    whiteCode = 15;
+                    
+                    loadFromTextArea();
                 }
             });
             //Camera and scene initialized
