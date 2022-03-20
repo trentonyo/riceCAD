@@ -23,7 +23,56 @@ and open the template in the editor.
             </tr>
             <tr>
                 <td class="panel" id="editor_lpanel">
-                    <h2>Left panel</h2>
+                    <h2>Viewport Settings</h2>
+                    <form id="viewportSettings">
+                        Lock viewport <input id="viewportLock" type="checkbox"><br>
+                        <br>Rotate speed <input id="viewportRotateSpeed" type="range"   min="0.01" max="0.25" value="0.1" step="0.05">
+                        <br>Move speed <input   id="viewportMoveSpeed" type="range"     min="0.01" max="0.5" value="0.05" step="0.01">
+                        <br>Zoom speed <input   id="viewportZoomSpeed" type="range"     min="1" max="30" value="5" step="0.5">   
+                    </form><br>
+                    <h2>Color Settings</h2>
+                    <form id="colorSettings">
+                        Override palette <input id="colorOverride" type="checkbox"><br>
+                        <table id="overrideMap" style="visibility:hidden">
+                            <tr>
+                                <td>1</td>
+                                <td><select id="color1"><option>Color</option></select></td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td><select id="color2"><option>Color</option></select></td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td><select id="color3"><option>Color</option></select></td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td><select id="color4"><option>Color</option></select></td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td><select id="color5"><option>Color</option></select></td>
+                            </tr>
+                            <tr>
+                                <td>6</td>
+                                <td><select id="color6"><option>Color</option></select></td>
+                            </tr>
+                            <tr>
+                                <td>7</td>
+                                <td><select id="color7"><option>Color</option></select></td>
+                            </tr>
+                            <tr>
+                                <td>8</td>
+                                <td><select id="color8"><option>Color</option></select></td>
+                            </tr>
+                            <tr>
+                                <td>9</td>
+                                <td><select id="color9"><option>Color</option></select></td>
+                            </tr>
+                            
+                        </table>
+                    </form><br>
                 </td>
                 <td class="panel" id="editor">        
                     <canvas id="application-canvas" width="800" height="600"></canvas>
@@ -56,7 +105,6 @@ and open the template in the editor.
 
                 reader.addEventListener("load", () => 
                 {
-                    // this will then display a text file
                     content.value = reader.result.replace(/\r/g, "\n");
                     loadFromTextArea();
                     
@@ -83,7 +131,7 @@ and open the template in the editor.
             
             function renameProject()
             {
-                projectNameField.innerHTML = prompt("Rename project", "Unnamed");
+                projectNameField.innerHTML = prompt("Rename project", "newName");
                 unsavedChanges = true;
             }
             
@@ -113,6 +161,8 @@ and open the template in the editor.
             var camerasPY = [ 32.0, 14.0, 17.0,35.0 ,10.0 ];
             var camerasPZ = [ 45.0,-13.0, 12.0,-2.0 ,10.0 ];
 
+            var eulerAnglesSet = false
+
             function setCamera(cam)
             {
                 camera.setRotation( camerasRX[cam], 
@@ -124,6 +174,8 @@ and open the template in the editor.
                 camera.setPosition( camerasPX[cam], 
                                     camerasPY[cam], 
                                     camerasPZ[cam]);
+                                    
+                eulerAnglesSet = false;
             }
 
             setCamera(0);
@@ -147,7 +199,38 @@ and open the template in the editor.
                 workingPlane.setPosition((width + margin) / 2, 0, (depth + margin) / 2);
                 workingPlane.setLocalScale((width + margin), 0, (depth + margin));
             }
-
+            
+            const viewportSettingsForm = document.getElementById('viewportSettings');
+            viewportSettingsForm.addEventListener('change', (event) => 
+            {
+                const viewportLock              = document.getElementById('viewportLock');
+                const viewportRotateSpeed       = document.getElementById('viewportRotateSpeed');
+                const viewportMoveSpeed         = document.getElementById('viewportMoveSpeed');
+                const viewportZoomSpeed         = document.getElementById('viewportZoomSpeed');
+       
+                viewportLocked = viewportLock.checked;
+                rotateSpeed    = viewportRotateSpeed.value;
+                moveSpeed      = viewportMoveSpeed.value;
+                zoomModifier   = viewportZoomSpeed.value;
+                
+            });
+            
+            const colorSettingsForm = document.getElementById('colorSettings');
+            colorSettingsForm.addEventListener('change', (event) => 
+            {
+                const overridePalette  = document.getElementById('colorOverride');
+                const colorPicker      = document.getElementById('overrideMap'); 
+                
+                if(overridePalette.checked)
+                {
+                    colorPicker.style.visibility = "visible";
+                }
+                else
+                {
+                    colorPicker.style.visibility = "hidden";
+                    
+                }
+            });
             //Camera and scene initialized
     
             //Returns a matrix of the given size, initialized to 0
@@ -217,6 +300,7 @@ and open the template in the editor.
                     }
                 }
             }
+            
             //Initialize matrix
             let width = 64;
             let height = 100; 
@@ -227,10 +311,6 @@ and open the template in the editor.
             
             function loadFromTextArea()
             {
-                /*matrix = generateMatrix(width, height, depth);
-                //clearMatrix(matrix);
-                */
-               
                 for(var x = 0; x < depth; x++)
                 {
                     for(var y = 0; y < height; y++)
@@ -242,7 +322,6 @@ and open the template in the editor.
                             {
                                 if(matrix[z][y][x].b !== 0)
                                 {
-                                    console.log("Found a block, destroying it");
                                     matrix[z][y][x].e.destroy();
                                 }
                             }
@@ -275,26 +354,20 @@ and open the template in the editor.
                             {
                                 if(block !== "") //Checking for excess whitespace
                                 {
-                                    //console.log(block + ", ");
-                                    
                                     addBlock(lx, ly, lz, parseInt(block));
                                     
                                     lx++;
                                 }
                             }
-                        
-                            //console.log("/row");
                             lx = 0;
                             lz++;
                         }
                         
                     }
-                    //console.log("/layer");
                     lx = 0;
                     ly++;
                     lz = 0;
                 }
-                
                 unsavedChanges = true;
             }
 
@@ -441,133 +514,195 @@ and open the template in the editor.
                 }
             }
 
-            const mouse = new pc.Mouse(document.body);
-            mouse.disableContextMenu();
-
-            const keyboard = new pc.Keyboard(document.body);
-
-            var x = 0;
-            var y = 0;
-
+            var viewportLocked;
             var rotateSpeed = 0.1;
             var moveSpeed = 0.05;
             var zoomModifier = 5;
 
-            mouse.on("mousemove", function (event) {
-                if (event.buttons[pc.MOUSEBUTTON_LEFT])
-                {
-                    x += event.dx;
-                    y += event.dy;
-
-                    camera.setLocalEulerAngles(rotateSpeed * y, rotateSpeed * x, 0);
-                }
-            });
-            mouse.on("mousewheel", function (event) {
-
-                camera.translateLocal(0, 0, moveSpeed * event.wheelDelta * zoomModifier);
-                
-            });
+            //Viewport Controls
             
-            var onKeyDown = function (e) 
-            {   
+            {
+                const mouse = new pc.Mouse(document.body);
+                mouse.disableContextMenu();
 
-                var digit = e.key - pc.KEY_0;
-                if(0 <= digit && digit < 10)
-                { 
-                    if (keyboard.isPressed(pc.KEY_SHIFT)) 
+                const keyboard = new pc.Keyboard(document.body);
+
+                var x = 0;
+                var y = 0;
+
+                mouse.on("mousemove", function (event) {
+                    if (event.buttons[pc.MOUSEBUTTON_LEFT] && !viewportLocked)
                     {
-                        //Set a camera angle
-                        console.log("Setting camera angle " + digit + " to:");
-                        
-                        var rX = camera.rotation.x;
-                        var rY = camera.rotation.y;
-                        var rZ = camera.rotation.z;
-                        var rW = camera.rotation.w;
-                        
-                        console.log([rX, rY, rZ, rW]);
-                        
-                        var pX = camera.position.x;
-                        var pY = camera.position.y;
-                        var pZ = camera.position.z;
-                        
-                        console.log([pX, pY, pZ]);
-                        
-                        camerasRX[digit] = camera.rotation.x;
-                        camerasRY[digit] = camera.rotation.y;
-                        camerasRZ[digit] = camera.rotation.z;
-                        camerasRW[digit] = camera.rotation.w;
-                        
-                        camerasPX[digit] = camera.position.x;
-                        camerasPY[digit] = camera.position.y;
-                        camerasPZ[digit] = camera.position.z;
-                        
-                    }
-                    else
-                    {   
-                        //Pick a camera angle
-                        setCamera(digit);
-                    }
-                }
-                
-                
-                //e.event.preventDefault(); // Use original browser event to prevent browser action.
-            };
-            keyboard.on("keydown", onKeyDown, this);
+                        x += event.dx;
+                        y += event.dy;
 
-            app.on("update", function () {
-                
-                if(unsavedChanges && !projectNameField.classList.contains("unsaved"))
-                {
-                    projectNameField.classList.remove("saved");
-                    projectNameField.classList.add("unsaved");
-                }
-                
-                if(!unsavedChanges && projectNameField.classList.contains("unsaved"))
-                {
-                    projectNameField.classList.remove("unsaved");
-                    projectNameField.classList.add("saved");
-                }
-                
-                if (keyboard.isPressed(pc.KEY_SHIFT))   //Shift held
-                {
-                    //Move camera up/down global
-                    if (keyboard.isPressed(pc.KEY_W)) {
-                        camera.translate(0, moveSpeed, 0);
-                    }
-                    if (keyboard.isPressed(pc.KEY_S)) {
-                        camera.translate(0, -moveSpeed, 0);
-                    }
-                }
-                else                                    //Shift up
-                {
-                    //Move camera up/down local
-                    if (keyboard.isPressed(pc.KEY_W)) {
-                        camera.translateLocal(0, 0, -moveSpeed);
-                    }
-                    if (keyboard.isPressed(pc.KEY_S)) {
-                        camera.translateLocal(0, 0, moveSpeed);
-                    }
-                }
-                if (keyboard.isPressed(pc.KEY_UP)) {
-                    camera.rotate(rotateSpeed, 0, 0);
-                }
-                if (keyboard.isPressed(pc.KEY_DOWN)) {
-                    camera.rotate(-rotateSpeed, 0, 0);
-                }
-                if (keyboard.isPressed(pc.KEY_LEFT)) {
-                    camera.rotate(0, rotateSpeed, 0);
-                }
-                if (keyboard.isPressed(pc.KEY_RIGHT)) {
-                    camera.rotate(0, -rotateSpeed, 0);
-                }
-                if (keyboard.isPressed(pc.KEY_A)) {
-                    camera.translateLocal(-moveSpeed, 0, 0);
-                }
-                if (keyboard.isPressed(pc.KEY_D)) {
-                    camera.translateLocal(moveSpeed, 0, 0);
-                }
-            });
+                        camera.setLocalEulerAngles(rotateSpeed * y, rotateSpeed * x, 0);
+                        
+                        if(!eulerAnglesSet && false) //Shelved this, was going to just spin the camera until the right angle was found
+                        {
+                            var startRotation = camera.rotation;
+                            var margin = 10;
+                            var steps = 0;
+                                
+                            while   (
+                                    Math.abs(camera.rotation.x - startRotation.x <= margin &&
+                                    steps < 20)
+                                    )
+                            {
+                                x += 1;
+                                y += 1;
+                                steps++;
+                                camera.setLocalEulerAngles(rotateSpeed * y, rotateSpeed * x, 0);
+                                
+                                console.log("x is " + x + " and y is " + y);
+                                console.log("after set new rotation:");
+                                console.log(camera.rotation.x);
+                                
+                            }
+                            
+                            eulerAnglesSet = true;
+                        }
+                        
+                        
+                        /*
+                        x += event.dx;
+                        y += event.dy;
 
+                        var ex = rotateSpeed * y;
+                        var ey = rotateSpeed * x;
+                        var ez = 0;
+                        
+                        var sx, cx, sy, cy, sz, cz, halfToRad;
+
+                        halfToRad = 0.5 * pc.math.DEG_TO_RAD;
+                        ex *= halfToRad;
+                        ey *= halfToRad;
+                        ez *= halfToRad;
+
+                        sx = Math.sin(ex);
+                        cx = Math.cos(ex);
+                        sy = Math.sin(ey);
+                        cy = Math.cos(ey);
+                        sz = Math.sin(ez);
+                        cz = Math.cos(ez);
+
+                        camera.rotation.x = sx * cy * cz - cx * sy * sz;
+                        camera.rotation.y = cx * sy * cz + sx * cy * sz;
+                        camera.rotation.z = cx * cy * sz - sx * sy * cz;
+                        camera.rotation.w = cx * cy * cz + sx * sy * sz;
+            */
+                    }
+                });
+                mouse.on("mousewheel", function (event) {
+
+                    if(!viewportLocked)
+                    {                    
+                        camera.translateLocal(0, 0, moveSpeed * event.wheelDelta * zoomModifier);
+                    }
+                });
+
+                var onKeyDown = function (e) 
+                {   
+                    var digit = e.key - pc.KEY_0;
+                    if(0 <= digit && digit < 10 && !viewportLocked)
+                    { 
+                        if (keyboard.isPressed(pc.KEY_SHIFT)) 
+                        {
+                            //Set a camera angle
+                            console.log("Setting camera angle " + digit + " to:");
+
+                            var rX = camera.rotation.x;
+                            var rY = camera.rotation.y;
+                            var rZ = camera.rotation.z;
+                            var rW = camera.rotation.w;
+
+                            console.log([rX, rY, rZ, rW]);
+
+                            var pX = camera.position.x;
+                            var pY = camera.position.y;
+                            var pZ = camera.position.z;
+
+                            console.log([pX, pY, pZ]);
+
+                            camerasRX[digit] = camera.rotation.x;
+                            camerasRY[digit] = camera.rotation.y;
+                            camerasRZ[digit] = camera.rotation.z;
+                            camerasRW[digit] = camera.rotation.w;
+
+                            camerasPX[digit] = camera.position.x;
+                            camerasPY[digit] = camera.position.y;
+                            camerasPZ[digit] = camera.position.z;
+
+                        }
+                        else
+                        {   
+                            //Pick a camera angle
+                            setCamera(digit);
+                            
+                            //TODO update x and y to some euler angles?
+                        }
+                    }
+
+
+                    //e.event.preventDefault(); // Use original browser event to prevent browser action.
+                };
+                keyboard.on("keydown", onKeyDown, this);
+
+                app.on("update", function () 
+                {
+                
+                    if(unsavedChanges && !projectNameField.classList.contains("unsaved"))
+                    {
+                        projectNameField.classList.remove("saved");
+                        projectNameField.classList.add("unsaved");
+                    }
+
+                    if(!unsavedChanges && projectNameField.classList.contains("unsaved"))
+                    {
+                        projectNameField.classList.remove("unsaved");
+                        projectNameField.classList.add("saved");
+                    }
+
+                    if (keyboard.isPressed(pc.KEY_SHIFT))   //Shift held
+                    {
+                        //Move camera up/down global
+                        if (keyboard.isPressed(pc.KEY_W) && !viewportLocked) {
+                            camera.translate(0, 0.05, 0); //TODO no idea why this breaks when setting by slider
+                        }
+                        if (keyboard.isPressed(pc.KEY_S) && !viewportLocked) {
+                            camera.translate(0, -moveSpeed, 0);
+                        }
+                    }
+                    else                                    //Shift up
+                    {
+                        //Move camera up/down local
+                        if (keyboard.isPressed(pc.KEY_W) && !viewportLocked) {
+                            camera.translateLocal(0, 0, -moveSpeed);
+                        }
+                        if (keyboard.isPressed(pc.KEY_S) && !viewportLocked) {
+                            camera.translateLocal(0, 0, moveSpeed);
+                        }
+                    }
+                    if (keyboard.isPressed(pc.KEY_UP) && !viewportLocked) {
+                        camera.rotate(rotateSpeed, 0, 0);
+                    }
+                    if (keyboard.isPressed(pc.KEY_DOWN) && !viewportLocked) {
+                        camera.rotate(-rotateSpeed, 0, 0);
+                    }
+                    if (keyboard.isPressed(pc.KEY_LEFT) && !viewportLocked) {
+                        camera.rotate(0, rotateSpeed, 0);
+                    }
+                    if (keyboard.isPressed(pc.KEY_RIGHT) && !viewportLocked) {
+                        camera.rotate(0, -rotateSpeed, 0);
+                    }
+                    if (keyboard.isPressed(pc.KEY_A) && !viewportLocked) {
+                        camera.translateLocal(-moveSpeed, 0, 0);
+                    }
+                    if (keyboard.isPressed(pc.KEY_D) && !viewportLocked) {
+                        camera.translateLocal(moveSpeed, 0, 0);
+                    }
+                });
+            }
 
             /* Used playcanvas example update function
             let time = 0;
