@@ -260,17 +260,67 @@ and open the template in the editor.
                     const settingBlue           = document.getElementById("color5");
                     const settingPurple         = document.getElementById("color6");
                     const settingCyan           = document.getElementById("color7");
-                    const settingLightGray     = document.getElementById("color8");
+                    const settingLightGray      = document.getElementById("color8");
                     const settingGray           = document.getElementById("color9");
                     const settingPink           = document.getElementById("color10"); 
                     const settingLime           = document.getElementById("color11"); 
                     const settingYellow         = document.getElementById("color12"); 
-                    const settingLightBlue     = document.getElementById("color13"); 
+                    const settingLightBlue      = document.getElementById("color13"); 
                     const settingMagenta        = document.getElementById("color14"); 
                     const settingOrange         = document.getElementById("color15");
                     const settingWhite          = document.getElementById("color16");
                     
-                    console.log(settingBlack);
+                    console.log(settingBlack.value);
+                    
+                    //var digitsUsed = [];
+                    var uses = [];
+                    for(var i = 1; i <= 9; i++)
+                    {
+                        //digitsUsed[i] = false;
+                        uses[i] = 0;
+                    }
+                    
+                    for(var code = 1; code <= 16; code++)
+                    {
+                        const currentSetting = document.getElementById("color" + code);
+                        var value = parseInt(currentSetting.options[currentSetting.selectedIndex].value);
+                        
+                        if(value >= 1 && value <= 9)
+                        {
+                            //digitsUsed[value] = true;
+                            uses[value]++;
+                            console.log("Digit " + value + " is used at color" + code);
+                        }
+                    }
+                    console.log(uses);
+                    
+                    //TODO add none option to all preselected colors
+                    //Check over codes again
+                    //  add each digit with uses === 0 as an option
+                    //  if uses > 1, remove as an option, decrement
+                    for(var code = 1; code <= 16; code++)
+                    {
+                        var currentSetting = document.getElementById("color" + code);
+                        
+                        for(var digit = 1; digit <= 9; digit++)
+                        {
+                            if(uses[digit] === 0)
+                            {
+                                //add as an option
+                                console.log("Adding " + digit + " as an option to color" + code);
+                            } 
+                            else if(uses[digit] > 1)
+                            {
+                                //try to remove as an option
+                                console.log("Trying to remove " + digit + " as an option from color" + code);
+                                //set to -
+                                //decrement uses
+                                uses[digit] = uses[digit] - 1;
+                            }
+                        }
+                    }
+                      
+                    //If uses === 1 set appropriate color code
                 }
                 else
                 {
