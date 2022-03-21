@@ -135,6 +135,7 @@ and open the template in the editor.
                 {
                     content.value = reader.result.replace(/\r/g, "\n");
                     loadFromTextArea();
+                    unsavedChanges = false;
                     
                 }, false);
 
@@ -509,7 +510,14 @@ and open the template in the editor.
                             {
                                 if(matrix[z][y][x].b !== 0)
                                 {
-                                    matrix[z][y][x].e.destroy();
+                                    try
+                                    {
+                                        matrix[z][y][x].e.destroy();
+                                    }
+                                    catch (error)
+                                    {
+                                        console.error(error);
+                                    }
                                 }
                             }
                         }
@@ -630,6 +638,7 @@ and open the template in the editor.
 
                         app.root.addChild(e);
                         e.setPosition(x + 0.5, y + 0.5, z + 0.5);
+                        e.setLocalScale(0.99, 0.99, 0.99);
 
                         this.e = e;
                     }
