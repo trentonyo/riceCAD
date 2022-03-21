@@ -40,39 +40,39 @@ and open the template in the editor.
                             </tr>
                             <tr>
                                 <td>Red</td>
-                                <td><select id="color2"><option>1</option><option>-</option></select></td>
+                                <td><select id="color2"><option>-</option></select></td>
                             </tr>
                             <tr>
                                 <td>Green</td>
-                                <td><select id="color3"><option>2</option><option>-</option></select></td>
+                                <td><select id="color3"><option>-</option></select></td>
                             </tr>
                             <tr>
                                 <td>Brown</td>
-                                <td><select id="color4"><option>3</option><option>-</option></select></td>
+                                <td><select id="color4"><option>-</option></select></td>
                             </tr>
                             <tr>
                                 <td>Blue</td>
-                                <td><select id="color5"><option>4</option><option>-</option></select></td>
+                                <td><select id="color5"><option>-</option></select></td>
                             </tr>
                             <tr>
                                 <td>Purple</td>
-                                <td><select id="color6"><option>5</option><option>-</option></select></td>
+                                <td><select id="color6"><option>-</option></select></td>
                             </tr>
                             <tr>
                                 <td>Cyan</td>
-                                <td><select id="color7"><option>6</option><option>-</option></select></td>
+                                <td><select id="color7"><option>-</option></select></td>
                             </tr>
                             <tr>
                                 <td>Light Gray</td>
-                                <td><select id="color8"><option>7</option><option>-</option></select></td>
+                                <td><select id="color8"><option>-</option></select></td>
                             </tr>
                             <tr>
                                 <td>Gray</td>
-                                <td><select id="color9"><option>8</option><option>-</option></select></td>
+                                <td><select id="color9"><option>-</option></select></td>
                             </tr>
                             <tr>
                                 <td>Pink</td>
-                                <td><select id="color10"><option>9</option><option>-</option></select></td>
+                                <td><select id="color10"><option>-</option></select></td>
                             </tr>
                             <tr>
                                 <td>Lime</td>
@@ -304,34 +304,94 @@ and open the template in the editor.
                             {
                                 //add as an option
                                 //console.log("Adding " + digit + " as an option to color" + code);
+                                var alreadyAdded = false;
                                 
-                                var opt = document.createElement('option');
-                                opt.value = digit;
-                                opt.innerHTML = digit;
-                                currentSetting.appendChild(opt);
+                                for(var option of currentSetting.options)
+                                {
+                                    if(parseInt(option.value) === digit)
+                                    {
+                                        alreadyAdded = true;
+                                    }
+                                }
+                                
+                                if(!alreadyAdded)
+                                {
+                                    var opt = document.createElement('option');
+                                    opt.value = digit;
+                                    opt.innerHTML = digit;
+                                    currentSetting.appendChild(opt);   //TODO insertBefore over append to keep numbers in order
+                                }
                             } 
                             else if(uses[digit] > 1)
                             {
                                 //try to remove as an option
-                                console.log("Trying to remove " + digit + " as an option from color" + code);
                                 //set to -
                                 for(var option of currentSetting.options)
                                 {
-                                    if(option.value === digit)
+                                    if(parseInt(option.value) === digit)
                                     {
-                                        console.log("Found a candidate for removal");
-                                        console.log(option);
+                                        //decrement uses
+                                        uses[digit]--;
+                                        
                                         option.remove();
                                     }
                                 }
                         
-                                //decrement uses
-                                uses[digit]--;
                             }
                         }
                     }
                       
-                    //If uses === 1 set appropriate color code
+                    //Assign color codes
+                    var unusableCodes = 20;
+                    
+                    const forBlack = parseInt(settingBlack.options[settingBlack.selectedIndex].value);
+                    blackCode = Number.isNaN(forBlack) ? unusableCodes++ : forBlack;
+                    
+                    const forRed = parseInt(settingRed.options[settingRed.selectedIndex].value);
+                    redCode = Number.isNaN(forRed) ? unusableCodes++ : forRed;
+                    
+                    const forGreen = parseInt(settingGreen.options[settingGreen.selectedIndex].value);
+                    greenCode = Number.isNaN(forGreen) ? unusableCodes++ : forGreen;
+                    
+                    const forBrown = parseInt(settingBrown.options[settingBrown.selectedIndex].value);
+                    brownCode = Number.isNaN(forBrown) ? unusableCodes++ : forBrown;
+                    
+                    const forBlue = parseInt(settingBlue.options[settingBlue.selectedIndex].value);
+                    blueCode = Number.isNaN(forBlue) ? unusableCodes++ : forBlue;
+                    
+                    const forPurple = parseInt(settingPurple.options[settingPurple.selectedIndex].value);
+                    purpleCode = Number.isNaN(forPurple) ? unusableCodes++ : forPurple;
+                    
+                    const forCyan = parseInt(settingCyan.options[settingCyan.selectedIndex].value);
+                    cyanCode = Number.isNaN(forCyan) ? unusableCodes++ : forCyan;
+                    
+                    const forLightGray = parseInt(settingLightGray.options[settingLightGray.selectedIndex].value);
+                    lightGrayCode = Number.isNaN(forLightGray) ? unusableCodes++ : forLightGray;
+                    
+                    const forGray = parseInt(settingGray.options[settingGray.selectedIndex].value);
+                    grayCode = Number.isNaN(forGray) ? unusableCodes++ : forGray;
+                    
+                    const forPink = parseInt(settingPink.options[settingPink.selectedIndex].value);
+                    pinkCode = Number.isNaN(forPink) ? unusableCodes++ : forPink;
+                    
+                    const forLime = parseInt(settingLime.options[settingLime.selectedIndex].value);
+                    limeCode = Number.isNaN(forLime) ? unusableCodes++ : forLime;
+                    
+                    const forYellow = parseInt(settingYellow.options[settingYellow.selectedIndex].value);
+                    yellowCode = Number.isNaN(forYellow) ? unusableCodes++ : forYellow;
+                    
+                    const forLightBlue = parseInt(settingLightBlue.options[settingLightBlue.selectedIndex].value);
+                    lightBlueCode = Number.isNaN(forLightBlue) ? unusableCodes++ : forLightBlue;
+                    
+                    const forMagenta = parseInt(settingMagenta.options[settingMagenta.selectedIndex].value);
+                    magentaCode = Number.isNaN(forMagenta) ? unusableCodes++ : forMagenta;
+                    
+                    const forOrange = parseInt(settingOrange.options[settingOrange.selectedIndex].value);
+                    orangeCode = Number.isNaN(forOrange) ? unusableCodes++ : forOrange;
+                    
+                    const forWhite = parseInt(settingWhite.options[settingWhite.selectedIndex].value);
+                    whiteCode = Number.isNaN(forWhite) ? unusableCodes++ : forWhite;
+                    
                 }
                 else
                 {
@@ -354,8 +414,9 @@ and open the template in the editor.
                     orangeCode = 14;
                     whiteCode = 15;
                     
-                    loadFromTextArea();
                 }
+                
+                loadFromTextArea(); //Rebuild once color codes are changed
             });
             //Camera and scene initialized
     
@@ -610,7 +671,6 @@ and open the template in the editor.
                     {
                         if(matrix[z][y][x].b !== 0)
                         {
-                            console.log("Found a block, destroying it");
                             matrix[z][y][x].e.destroy();
                         }
                     }
