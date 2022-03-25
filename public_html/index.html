@@ -36,67 +36,115 @@ and open the template in the editor.
                         <table id="overrideMap" style="visibility:hidden">
                             <tr>
                                 <td>Black</td>
-                                <td><select id="color1"><option>-</option></select></td>
+                                <td>
+                                    <select id="color1"><option>-</option></select>
+                                    <input id="blend1" type="checkbox"> Glass
+                                </td>
                             </tr>
                             <tr>
                                 <td>Red</td>
-                                <td><select id="color2"><option>-</option></select></td>
+                                <td>
+                                    <select id="color2"><option>-</option></select>
+                                    <input id="blend2" type="checkbox"> Glass
+                                </td>
                             </tr>
                             <tr>
                                 <td>Green</td>
-                                <td><select id="color3"><option>-</option></select></td>
+                                <td>
+                                    <select id="color3"><option>-</option></select>
+                                    <input id="blend3" type="checkbox"> Glass
+                                </td>
                             </tr>
                             <tr>
                                 <td>Brown</td>
-                                <td><select id="color4"><option>-</option></select></td>
+                                <td>
+                                    <select id="color4"><option>-</option></select>
+                                    <input id="blend4" type="checkbox"> Glass
+                                </td>
                             </tr>
                             <tr>
                                 <td>Blue</td>
-                                <td><select id="color5"><option>-</option></select></td>
+                                <td>
+                                    <select id="color5"><option>-</option></select>
+                                    <input id="blend5" type="checkbox"> Glass
+                                </td>
                             </tr>
                             <tr>
                                 <td>Purple</td>
-                                <td><select id="color6"><option>-</option></select></td>
+                                <td>
+                                    <select id="color6"><option>-</option></select>
+                                    <input id="blend6" type="checkbox"> Glass
+                                </td>
                             </tr>
                             <tr>
                                 <td>Cyan</td>
-                                <td><select id="color7"><option>-</option></select></td>
+                                <td>
+                                    <select id="color7"><option>-</option></select>
+                                    <input id="blend7" type="checkbox"> Glass
+                                </td>
                             </tr>
                             <tr>
                                 <td>Light Gray</td>
-                                <td><select id="color8"><option>-</option></select></td>
+                                <td>
+                                    <select id="color8"><option>-</option></select>
+                                    <input id="blend8" type="checkbox"> Glass
+                                </td>
                             </tr>
                             <tr>
                                 <td>Gray</td>
-                                <td><select id="color9"><option>-</option></select></td>
+                                <td>
+                                    <select id="color9"><option>-</option></select>
+                                    <input id="blend9" type="checkbox"> Glass
+                                </td>
                             </tr>
                             <tr>
                                 <td>Pink</td>
-                                <td><select id="color10"><option>-</option></select></td>
+                                <td>
+                                    <select id="color10"><option>-</option></select>
+                                    <input id="blend10" type="checkbox"> Glass
+                                </td>
                             </tr>
                             <tr>
                                 <td>Lime</td>
-                                <td><select id="color11"><option>-</option></select></td>
+                                <td>
+                                    <select id="color11"><option>-</option></select>
+                                    <input id="blend11" type="checkbox"> Glass
+                                </td>
                             </tr>
                             <tr>
                                 <td>Yellow</td>
-                                <td><select id="color12"><option>-</option></select></td>
+                                <td>
+                                    <select id="color12"><option>-</option></select>
+                                    <input id="blend12" type="checkbox"> Glass
+                                </td>
                             </tr>
                             <tr>
                                 <td>Light Blue</td>
-                                <td><select id="color13"><option>-</option></select></td>
+                                <td>
+                                    <select id="color13"><option>-</option></select>
+                                    <input id="blend13" type="checkbox"> Glass
+                                </td>
                             </tr>
                             <tr>
                                 <td>Magenta</td>
-                                <td><select id="color14"><option>-</option></select></td>
+                                <td>
+                                    <select id="color14"><option>-</option></select>
+                                    <input id="blend14" type="checkbox"> Glass
+                                </td>
                             </tr>
                             <tr>
                                 <td>Orange</td>
-                                <td><select id="color15"><option>-</option></select></td>
+                                <td>
+                                    <select id="color15"><option>-</option></select>
+                                    <input id="blend15" type="checkbox"> Glass
+                                </td>
                             </tr>
                             <tr>
                                 <td>White</td>
-                                <td><select id="color16"><option>-</option></select></td>
+                                <td>
+                                    <select id="color16"><option>-</option></select>
+                                    <input id="blend16" type="checkbox"> Glass
+                                </td>
                             </tr>
                             
                         </table>
@@ -271,6 +319,23 @@ and open the template in the editor.
                     const settingOrange         = document.getElementById("color15");
                     const settingWhite          = document.getElementById("color16");
                     
+                    const settingGlassBlack          = document.getElementById("blend1");
+                    const settingGlassRed            = document.getElementById("blend2");
+                    const settingGlassGreen          = document.getElementById("blend3");
+                    const settingGlassBrown          = document.getElementById("blend4");
+                    const settingGlassBlue           = document.getElementById("blend5");
+                    const settingGlassPurple         = document.getElementById("blend6");
+                    const settingGlassCyan           = document.getElementById("blend7");
+                    const settingGlassLightGray      = document.getElementById("blend8");
+                    const settingGlassGray           = document.getElementById("blend9");
+                    const settingGlassPink           = document.getElementById("blend10"); 
+                    const settingGlassLime           = document.getElementById("blend11"); 
+                    const settingGlassYellow         = document.getElementById("blend12"); 
+                    const settingGlassLightBlue      = document.getElementById("blend13"); 
+                    const settingGlassMagenta        = document.getElementById("blend14"); 
+                    const settingGlassOrange         = document.getElementById("blend15");
+                    const settingGlassWhite          = document.getElementById("blend16");
+                    
                     //var digitsUsed = [];
                     var uses = [];
                     for(var i = 1; i <= 9; i++)
@@ -347,51 +412,67 @@ and open the template in the editor.
                     
                     const forBlack = parseInt(settingBlack.options[settingBlack.selectedIndex].value);
                     blackCode = Number.isNaN(forBlack) ? unusableCodes++ : forBlack;
+                    blackMaterial.blendType = settingGlassBlack.checked ? pc.BLEND_NORMAL : pc.BLEND_NONE; 
                     
                     const forRed = parseInt(settingRed.options[settingRed.selectedIndex].value);
                     redCode = Number.isNaN(forRed) ? unusableCodes++ : forRed;
+                    redMaterial.blendType = settingGlassRed.checked ? pc.BLEND_NORMAL : pc.BLEND_NONE; 
                     
                     const forGreen = parseInt(settingGreen.options[settingGreen.selectedIndex].value);
                     greenCode = Number.isNaN(forGreen) ? unusableCodes++ : forGreen;
+                    greenMaterial.blendType = settingGlassGreen.checked ? pc.BLEND_NORMAL : pc.BLEND_NONE; 
                     
                     const forBrown = parseInt(settingBrown.options[settingBrown.selectedIndex].value);
                     brownCode = Number.isNaN(forBrown) ? unusableCodes++ : forBrown;
+                    brownMaterial.blendType = settingGlassBrown.checked ? pc.BLEND_NORMAL : pc.BLEND_NONE; 
                     
                     const forBlue = parseInt(settingBlue.options[settingBlue.selectedIndex].value);
                     blueCode = Number.isNaN(forBlue) ? unusableCodes++ : forBlue;
+                    blueMaterial.blendType = settingGlassBlue.checked ? pc.BLEND_NORMAL : pc.BLEND_NONE; 
                     
                     const forPurple = parseInt(settingPurple.options[settingPurple.selectedIndex].value);
                     purpleCode = Number.isNaN(forPurple) ? unusableCodes++ : forPurple;
+                    purpleMaterial.blendType = settingGlassPurple.checked ? pc.BLEND_NORMAL : pc.BLEND_NONE; 
                     
                     const forCyan = parseInt(settingCyan.options[settingCyan.selectedIndex].value);
                     cyanCode = Number.isNaN(forCyan) ? unusableCodes++ : forCyan;
+                    cyanMaterial.blendType = settingGlassCyan.checked ? pc.BLEND_NORMAL : pc.BLEND_NONE; 
                     
                     const forLightGray = parseInt(settingLightGray.options[settingLightGray.selectedIndex].value);
                     lightGrayCode = Number.isNaN(forLightGray) ? unusableCodes++ : forLightGray;
+                    lightGrayMaterial.blendType = settingGlassLightGray.checked ? pc.BLEND_NORMAL : pc.BLEND_NONE; 
                     
                     const forGray = parseInt(settingGray.options[settingGray.selectedIndex].value);
                     grayCode = Number.isNaN(forGray) ? unusableCodes++ : forGray;
+                    grayMaterial.blendType = settingGlassGray.checked ? pc.BLEND_NORMAL : pc.BLEND_NONE; 
                     
                     const forPink = parseInt(settingPink.options[settingPink.selectedIndex].value);
                     pinkCode = Number.isNaN(forPink) ? unusableCodes++ : forPink;
+                    pinkMaterial.blendType = settingGlassPink.checked ? pc.BLEND_NORMAL : pc.BLEND_NONE; 
                     
                     const forLime = parseInt(settingLime.options[settingLime.selectedIndex].value);
                     limeCode = Number.isNaN(forLime) ? unusableCodes++ : forLime;
+                    limeMaterial.blendType = settingGlassLime.checked ? pc.BLEND_NORMAL : pc.BLEND_NONE; 
                     
                     const forYellow = parseInt(settingYellow.options[settingYellow.selectedIndex].value);
                     yellowCode = Number.isNaN(forYellow) ? unusableCodes++ : forYellow;
+                    yellowMaterial.blendType = settingGlassYellow.checked ? pc.BLEND_NORMAL : pc.BLEND_NONE; 
                     
                     const forLightBlue = parseInt(settingLightBlue.options[settingLightBlue.selectedIndex].value);
                     lightBlueCode = Number.isNaN(forLightBlue) ? unusableCodes++ : forLightBlue;
+                    lightBlueMaterial.blendType = settingGlassLightBlue.checked ? pc.BLEND_NORMAL : pc.BLEND_NONE; 
                     
                     const forMagenta = parseInt(settingMagenta.options[settingMagenta.selectedIndex].value);
                     magentaCode = Number.isNaN(forMagenta) ? unusableCodes++ : forMagenta;
+                    magentaMaterial.blendType = settingGlassMagenta.checked ? pc.BLEND_NORMAL : pc.BLEND_NONE; 
                     
                     const forOrange = parseInt(settingOrange.options[settingOrange.selectedIndex].value);
                     orangeCode = Number.isNaN(forOrange) ? unusableCodes++ : forOrange;
+                    orangeMaterial.blendType = settingGlassOrange.checked ? pc.BLEND_NORMAL : pc.BLEND_NONE; 
                     
                     const forWhite = parseInt(settingWhite.options[settingWhite.selectedIndex].value);
                     whiteCode = Number.isNaN(forWhite) ? unusableCodes++ : forWhite;
+                    whiteMaterial.blendType = settingGlassWhite.checked ? pc.BLEND_NORMAL : pc.BLEND_NONE; 
                     
                 }
                 else
