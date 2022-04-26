@@ -38,3 +38,7 @@ h2 {
     font-style: normal;
     color: #ccffff;
 }
+
+#editor_text {
+    letter-spacing: 6px;
+}
