@@ -28,7 +28,28 @@ and open the template in the editor.
                         Lock viewport <input id="viewportLock" type="checkbox"><br>
                         <br>Rotate speed <input id="viewportRotateSpeed" type="range"   min="0.01" max="0.25" value="0.1" step="0.05">
                         <br>Move speed <input   id="viewportMoveSpeed" type="range"     min="0.01" max="0.5" value="0.05" step="0.01">
-                        <br>Zoom speed <input   id="viewportZoomSpeed" type="range"     min="1" max="30" value="5" step="0.5">   
+                        <br>Zoom speed <input   id="viewportZoomSpeed" type="range"     min="1" max="30" value="5" step="0.5">
+                        <br>Backdrop <input     id="viewportBackdrop"   list="colors">
+                        <br>Plane <input        id="workingPlaneColor"   list="colors">
+                        <datalist id="colors">
+                            <option value="Black">
+                            <option value="Red">
+                            <option value="Green">
+                            <option value="Brown">
+                            <option value="Blue">
+                            <option value="Purple">
+                            <option value="Cyan">
+                            <option value="Light Gray">
+                            <option value="Gray">
+                            <option value="Pink">
+                            <option value="Lime">
+                            <option value="Yellow">
+                            <option value="Light Blue">
+                            <option value="Magenta">
+                            <option value="Orange">
+                            <option value="White">
+
+                        </datalist>
                     </form><br>
                     <h2>Color Settings</h2>
                     <form id="colorSettings">
@@ -254,6 +275,14 @@ and open the template in the editor.
                                     
                 eulerAnglesSet = false;
             }
+            /*function setBackgroundColor(r, g, b)
+            {
+                camera.camera.clearColor = new pc.Color(r, g, b, 1.0);
+            }*/
+            function setBackgroundColor(color)
+            {
+                camera.camera.clearColor = color;
+            }
 
             setCamera(0);
 
@@ -276,6 +305,11 @@ and open the template in the editor.
                 workingPlane.setPosition((width + margin) / 2, 0, (depth + margin) / 2);
                 workingPlane.setLocalScale((width + margin), 0, (depth + margin));
             }
+
+            function setWorkingPlaneColor(planeMaterial)
+            {
+                workingPlane.model.model.meshInstances[0].material = planeMaterial;
+            }
             
             const viewportSettingsForm = document.getElementById('viewportSettings');
             viewportSettingsForm.addEventListener('change', (event) => 
@@ -289,7 +323,113 @@ and open the template in the editor.
                 rotateSpeed    = viewportRotateSpeed.value;
                 moveSpeed      = viewportMoveSpeed.value;
                 zoomModifier   = viewportZoomSpeed.value;
-                
+
+                const viewportBackdrop              = document.getElementById('viewportBackdrop');
+                const workingPlaneColor              = document.getElementById('workingPlaneColor');
+
+                switch (viewportBackdrop.value)
+                {
+                    case "Black":
+                        setBackgroundColor(blackMaterial.diffuse);
+                        break;
+                    case "Red":
+                        setBackgroundColor(redMaterial.diffuse);
+                        break;
+                    case "Green":
+                        setBackgroundColor(greenMaterial.diffuse);
+                        break;
+                    case "Brown":
+                        setBackgroundColor(brownMaterial.diffuse);
+                        break;
+                    case "Blue":
+                        setBackgroundColor(blueMaterial.diffuse);
+                        break;
+                    case "Purple":
+                        setBackgroundColor(purpleMaterial.diffuse);
+                        break;
+                    case "Cyan":
+                        setBackgroundColor(cyanMaterial.diffuse);
+                        break;
+                    case "Light Gray":
+                        setBackgroundColor(lightGrayMaterial.diffuse);
+                        break;
+                    case "Gray":
+                        setBackgroundColor(grayMaterial.diffuse);
+                        break;
+                    case "Pink":
+                        setBackgroundColor(pinkMaterial.diffuse);
+                        break;
+                    case "Lime":
+                        setBackgroundColor(limeMaterial.diffuse);
+                        break;
+                    case "Yellow":
+                        setBackgroundColor(yellowMaterial.diffuse);
+                        break;
+                    case "Light Blue":
+                        setBackgroundColor(lightBlueCode.diffuse);
+                        break;
+                    case "Magenta":
+                        setBackgroundColor(magentaMaterial.diffuse);
+                        break;
+                    case "Orange":
+                        setBackgroundColor(orangeMaterial.diffuse);
+                        break;
+                    case "White":
+                        setBackgroundColor(whiteMaterial.diffuse);
+                        break;
+                }
+
+                switch (workingPlaneColor.value)
+                {
+                    case "Black":
+                        setWorkingPlaneColor(blackMaterial);
+                        break;
+                    case "Red":
+                        setWorkingPlaneColor(redMaterial);
+                        break;
+                    case "Green":
+                        setWorkingPlaneColor(greenMaterial);
+                        break;
+                    case "Brown":
+                        setWorkingPlaneColor(brownMaterial);
+                        break;
+                    case "Blue":
+                        setWorkingPlaneColor(blueMaterial);
+                        break;
+                    case "Purple":
+                        setWorkingPlaneColor(purpleMaterial);
+                        break;
+                    case "Cyan":
+                        setWorkingPlaneColor(cyanMaterial);
+                        break;
+                    case "Light Gray":
+                        setWorkingPlaneColor(lightGrayMaterial);
+                        break;
+                    case "Gray":
+                        setWorkingPlaneColor(grayMaterial);
+                        break;
+                    case "Pink":
+                        setWorkingPlaneColor(pinkMaterial);
+                        break;
+                    case "Lime":
+                        setWorkingPlaneColor(limeMaterial);
+                        break;
+                    case "Yellow":
+                        setWorkingPlaneColor(yellowMaterial);
+                        break;
+                    case "Light Blue":
+                        setWorkingPlaneColor(lightBlueCode);
+                        break;
+                    case "Magenta":
+                        setWorkingPlaneColor(magentaMaterial);
+                        break;
+                    case "Orange":
+                        setWorkingPlaneColor(orangeMaterial);
+                        break;
+                    case "White":
+                        setWorkingPlaneColor(whiteMaterial);
+                        break;
+                }
             });
             
             const colorSettingsForm = document.getElementById('colorSettings');
