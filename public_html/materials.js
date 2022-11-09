@@ -1,103 +1,119 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+let Material = function (name, color, isGlass)
+{
+    this.name = name
 
-//console.log(process.env)
+    this.updateColor(color)
 
-var blackCode = 20; //oops
-var blackMaterial = new pc.PhongMaterial();
-blackMaterial.diffuse.set(0.11, 0.11, 0.13);
-blackMaterial.opacity = 0.5;
-blackMaterial.update();
+    this.isGlass = isGlass
+    this.phong = undefined
+}
+Material.prototype.getPhongMaterial = function ()
+{
+    if (!this.phong)
+    {
+        this.phong = new pc.PhongMaterial()
+        this.phong.diffuse.set(this.color.red, this.color.green, this.color.blue)
+        this.phong.opacity = this.isGlass ? 0.5 : 1.0
+        this.phong.blendType = pc.BLEND_NORMAL
+        this.phong.update()
+    }
 
-var redCode = 1;
-var redMaterial = new pc.PhongMaterial();
-redMaterial.diffuse.set(0.69, 0.18, 0.15);
-redMaterial.opacity = 0.5;
-redMaterial.update();
+    return this.phong
+}
+Material.prototype.updateColor = function(color)
+{
+    if (typeof color === "string")
+    {
+        this.color = {
+            red:    parseInt(color.substring(1,3), 16) / 256,
+            green:  parseInt(color.substring(3,5), 16) / 256,
+            blue:   parseInt(color.substring(5,7), 16) / 256
+        }
+    }
+    else if (color.red && color.green && color.blue)
+    {
+        this.color = color
+    }
+    else
+    {
+        throw "Material was passed a bad value for color: "+color
+    }
+}
+Material.prototype.getPCColor = function ()
+{
+    return this.phong.diffuse
+}
 
-var greenCode = 2;
-var greenMaterial = new pc.PhongMaterial();
-greenMaterial.diffuse.set(0.37, 0.49, 0.09);
-greenMaterial.opacity = 0.5;
-greenMaterial.update();
+let deleteMe = function (r, g, b, color)
+{
+    let output = "#"
+    output += Math.floor(255*r).toString(16)
+    output += Math.floor(255*g).toString(16)
+    output += Math.floor(255*b).toString(16)
 
-var brownCode = 3;
-var brownMaterial = new pc.PhongMaterial();
-brownMaterial.diffuse.set(0.51, 0.33, 0.2);
-brownMaterial.opacity = 0.5;
-brownMaterial.update();
+    console.log(color, output)
+}
 
-var blueCode = 4;
-var blueMaterial = new pc.PhongMaterial();
-blueMaterial.diffuse.set(0.24, 0.27, 0.67);
-blueMaterial.opacity = 0.5;
-blueMaterial.update();
+let blackCode = 20
+let minecraftBlack = new Material("Minecraft Black", "#1c1c21", false)
+let blackMaterial = minecraftBlack.getPhongMaterial()
 
-var purpleCode = 5;
-var purpleMaterial = new pc.PhongMaterial();
-purpleMaterial.diffuse.set(0.54, 0.2, 0.72);
-purpleMaterial.opacity = 0.5;
-purpleMaterial.update();
+let redCode = 1
+let minecraftRed = new Material("Minecraft Red", "#af2d26", false)
+let redMaterial = minecraftRed.getPhongMaterial()
 
-var cyanCode = 6;
-var cyanMaterial = new pc.PhongMaterial();
-cyanMaterial.diffuse.set(0.09, 0.61, 0.61);
-cyanMaterial.opacity = 0.5;
-cyanMaterial.update();
+let greenCode = 2
+let minecraftGreen = new Material("Minecraft Green", "#5e7c16", false)
+let greenMaterial = minecraftGreen.getPhongMaterial()
 
-var lightGrayCode = 7;
-var lightGrayMaterial = new pc.PhongMaterial();
-lightGrayMaterial.diffuse.set(0.62, 0.62, 0.59);
-lightGrayMaterial.opacity = 0.5;
-lightGrayMaterial.update();
+let brownCode = 3
+let minecraftBrown = new Material("Minecraft Brown", "#825433", false)
+let brownMaterial = minecraftBrown.getPhongMaterial()
 
-var grayCode = 8;
-var grayMaterial = new pc.PhongMaterial();
-grayMaterial.diffuse.set(0.28, 0.31, 0.32);
-grayMaterial.opacity = 0.5;
-grayMaterial.update();
+let blueCode = 4
+let minecraftBlue = new Material("Minecraft Blue", "#3d44aa", false)
+let blueMaterial = minecraftBlue.getPhongMaterial()
 
-var pinkCode = 9;
-var pinkMaterial = new pc.PhongMaterial();
-pinkMaterial.diffuse.set(0.95, 0.55, 0.67);
-pinkMaterial.opacity = 0.5;
-pinkMaterial.update();
+let purpleCode = 5
+let minecraftPurple = new Material("Minecraft Purple", "#8933b7", false)
+let purpleMaterial = minecraftPurple.getPhongMaterial()
 
-var limeCode = 10;
-var limeMaterial = new pc.PhongMaterial();
-limeMaterial.diffuse.set(0.5, 0.78, 0.12);
-limeMaterial.opacity = 0.5;
-limeMaterial.update();
+let cyanCode = 6
+let minecraftCyan = new Material("Minecraft Cyan", "#169b9b", false)
+let cyanMaterial = minecraftCyan.getPhongMaterial()
 
-var yellowCode = 11;
-var yellowMaterial = new pc.PhongMaterial();
-yellowMaterial.diffuse.set(0.99, 0.85, 0.24);
-yellowMaterial.opacity = 0.5;
-yellowMaterial.update();
+let lightGrayCode = 7
+let minecraftLightGray = new Material("Minecraft Cyan", "#9e9e96", false)
+let lightGrayMaterial = minecraftLightGray.getPhongMaterial()
 
-var lightBlueCode = 12;
-var lightBlueMaterial = new pc.PhongMaterial();
-lightBlueMaterial.diffuse.set(0.23, 0.7, 0.85);
-lightBlueMaterial.opacity = 0.5;
-lightBlueMaterial.update();
+let grayCode = 8
+let minecraftGray = new Material("Minecraft Gray", "#474f51", false)
+let grayMaterial = minecraftGray.getPhongMaterial()
 
-var magentaCode = 13;
-var magentaMaterial = new pc.PhongMaterial();
-magentaMaterial.diffuse.set(0.78, 0.31, 0.74);
-magentaMaterial.opacity = 0.5;
-magentaMaterial.update();
+let pinkCode = 9
+let minecraftPink = new Material("Minecraft Pink", "#f28caa", false)
+let pinkMaterial = minecraftPink.getPhongMaterial()
 
-var orangeCode = 14;
-var orangeMaterial = new pc.PhongMaterial();
-orangeMaterial.diffuse.set(0.97, 0.5, 0.11);
-orangeMaterial.opacity = 0.5;
-orangeMaterial.update();
+let limeCode = 10
+let minecraftLime = new Material("Minecraft Lime", "#7fc61e", false)
+let limeMaterial = minecraftLime.getPhongMaterial()
 
-var whiteCode = 15;
-var whiteMaterial = new pc.PhongMaterial();
-whiteMaterial.diffuse.set(0.98, 1.0, 1.0);
-whiteMaterial.opacity = 0.5;
-whiteMaterial.update();
+let yellowCode = 11
+let minecraftYellow = new Material("Minecraft Yellow", "#fcd83d", false)
+let yellowMaterial = minecraftYellow.getPhongMaterial()
+
+let lightBlueCode = 12
+let minecraftLightBlue = new Material("Minecraft Light Blue", "#3ab2d8", false)
+let lightBlueMaterial = minecraftLightBlue.getPhongMaterial()
+
+let magentaCode = 13
+let minecraftMagenta = new Material("Minecraft Magenta", "#c64fbc", false)
+let magentaMaterial = minecraftMagenta.getPhongMaterial()
+
+let orangeCode = 14
+let minecraftOrange = new Material("Minecraft Orange", "#f77f1c", false)
+let orangeMaterial = minecraftOrange.getPhongMaterial()
+
+let whiteCode = 15
+let minecraftWhite = new Material("Minecraft White", "#f9ffff", false)
+let whiteMaterial = minecraftWhite.getPhongMaterial()
