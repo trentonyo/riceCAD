@@ -12,7 +12,7 @@ and open the template in the editor.
          <link rel="stylesheet" href="main.css">
         <script src="../playcanvas-latest.js" defer></script>
         <script src="../FileSaver.js" defer></script>
-        <script src="materials.js" defer></script>
+        <script src="../lib/materials.js" defer></script>
         <script src="../lib/main.js" defer></script>
     </head>
     <body>
@@ -53,143 +53,71 @@ and open the template in the editor.
                         </datalist>
                     </form><br>
                     <h2>Color Settings</h2>
-                    <!--  <form id="colorSettings">
-                        Override palette <input id="colorOverride" type="checkbox"><br>
-                        <table id="overrideMap" style="visibility:hidden">
-                            <tr>
-                                <td>Black</td>
-                                <td>
-                                    <select id="color1"><option>-</option></select>
-                                    <input id="blend1" type="checkbox"> Glass
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Red</td>
-                                <td>
-                                    <select id="color2"><option>-</option></select>
-                                    <input id="blend2" type="checkbox"> Glass
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Green</td>
-                                <td>
-                                    <select id="color3"><option>-</option></select>
-                                    <input id="blend3" type="checkbox"> Glass
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Brown</td>
-                                <td>
-                                    <select id="color4"><option>-</option></select>
-                                    <input id="blend4" type="checkbox"> Glass
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Blue</td>
-                                <td>
-                                    <select id="color5"><option>-</option></select>
-                                    <input id="blend5" type="checkbox"> Glass
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Purple</td>
-                                <td>
-                                    <select id="color6"><option>-</option></select>
-                                    <input id="blend6" type="checkbox"> Glass
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Cyan</td>
-                                <td>
-                                    <select id="color7"><option>-</option></select>
-                                    <input id="blend7" type="checkbox"> Glass
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Light Gray</td>
-                                <td>
-                                    <select id="color8"><option>-</option></select>
-                                    <input id="blend8" type="checkbox"> Glass
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Gray</td>
-                                <td>
-                                    <select id="color9"><option>-</option></select>
-                                    <input id="blend9" type="checkbox"> Glass
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Pink</td>
-                                <td>
-                                    <select id="color10"><option>-</option></select>
-                                    <input id="blend10" type="checkbox"> Glass
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Lime</td>
-                                <td>
-                                    <select id="color11"><option>-</option></select>
-                                    <input id="blend11" type="checkbox"> Glass
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Yellow</td>
-                                <td>
-                                    <select id="color12"><option>-</option></select>
-                                    <input id="blend12" type="checkbox"> Glass
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Light Blue</td>
-                                <td>
-                                    <select id="color13"><option>-</option></select>
-                                    <input id="blend13" type="checkbox"> Glass
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Magenta</td>
-                                <td>
-                                    <select id="color14"><option>-</option></select>
-                                    <input id="blend14" type="checkbox"> Glass
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Orange</td>
-                                <td>
-                                    <select id="color15"><option>-</option></select>
-                                    <input id="blend15" type="checkbox"> Glass
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>White</td>
-                                <td>
-                                    <select id="color16"><option>-</option></select>
-                                    <input id="blend16" type="checkbox"> Glass
-                                </td>
-                            </tr>
-                            
-                        </table>
-                    </form><br>  -->
-                    <form id="materialsSettings">
-                        <label for="material-1">1</label>
-                        <input type="text" id="material-1" class="material-input"><br>
-                        <label for="material-2">2</label>
-                        <input type="text" id="material-2" class="material-input"><br>
-                        <label for="material-3">3</label>
-                        <input type="text" id="material-3" class="material-input"><br>
-                        <label for="material-4">4</label>
-                        <input type="text" id="material-4" class="material-input"><br>
-                        <label for="material-5">5</label>
-                        <input type="text" id="material-5" class="material-input"><br>
-                        <label for="material-6">6</label>
-                        <input type="text" id="material-6" class="material-input"><br>
-                        <label for="material-7">7</label>
-                        <input type="text" id="material-7" class="material-input"><br>
-                        <label for="material-8">8</label>
-                        <input type="text" id="material-8" class="material-input"><br>
-                        <label for="material-9">9</label>
-                        <input type="text" id="material-9" class="material-input"><br>
+
+                    <form id="materials-settings">
+                        <div class="material-settings-card card1">
+                            <div class="material-settings-card-label"><span>1</span></div>
+                            <div><input type="text" id="material-1" class="material-settings-card-input" value="#1c1c21"></div>
+                            <div><label class="switch"><input type="checkbox" id="material-1-glass"><span class="slider"></span></label></div>
+                            <div class="material-settings-enableGlass disabled">Enable Glass</div>
+                        </div>
+
+                        <div class="material-settings-card card2">
+                            <div class="material-settings-card-label"><span>2</span></div>
+                            <div><input type="text" id="material-2" class="material-settings-card-input" value="#af2d26"></div>
+                            <div><label class="switch"><input type="checkbox" id="material-2-glass"><span class="slider"></span></label></div>
+                            <div class="material-settings-enableGlass disabled">Enable Glass</div>
+                        </div>
+
+                        <div class="material-settings-card card3">
+                            <div class="material-settings-card-label"><span>3</span></div>
+                            <div><input type="text" id="material-3" class="material-settings-card-input" value="#5e7c16"></div>
+                            <div><label class="switch"><input type="checkbox" id="material-3-glass"><span class="slider"></span></label></div>
+                            <div class="material-settings-enableGlass disabled">Enable Glass</div>
+                        </div>
+
+                        <div class="material-settings-card card4">
+                            <div class="material-settings-card-label"><span>4</span></div>
+                            <div><input type="text" id="material-4" class="material-settings-card-input" value="#825433"></div>
+                            <div><label class="switch"><input type="checkbox" id="material-4-glass"><span class="slider"></span></label></div>
+                            <div class="material-settings-enableGlass disabled">Enable Glass</div>
+                        </div>
+
+                        <div class="material-settings-card card5">
+                            <div class="material-settings-card-label"><span>5</span></div>
+                            <div><input type="text" id="material-5" class="material-settings-card-input" value="#8933b7"></div>
+                            <div><label class="switch"><input type="checkbox" id="material-5-glass"><span class="slider"></span></label></div>
+                            <div class="material-settings-enableGlass disabled">Enable Glass</div>
+                        </div>
+
+                        <div class="material-settings-card card6">
+                            <div class="material-settings-card-label"><span>6</span></div>
+                            <div><input type="text" id="material-6" class="material-settings-card-input" value="#169b9b"></div>
+                            <div><label class="switch"><input type="checkbox" id="material-6-glass"><span class="slider"></span></label></div>
+                            <div class="material-settings-enableGlass disabled">Enable Glass</div>
+                        </div>
+
+                        <div class="material-settings-card card7">
+                            <div class="material-settings-card-label"><span>7</span></div>
+                            <div><input type="text" id="material-7" class="material-settings-card-input" value="#9e9e96"></div>
+                            <div><label class="switch"><input type="checkbox" id="material-7-glass"><span class="slider"></span></label></div>
+                            <div class="material-settings-enableGlass disabled">Enable Glass</div>
+                        </div>
+
+                        <div class="material-settings-card card8">
+                            <div class="material-settings-card-label"><span>8</span></div>
+                            <div><input type="text" id="material-8" class="material-settings-card-input" value="#474f51"></div>
+                            <div><label class="switch"><input type="checkbox" id="material-8-glass"><span class="slider"></span></label></div>
+                            <div class="material-settings-enableGlass disabled">Enable Glass</div>
+                        </div>
+
+                        <div class="material-settings-card card9">
+                            <div class="material-settings-card-label"><span>9</span></div>
+                            <div><input type="text" id="material-9" class="material-settings-card-input" value="#f28caa"></div>
+                            <div><label class="switch"><input type="checkbox" id="material-9-glass"><span class="slider"></span></label></div>
+                            <div class="material-settings-enableGlass disabled">Enable Glass</div>
+                        </div>
+
                     </form>
                 </td>
                 <td class="panel" id="editor">        
