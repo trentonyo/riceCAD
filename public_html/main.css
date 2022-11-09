@@ -45,6 +45,13 @@ h2 {
     width: 100%;
 }
 
+#materials-settings {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+}
+
 .material-settings-card {
     min-width: 190px;
     min-height: 80px;
