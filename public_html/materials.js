@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 
+//console.log(process.env)
+
 var blackCode = 20; //oops
 var blackMaterial = new pc.PhongMaterial();
 blackMaterial.diffuse.set(0.11, 0.11, 0.13);

@@ -10,12 +10,13 @@ and open the template in the editor.
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
          <link rel="stylesheet" href="main.css">
-        <script src="../playcanvas-latest.js"></script>
-        <script src="../FileSaver.js"></script>
+        <script src="../playcanvas-latest.js" defer></script>
+        <script src="../FileSaver.js" defer></script>
+        <script src="materials.js" defer></script>
+        <script src="../lib/main.js" defer></script>
     </head>
     <body>
-        <script src="materials.js"></script>
-        <table>
+        <table width="100%" height="100%">
             <tr>
                 <td id="editor_title" colspan="3">
                     <h1>riceCAD <span id="versionNumber">v0.0.0</span></h1>
@@ -190,7 +191,7 @@ and open the template in the editor.
             </tr>
         </table>
         
-        <script>
+        <!-- <script>
             const fileSelector = document.getElementById('file-selector');
             fileSelector.addEventListener('change', (event) => 
             {
@@ -232,7 +233,7 @@ and open the template in the editor.
                 projectNameField.innerHTML = prompt("Rename project", "newName");
                 unsavedChanges = true;
             }
-            
+
             var projectNameField = document.getElementById("projectTitle");
             var unsavedChanges = false;
             var canvas = document.getElementById("application-canvas");
@@ -1143,6 +1144,6 @@ and open the template in the editor.
                 }); /
             });*/
 
-        </script>
+        </script> -->
     </body>
 </html>

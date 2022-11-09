@@ -9,19 +9,20 @@ and open the template in the editor.
 */
 
 body {
-    background-color: #666666;
+    background-color: #666;
     font-family: monospace;
 }
 
 .panel {
     margin: 5px;
+    width: 30%;
     height: 100%;
 }
 
 h1 {
     font-size: 18px;
     font-style: italic;
-    color: #ccffff;
+    color: #cff;
 }
 
 h2 {
@@ -36,9 +37,10 @@ h2 {
 
 .saved{
     font-style: normal;
-    color: #ccffff;
+    color: #cff;
 }
 
 #editor_text {
     letter-spacing: 6px;
+    width: 100%;
 }
