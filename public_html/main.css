@@ -103,7 +103,7 @@ h2 {
     width: 118px;
     height: 25px;
 
-    border: #1c1c21 solid 2px;
+    border: #1c1c21 solid 1px;
     border-radius: 10px;
 
     display: flex;
@@ -125,11 +125,6 @@ h2 {
 .switch {
     position: relative;
     display: inline-block;
-
-    /*top: 6px;*/
-    /*left: 5px;*/
-
-
 
     width: 48px;
     height: 28px;
