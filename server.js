@@ -54,12 +54,9 @@ let someRequestResponse = function (request, response)
     {
         //URL contains a directory
         filepath = "." + filepath
-
-        console.log("----URL STARTS WITH DIRECTORY",filepathChunks[0])
     }
     else
     {
-        console.log("----URL IS TOP-LEVEL")
         //URL is top-level, need to prepend 'public' directory
         filepath = "./public" + filepath
     }
@@ -84,7 +81,7 @@ let someRequestResponse = function (request, response)
     }
     catch (err)
     {
-        console.log("  ==RESPONSE ERROR:", err)
+        console.log("----RESPONSE ERROR:", err)
         pageNotFoundResponse(request, response)
     }
 }
@@ -99,7 +96,7 @@ let handleRequest = function (request, response)
 
 let server = http.createServer(handleRequest)
 
-const DEFAULT_PORT = 3000
+const DEFAULT_PORT = 8080
 let port = process.env.PORT ? process.env.PORT : DEFAULT_PORT
 
 //Port number (3000): Different applications receive information from network traffic. When traffic comes into the machine, the
