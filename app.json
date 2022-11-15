@@ -1,0 +1,8 @@
+{
+  "name": "riceCAD",
+  "description": "An ultralight CAD for riceBUILD schematics",
+  "repository": "",
+  "logo": "https://cdn.rawgit.com/heroku/node-js-getting-started/main/public/node.svg",
+  "keywords": ["minecraft", "opencomputers", "cad"],
+  "image": "heroku/nodejs"
+}
