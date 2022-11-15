@@ -47,7 +47,7 @@ let someRequestResponse = function (request, response)
 
     let filepathChunks = filepath.split("/")
 
-    if(filepathChunks.length > 1)
+    if(filepathChunks.length > 0)
     {
         //URL contains a directory
     }
