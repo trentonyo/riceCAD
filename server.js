@@ -13,7 +13,8 @@ const CONTENT_TYPES = {
     css: "text/css",
     js: "application/javascript",
     jpg: "image/jpeg",
-    jpeg: "image/jpeg"
+    jpeg: "image/jpeg",
+    undefined: ""
 }
 
 let pageCache = {}
