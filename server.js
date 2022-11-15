@@ -53,6 +53,7 @@ let someRequestResponse = function (request, response)
     if(filepathChunks.length > 2)
     {
         //URL contains a directory
+        filepath = "." + filepath
 
         console.log("----URL STARTS WITH DIRECTORY",filepathChunks[0])
     }
