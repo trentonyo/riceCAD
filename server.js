@@ -47,7 +47,7 @@ let someRequestResponse = function (request, response)
 
     let filepathChunks = filepath.split("/")
 
-    if(filepathChunks.length > 0)
+    if(filepathChunks.length > 1)
     {
         //The URL '/' should serve the public index
         filepath = request.url === "/" ? "public/index.html" : filepath
