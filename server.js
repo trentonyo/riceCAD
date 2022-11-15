@@ -54,11 +54,13 @@ let someRequestResponse = function (request, response)
     {
         //URL contains a directory
 
+        console.log("----URL STARTS WITH DIRECTORY",filepathChunks[0])
     }
     else
     {
+        console.log("----URL IS TOP-LEVEL")
         //URL is top-level, need to prepend 'public' directory
-        filepath = "/public" + filepath
+        filepath = "./public" + filepath
     }
 
     console.log("----PARSED URL:",filepath)
