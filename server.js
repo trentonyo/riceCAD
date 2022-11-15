@@ -45,6 +45,9 @@ let someRequestResponse = function (request, response)
 {
     let filepath = request.url
 
+    //The URL '/' should serve the public index
+    filepath = request.url === "/" ? "/index.html" : filepath
+
     let filepathChunks = filepath.split("/")
 
     if(filepathChunks.length > 1)
@@ -54,9 +57,6 @@ let someRequestResponse = function (request, response)
     }
     else
     {
-        //The URL '/' should serve the public index
-        filepath = request.url === "/" ? "/index.html" : filepath
-
         //URL is top-level, need to prepend 'public' directory
         filepath = "/public" + filepath
     }
