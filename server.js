@@ -1,10 +1,3 @@
-/*
- * Write your server code in this file.
- *
- * name: Trenton Young
- * email: youngtre@gmail.com
- */
-
 const http = require("http")
 const filesystem = require("fs")
 const pc = require("playcanvas")
@@ -12,17 +5,13 @@ const pc = require("playcanvas")
 const DEFAULT_PORT = 8080
 let port = process.env.PORT ? process.env.PORT : DEFAULT_PORT
 
-/*
-Express notes
- */
 const express = require("express")
 let app = express()
 
 let serveHomepage = function (req, res, next)
 {
-    console.log("SERVER: Request received")
+    console.log("SERVER: GET Request received (HOME PAGE)")
     console.log("--  URL", req.url)
-    console.log("--  METHOD", req.method)
 
     res.status(200).sendFile(__dirname+"/public/index.html")
 }
@@ -33,27 +22,24 @@ app.get("/index", serveHomepage)
 
 app.get("/lib/*", function (req, res, next)
 {
-    console.log("SERVER: Request received")
+    console.log("SERVER: GET Request received (lib/)")
     console.log("--  URL", req.url)
-    console.log("--  METHOD", req.method)
 
     res.status(200).sendFile(__dirname+req.url)
 })
 
 app.get("/main.css", function (req, res, next)
 {
-    console.log("SERVER: Request received")
+    console.log("SERVER: GET Request received (main.css)")
     console.log("--  URL", req.url)
-    console.log("--  METHOD", req.method)
 
     res.status(200).sendFile(__dirname+"/public/main.css")
 })
 
 app.get("/project/*", function (req, res, next)
 {
-    console.log("SERVER: Request received")
+    console.log("SERVER: GET Request received (PROJECT)")
     console.log("--  URL", req.url)
-    console.log("--  METHOD", req.method)
 
     let content = "<html><body>"
     content += "Info about project with ID <span style='color: darkblue'>"
@@ -65,15 +51,18 @@ app.get("/project/*", function (req, res, next)
 
 app.get("*", function (req, res, next) //Star is wildcard
 {
-    console.log("SERVER: Request received")
+    console.log("SERVER: GET Request received (UNROUTED)")
     console.log("--  URL", req.url)
-    console.log("--  METHOD", req.method)
 
     res.status(404).sendFile(__dirname+"/public/404.html")
 })
 
 app.listen(port)
 
+
+/**
+ * HTTP manual routing method
+ */
 // const CONTENT_TYPES = {
 //     html: "text/html",
 //     css: "text/css",
