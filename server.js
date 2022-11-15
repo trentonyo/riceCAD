@@ -44,19 +44,31 @@ let pageNotFoundResponse = function (request, response)
 let someRequestResponse = function (request, response)
 {
     let filepath = request.url === "/" ? "/index.html" : request.url
-    filepath = "public" + filepath
 
-    let chunks = filepath.split(".").reverse()
+    let filepathChunks = filepath.split("/")
+
+    if(filepathChunks.length > 1)
+    {
+        //URL contains a directory
+    }
+    else
+    {
+        //URL is top-level, need to prepend 'public' directory
+        filepath = "public" + filepath
+    }
+
+
+    let filetypeChunks = filepath.split(".").reverse()
 
     try
     {
         response.writeHead(200, {
-            "Content-Type": CONTENT_TYPES[chunks[0]]
+            "Content-Type": CONTENT_TYPES[filetypeChunks[0]]
         })
 
         let encoding = "utf8"
-        encoding = chunks[0] === "jpg" ? undefined : encoding
-        encoding = chunks[0] === "jpeg" ? undefined : encoding
+        encoding = filetypeChunks[0] === "jpg" ? undefined : encoding
+        encoding = filetypeChunks[0] === "jpeg" ? undefined : encoding
 
         response.write(getPage(filepath, encoding))
 
