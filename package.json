@@ -1,8 +1,17 @@
 {
     "name": "riceCAD",
     "version": "1.0.0",
-    "keywords": ["util", "functional", "server", "client", "browser"],
+    "keywords": [
+        "util",
+        "functional",
+        "server",
+        "client",
+        "browser"
+    ],
     "author": "trentonyo",
     "contributors": [],
-    "dependencies": {}
+    "dependencies": {
+        "filesaver": "^0.0.13",
+        "playcanvas": "^1.58.0"
+    }
 }
