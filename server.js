@@ -7,133 +7,166 @@
 
 const http = require("http")
 const filesystem = require("fs")
-
-const CONTENT_TYPES = {
-    html: "text/html",
-    css: "text/css",
-    js: "application/javascript",
-    jpg: "image/jpeg",
-    jpeg: "image/jpeg",
-    undefined: ""
-}
-
-let pageCache = {}
-
-let getPage = function(url, encode)
-{
-    if(!pageCache[url])
-    {
-        console.log("  ==SERVER: Reading file", url, "from disk...")
-        pageCache[url] = filesystem.readFileSync(url, encode)
-    }
-
-    return pageCache[url]
-}
-
-let pageNotFoundResponse = function (request, response)
-{
-    response.writeHead(404, {
-        "Content-Type": "text/html"
-    })
-
-    response.write(getPage("./public/404.html", "utf8"))
-
-    response.end()
-}
-
-let someRequestResponse = function (request, response)
-{
-    let filepath = request.url
-
-    //The URL '/' should serve the public index
-    filepath = request.url === "/" ? "/index.html" : filepath
-
-    let filepathChunks = filepath.split("/")
-
-    if(filepathChunks.length > 2)
-    {
-        //URL contains a directory
-        filepath = "." + filepath
-    }
-    else
-    {
-        //URL is top-level, need to prepend 'public' directory
-        filepath = "./public" + filepath
-    }
-
-    console.log("----PARSED URL:",filepath)
-
-    let filetypeChunks = filepath.split(".").reverse()
-
-    try
-    {
-        response.writeHead(200, {
-            "Content-Type": CONTENT_TYPES[filetypeChunks[0]]
-        })
-
-        let encoding = "utf8"
-        encoding = filetypeChunks[0] === "jpg" ? undefined : encoding
-        encoding = filetypeChunks[0] === "jpeg" ? undefined : encoding
-
-        response.write(getPage(filepath, encoding))
-
-        response.end()
-    }
-    catch (err)
-    {
-        console.log("----RESPONSE ERROR:", err)
-        pageNotFoundResponse(request, response)
-    }
-}
-
-let handleRequest = function (request, response)
-{
-    console.log("SERVER: Received a request!")
-    console.log("--URL:", request.url)
-
-    someRequestResponse(request, response)
-}
-
-let server = http.createServer(handleRequest)
+const pc = require("playcanvas")
 
 const DEFAULT_PORT = 8080
 let port = process.env.PORT ? process.env.PORT : DEFAULT_PORT
+
+/*
+Express notes
+ */
+const express = require("express")
+let app = express()
+
+let serveHomepage = function (req, res, next)
+{
+    console.log("SERVER: Request received")
+    console.log("--  URL", req.url)
+    console.log("--  METHOD", req.method)
+
+    res.status(200).sendFile(__dirname+"/public/index.html")
+}
+
+app.get("/", serveHomepage)
+app.get("/home", serveHomepage)
+app.get("/index", serveHomepage)
+
+app.get("/lib/*", function (req, res, next)
+{
+    console.log("SERVER: Request received")
+    console.log("--  URL", req.url)
+    console.log("--  METHOD", req.method)
+
+    res.status(200).sendFile(__dirname+req.url)
+})
+
+app.get("/main.css", function (req, res, next)
+{
+    console.log("SERVER: Request received")
+    console.log("--  URL", req.url)
+    console.log("--  METHOD", req.method)
+
+    res.status(200).sendFile(__dirname+"/public/main.css")
+})
+
+app.get("/project/*", function (req, res, next)
+{
+    console.log("SERVER: Request received")
+    console.log("--  URL", req.url)
+    console.log("--  METHOD", req.method)
+
+    let content = "<html><body>"
+    content += "Info about project with ID <span style='color: darkblue'>"
+    content += req.url.split("/").reverse()[0]
+    content += "</span></body></html>"
+
+    res.status(200).send(content)
+})
+
+app.get("*", function (req, res, next) //Star is wildcard
+{
+    console.log("SERVER: Request received")
+    console.log("--  URL", req.url)
+    console.log("--  METHOD", req.method)
+
+    res.status(404).sendFile(__dirname+"/public/404.html")
+})
+
+app.listen(port)
+
+// const CONTENT_TYPES = {
+//     html: "text/html",
+//     css: "text/css",
+//     js: "application/javascript",
+//     jpg: "image/jpeg",
+//     jpeg: "image/jpeg",
+//     undefined: ""
+// }
+//
+// let pageCache = {}
+//
+// let getPage = function(url, encode)
+// {
+//     if(!pageCache[url])
+//     {
+//         console.log("  ==SERVER: Reading file", url, "from disk...")
+//         pageCache[url] = filesystem.readFileSync(url, encode)
+//     }
+//
+//     return pageCache[url]
+// }
+//
+// let pageNotFoundResponse = function (request, response)
+// {
+//     response.writeHead(404, {
+//         "Content-Type": "text/html"
+//     })
+//
+//     response.write(getPage("./public/404.html", "utf8"))
+//
+//     response.end()
+// }
+//
+// let someRequestResponse = function (request, response)
+// {
+//     let filepath = request.url
+//
+//     //The URL '/' should serve the public index
+//     filepath = request.url === "/" ? "/index.html" : filepath
+//
+//     let filepathChunks = filepath.split("/")
+//
+//     if(filepathChunks.length > 2)
+//     {
+//         //URL contains a directory
+//         filepath = "." + filepath
+//     }
+//     else
+//     {
+//         //URL is top-level, need to prepend 'public' directory
+//         filepath = "./public" + filepath
+//     }
+//
+//     console.log("----PARSED URL:",filepath)
+//
+//     let filetypeChunks = filepath.split(".").reverse()
+//
+//     try
+//     {
+//         response.writeHead(200, {
+//             "Content-Type": CONTENT_TYPES[filetypeChunks[0]]
+//         })
+//
+//         let encoding = "utf8"
+//         encoding = filetypeChunks[0] === "jpg" ? undefined : encoding
+//         encoding = filetypeChunks[0] === "jpeg" ? undefined : encoding
+//
+//         response.write(getPage(filepath, encoding))
+//
+//         response.end()
+//     }
+//     catch (err)
+//     {
+//         console.log("----RESPONSE ERROR:", err)
+//         pageNotFoundResponse(request, response)
+//     }
+// }
+//
+// let handleRequest = function (request, response)
+// {
+//     console.log("SERVER: Received a request!")
+//     console.log("--URL:", request.url)
+//
+//     someRequestResponse(request, response)
+// }
+//
+// let server = http.createServer(handleRequest)
 
 //Port number (3000): Different applications receive information from network traffic. When traffic comes into the machine, the
 //  machine needs to know which application to handle requests for. The network interface is divided into ports, which
 //  are claimed by processes. Only one process can use any given port.
 //Callback function: called when the server actually starts listening
-server.listen(port, function ()
-{
-    console.log("SERVER: I'm listening (on port "+port+")")
-})
-
-
-
-// let pageResponses = {
-//     "404": pageNotFoundResponse,
-//     "/" : homePageResponse,
-//     "/index" : homePageResponse
-// }
-
-//
-// let homePageResponse = function (request, response)
+// server.listen(port, function ()
 // {
-//     // return "Home Page Response return statement"
-//     let responseBody = `
-//         <html lang="en">
-//             <body>
-//                 <h1>Hello, world!</h1>
-//                 <h2>`+request.url+`</h2>
-//             </body>
-//         </html>`
-//
-//     //200 is the status code
-//     //Object is the header stuff
-//     response.writeHead(200, {
-//         "Content-Type": "text/html" //The MIME type for html, css is "text/css" js is "application/javascript" jpg is "image/jpeg"
-//     })
-//
-//     response.write(responseBody) //Append to the response
-//     response.end() //Called when we're done building the response, will send the response back to the client. No further changes
-// }
+//     console.log("SERVER: I'm listening (on port "+port+")")
+// })
