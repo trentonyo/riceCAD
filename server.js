@@ -61,6 +61,7 @@ let someRequestResponse = function (request, response)
         filepath = "/public" + filepath
     }
 
+    console.log("----PARSED URL:",filepath)
 
     let filetypeChunks = filepath.split(".").reverse()
 
