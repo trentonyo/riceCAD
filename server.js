@@ -49,16 +49,16 @@ let someRequestResponse = function (request, response)
 
     if(filepathChunks.length > 1)
     {
-        //The URL '/' should serve the public index
-        filepath = request.url === "/" ? "public/index.html" : filepath
-
         //URL contains a directory
 
     }
     else
     {
+        //The URL '/' should serve the public index
+        filepath = request.url === "/" ? "/index.html" : filepath
+
         //URL is top-level, need to prepend 'public' directory
-        filepath = "public" + filepath
+        filepath = "/public" + filepath
     }
 
 
