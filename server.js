@@ -43,13 +43,17 @@ let pageNotFoundResponse = function (request, response)
 
 let someRequestResponse = function (request, response)
 {
-    let filepath = request.url === "/" ? "/index.html" : request.url
+    let filepath = request.url
 
     let filepathChunks = filepath.split("/")
 
     if(filepathChunks.length > 0)
     {
+        //The URL '/' should serve the public index
+        filepath = request.url === "/" ? "public/index.html" : filepath
+
         //URL contains a directory
+
     }
     else
     {
