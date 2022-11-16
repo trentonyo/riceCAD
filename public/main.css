@@ -13,10 +13,36 @@ body {
     font-family: monospace;
 }
 
+#tool_container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: flex-start;
+}
+
 .panel {
-    margin: 5px;
-    width: 30%;
-    height: 100%;
+    border: #1c1c21 solid 1px;
+}
+
+#viewport_settings {
+    flex-basis: 97%;
+}
+#viewport {
+    flex-basis: 60%;
+}
+#text_editor {
+    flex-basis: 35%;
+}
+#material_settings, #project_options {
+    flex-basis: 47.5%;
+}
+
+#material_settings_container {
+    display: flex;
+}
+
+#viewport_settings_form {
+    display: flex;
 }
 
 h1 {
@@ -42,10 +68,10 @@ h2 {
 
 #editor_text {
     letter-spacing: 6px;
-    width: 100%;
+    /*width: 100%;*/
 }
 
-#materials-settings {
+#material_settings_container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -68,6 +94,8 @@ h2 {
     flex-wrap: wrap;
     align-content: center;
     justify-content: space-between;
+
+    flex-basis: 30%;
 }
 .material-settings-card>div { margin: 5px}
 .material-settings-card-label {
@@ -180,4 +208,8 @@ input:checked + .slider:before {
 
 .card1 {
     background-color: #cc0000;
+}
+
+canvas {
+    border: #1c1c21 solid 1px;
 }
