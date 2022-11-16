@@ -36,6 +36,14 @@ app.get("/main.css", function (req, res, next)
     res.status(200).sendFile(__dirname+"/public/main.css")
 })
 
+app.get("/playcanvas.js", function (req, res, next)
+{
+    console.log("SERVER: GET Request received (playcanvas.js)")
+    console.log("--  URL", req.url)
+
+    res.status(200).sendFile(__dirname+"/node_modules/playcanvas/build/playcanvas.js")
+})
+
 app.get("/project/*", function (req, res, next)
 {
     console.log("SERVER: GET Request received (PROJECT)")
