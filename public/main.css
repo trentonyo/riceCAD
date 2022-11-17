@@ -13,10 +13,36 @@ body {
     font-family: monospace;
 }
 
+#tool_container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: flex-start;
+}
+
 .panel {
-    margin: 5px;
-    width: 30%;
-    height: 100%;
+    border: #1c1c21 solid 1px;
+}
+
+#viewport_settings {
+    flex-basis: 97%;
+}
+#viewport {
+    flex-basis: 60%;
+}
+#text_editor {
+    flex-basis: 35%;
+}
+#material_settings, #project_options {
+    flex-basis: 47.5%;
+}
+
+#material_settings_container {
+    display: flex;
+}
+
+#viewport_settings_form {
+    display: flex;
 }
 
 h1 {
@@ -40,12 +66,12 @@ h2 {
     color: #ccffff;
 }
 
-#editor_text {
+#text_editor_textarea {
     letter-spacing: 6px;
-    width: 100%;
+    width: inherit;
 }
 
-#materials-settings {
+#material_settings_container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -53,9 +79,9 @@ h2 {
 }
 
 .material-settings-card {
-    min-width: 190px;
+    min-width: 180px;
     min-height: 80px;
-    max-width: 190px;
+    max-width: 180px;
     max-height: 100px;
 
     border: #1c1c21 solid 3px;
@@ -68,11 +94,13 @@ h2 {
     flex-wrap: wrap;
     align-content: center;
     justify-content: space-between;
+
+    flex-basis: 30%;
 }
 .material-settings-card>div { margin: 5px}
 .material-settings-card-label {
-    width: 35px;
-    height: 35px;
+    width: 30px;
+    height: 30px;
 
     border: #1c1c21 solid 2px;
     border-radius: 10px;
@@ -87,8 +115,8 @@ h2 {
     align-content: center;
 }
 .material-settings-card-input {
-    width: 125px;
-    height: 35px;
+    width: 115px;
+    height: 30px;
 
     display: inline;
 
@@ -100,7 +128,7 @@ h2 {
     font-style: italic;
 }
 .material-settings-enableGlass {
-    width: 118px;
+    width: 110px;
     height: 25px;
 
     border: #1c1c21 solid 1px;
@@ -180,4 +208,8 @@ input:checked + .slider:before {
 
 .card1 {
     background-color: #cc0000;
+}
+
+canvas {
+    border: #1c1c21 solid 1px;
 }
