@@ -44,15 +44,15 @@ app.get("/playcanvas.js", function (req, res, next)
     res.status(200).sendFile(__dirname+"/node_modules/playcanvas/build/playcanvas.js")
 })
 
-app.get("/project/*", function (req, res, next)
+app.get("/project/:projectID", function (req, res, next)
 {
     console.log("SERVER: GET Request received (PROJECT)")
     console.log("--  URL", req.url)
 
     let content = "<html><body>"
-    content += "Info about project with ID <span style='color: darkblue'>"
-    content += req.url.split("/").reverse()[0]
-    content += "</span></body></html>"
+    content += "<h1>Info about project with ID <span style='color: darkblue'>"
+    content += req.params.projectID
+    content += "</span></h1></body></html>"
 
     res.status(200).send(content)
 })
