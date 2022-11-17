@@ -24,31 +24,27 @@ and open the template in the editor.
             <div class="panel" id="viewport_settings">
                 <h2>Viewport Settings</h2>
                 <form id="viewport_settings_form">
-                    Lock viewport <input id="viewportLock" type="checkbox"><br>
-                    <br>Rotate speed <input id="viewportRotateSpeed" type="range"   min="0.01" max="0.25" value="0.1" step="0.05">
-                    <br>Move speed <input   id="viewportMoveSpeed" type="range"     min="0.01" max="0.5" value="0.05" step="0.01">
-                    <br>Zoom speed <input   id="viewportZoomSpeed" type="range"     min="1" max="30" value="5" step="0.5">
-                    <br>Backdrop <input     id="viewportBackdrop"   list="colors">
-                    <br>Plane <input        id="workingPlaneColor"   list="colors">
-                    <datalist id="colors">
-                        <option value="Black">
-                        <option value="Red">
-                        <option value="Green">
-                        <option value="Brown">
-                        <option value="Blue">
-                        <option value="Purple">
-                        <option value="Cyan">
-                        <option value="Light Gray">
-                        <option value="Gray">
-                        <option value="Pink">
-                        <option value="Lime">
-                        <option value="Yellow">
-                        <option value="Light Blue">
-                        <option value="Magenta">
-                        <option value="Orange">
-                        <option value="White">
+                    <div><label class="switch"><input id="viewportLock" type="checkbox"><span class="slider"></span></label></div>
+                    <label for="viewportLock">Lock Viewport</label>
 
-                    </datalist>
+                    <input id="viewportRotateSpeed" type="range"   min="0.01" max="0.25" value="0.1" step="0.05">
+                    <label for="viewportRotateSpeed">Rotate speed</label>
+
+                    <input   id="viewportMoveSpeed" type="range"     min="0.01" max="0.5" value="0.05" step="0.01">
+                    <label for="viewportMoveSpeed">Move speed</label>
+
+                    <input   id="viewportZoomSpeed" type="range"     min="1" max="30" value="5" step="0.5">
+                    <label for="viewportZoomSpeed">Zoom speed</label>
+
+                    <div class="material-settings-card cardBackground">
+                        <div class="material-settings-card-label"><span>BG</span></div>
+                        <div><input type="text" id="material-background" class="material-settings-card-input" value="#1c1c21"></div>
+                    </div>
+
+                    <div class="material-settings-card cardPlane">
+                        <div class="material-settings-card-label"><span>Pl</span></div>
+                        <div><input type="text" id="material-plane" class="material-settings-card-input" value="#1c1c21"></div>
+                    </div>
                 </form><br>
             </div>
 
@@ -60,7 +56,7 @@ and open the template in the editor.
                 <h2>Text Editor: <span id="projectTitle">Unnamed</span></h2>
                 <button onclick="renameProject()">rename</button>
                 <br>
-                <textarea id="editor_text" wrap="off" cols="32" rows="32">1</textarea><br>
+                <textarea id="text_editor_textarea" wrap="off" cols="" rows="">1</textarea><br>
                 <button onclick="downloadChanges()">Download Changes</button>
             </div>
 
@@ -135,7 +131,7 @@ and open the template in the editor.
             </div>
 
             <div class="panel" id="project_options">
-                <h2>Bottom panel</h2>
+                <h2>Project Settings</h2>
                 <input type="file" id="file-selector" accept=".plan">
             </div>
         </div>
