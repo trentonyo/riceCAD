@@ -43,6 +43,7 @@ body {
 
 #viewport_settings_form {
     display: flex;
+    align-items: center;
 }
 
 h1 {
