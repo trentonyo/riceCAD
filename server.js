@@ -1,12 +1,8 @@
-const http = require("http")
-const filesystem = require("fs")
-const pc = require("playcanvas")
+const express = require("express")
+let app = express()
 
 const DEFAULT_PORT = 8080
 let port = process.env.PORT ? process.env.PORT : DEFAULT_PORT
-
-const express = require("express")
-let app = express()
 
 let serveHomepage = function (req, res, next)
 {
@@ -18,34 +14,23 @@ let serveHomepage = function (req, res, next)
  */
 app.use(function (req, res, next)
 {
-    console.log("SERVER: GET Request received")
-    console.log("--  METHOD", req.method)
+    console.log(`SERVER: ${req.method} Request received`)
     console.log("--  URL", req.url)
     next()
 })
 
 /**
- * Serve homepages from many different URLs
+ * Serve static files
+ */
+app.use(express.static("public/"))
+app.use(express.static("lib/"))
+
+/**
+ * Serve homepages from several URLs
  */
 app.get("/", serveHomepage)
 app.get("/home", serveHomepage)
 app.get("/index", serveHomepage)
-
-/**
- * Serve library files
- */
-app.get("/lib/*", function (req, res, next)
-{
-    res.status(200).sendFile(__dirname+req.url)
-})
-
-/**
- * Serve main css with shorthand
- */
-app.get("/main.css", function (req, res, next)
-{
-    res.status(200).sendFile(__dirname+"/public/main.css")
-})
 
 /**
  * Serve playcanvas source without giving out internal path
