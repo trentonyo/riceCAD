@@ -14,7 +14,6 @@
         "express": "^4.18.2",
         "filesaver": "^0.0.13",
         "playcanvas": "^1.58.0",
-        "rich-textarea": "^0.19.3",
         "vanilla-caret-js": "^1.1.0"
     }
 }
