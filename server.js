@@ -1,67 +1,71 @@
-const http = require("http")
-const filesystem = require("fs")
-const pc = require("playcanvas")
+const express = require("express")
+let app = express()
 
 const DEFAULT_PORT = 8080
 let port = process.env.PORT ? process.env.PORT : DEFAULT_PORT
 
-const express = require("express")
-let app = express()
-
 let serveHomepage = function (req, res, next)
 {
-    console.log("SERVER: GET Request received (HOME PAGE)")
-    console.log("--  URL", req.url)
-
     res.status(200).sendFile(__dirname+"/public/index.html")
 }
 
+/**
+ * Log request information at the top of any request
+ */
+app.use(function (req, res, next)
+{
+    console.log(`SERVER: ${req.method} Request received`)
+    console.log("--  URL", req.url)
+    next()
+})
+
+/**
+ * Serve static files
+ */
+app.use(express.static("public/"))
+app.use(express.static("lib/"))
+
+/**
+ * Serve homepages from several URLs
+ */
 app.get("/", serveHomepage)
 app.get("/home", serveHomepage)
 app.get("/index", serveHomepage)
 
-app.get("/lib/*", function (req, res, next)
-{
-    console.log("SERVER: GET Request received (lib/)")
-    console.log("--  URL", req.url)
-
-    res.status(200).sendFile(__dirname+req.url)
-})
-
-app.get("/main.css", function (req, res, next)
-{
-    console.log("SERVER: GET Request received (main.css)")
-    console.log("--  URL", req.url)
-
-    res.status(200).sendFile(__dirname+"/public/main.css")
-})
-
+/**
+ * Serve playcanvas source without giving out internal path
+ */
 app.get("/playcanvas.js", function (req, res, next)
 {
-    console.log("SERVER: GET Request received (playcanvas.js)")
-    console.log("--  URL", req.url)
-
     res.status(200).sendFile(__dirname+"/node_modules/playcanvas/build/playcanvas.js")
 })
 
-app.get("/project/*", function (req, res, next)
+/**
+ * Serve FileSaver source without giving out internal path
+ */
+app.get("/filesaver.js", function (req, res, next)
 {
-    console.log("SERVER: GET Request received (PROJECT)")
-    console.log("--  URL", req.url)
+    res.status(200).sendFile(__dirname+"/node_modules/playcanvas/build/filesaver.js")
+})
 
+/**
+ * Handle project pages
+ */
+app.get("/project/:projectID", function (req, res, next)
+{
     let content = "<html><body>"
-    content += "Info about project with ID <span style='color: darkblue'>"
-    content += req.url.split("/").reverse()[0]
-    content += "</span></body></html>"
+    content += "<h1>Info about project with ID <span style='color: darkblue'>"
+    content += req.params.projectID
+    content += "</span></h1></body></html>"
 
     res.status(200).send(content)
 })
 
-app.get("*", function (req, res, next) //Star is wildcard
+/**
+ * 404 - final fallthrough reached
+ */
+app.get("*", function (req, res, next)
 {
-    console.log("SERVER: GET Request received (UNROUTED)")
-    console.log("--  URL", req.url)
-
     res.status(404).sendFile(__dirname+"/public/404.html")
 })
 
