@@ -9,35 +9,59 @@ and open the template in the editor.
         <title>riceCAD</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!--        <link rel="stylesheet" href="/main.css">-->
         <link rel="stylesheet" href="main.css">
-        <script src="/playcanvas.js" defer></script>
-        <script src="/lib/materials.js" defer></script>
-        <script src="/lib/riceCAD.js" defer></script>
+        <!-- "adding .. links to files in different folders" -->
+        <script src="../node_modules/playcanvas/build/playcanvas.js" defer></script>
+        <script src="../lib/materials.js" defer></script>
+        <script src="../lib/riceCAD.js" defer></script>
+
+<!--     new font-->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+
     </head>
+
     <body>
         <div id="BANNER_TO_REFACTOR">
-            <h1>riceCAD <span id="versionNumber">v0.0.0</span></h1>
-            Hla Karki
+            <h1>riceCAD online <span id="versionNumber">v0.0.0</span></h1>
         </div>
 
-        <div id="tool_container">
+        <div id="main_container">
             <div class="panel" id="viewport_settings">
                 <h2>Viewport Settings</h2>
                 <form id="viewport_settings_form">
-                    <div><label class="switch"><input id="viewportLock" type="checkbox" checked><span class="slider"></span></label></div>
-                    <label for="viewportLock">Lock Viewport</label>
-
-                    <input id="viewportRotateSpeed" type="range"   min="0.01" max="0.25" value="0.1" step="0.05">
-                    <label for="viewportRotateSpeed">Rotate speed</label>
-
-                    <input   id="viewportMoveSpeed" type="range"     min="0.01" max="0.5" value="0.05" step="0.01">
-                    <label for="viewportMoveSpeed">Move speed</label>
-
-                    <input   id="viewportZoomSpeed" type="range"     min="1" max="30" value="5" step="0.5">
-                    <label for="viewportZoomSpeed">Zoom speed</label>
-
+                    
+                    <div id="viewport_setting">
+                        <label for="viewportLock" class="form-label">Lock Viewport</label>
+                        <label class="switch"><input id="viewportLock" type="checkbox" checked><span class="checkbox_switch"></span></label>
+                    </div>
+                    
+                    <div id="viewport_setting">
+                        <label for="viewportRotateSpeed" class="form-label">Rotate speed</label>
+                        <input class="slider" id="viewportRotateSpeed" type="range"   min="0.01" max="0.25" value="0.1" step="0.05">
+                    </div>
+                    
+                    <div id="viewport_setting">
+                        <label for="viewportMoveSpeed" class="form-label">Move speed</label>
+                        <input class="slider" id="viewportMoveSpeed" type="range" min="0.01" max="0.5" value="0.05" step="0.01">
+                    </div>
+                    
+                    <div id="viewport_setting">
+                        <label for="viewportZoomSpeed" class="form-label">Zoom speed</label>
+                        <input class="slider" id="viewportZoomSpeed" type="range"     min="1" max="30" value="5" step="0.5">
+                    </div>
+                    
                     <div class="material-settings-card cardBackground">
+                        <label for="material-background" class="material-settings-card-label">Background Color:</label>
+                        <input type="color" class="colorpicker" id="material-background" value="#92eff5">
+                    </div>
+                    
+                    <div class="material-settings-card cardPlane">
+                        <label for="material-plane" class="material-settings-card-label">Panel Color:</label>
+                        <input type="color" class="colorpicker" id="material-plane" value="#f0f0f0">
+                    </div>
+                    <!-- <div class="material-settings-card cardBackground">
                         <div class="material-settings-card-label"><span>BG</span></div>
                         <div><input type="text" id="material-background" class="material-settings-card-input" value="#92eff5"></div>
                     </div>
@@ -46,6 +70,7 @@ and open the template in the editor.
                         <div class="material-settings-card-label"><span>Pl</span></div>
                         <div><input type="text" id="material-plane" class="material-settings-card-input" value="#f0f0f0"></div>
                     </div>
+                    -->
                 </form><br>
             </div>
 
