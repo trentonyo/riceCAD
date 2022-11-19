@@ -5,30 +5,69 @@ and open the template in the editor.
 */
 /* 
     Created on : Mar 20, 2022, 12:25:39 PM
-    Author     : trentonyo
+    Author(s)     : trentonyo, HlaHtun
 */
+html {
+    font-family: 'VT323', monospace;
+}
+
+/*RiceCard title*/
+#BANNER_TO_REFACTOR {
+    padding: 5px;
+    font-style: normal;
+    background-color: rgb(158, 232, 207);
+    margin-bottom: 10px;
+}
 
 body {
     background-color: #666;
-    font-family: monospace;
+    margin: 0px;
 }
 
-#tool_container {
+#main_container {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-evenly;
+    justify-content: flex-start;
     align-items: flex-start;
 }
 
-.panel {
+#viewport_settings{
     border: #1c1c21 solid 1px;
+    border-radius: 5px;
+    display:inline-block;
+    font-size: 15px;
+    margin-left: 5px;
+    margin-right: 10px;
+
+    background-color: rgb(158, 232, 207);
 }
 
-#viewport_settings {
-    flex-basis: 97%;
+#viewport_setting {
+    padding: 10px;
 }
-#viewport {
-    flex-basis: 60%;
+
+#viewport_settings h2{
+    margin-left: 5px;
+    font-size: 20px
+}
+
+#viewport_settings_form {
+    display: inline-block;
+    /* align-items: center; */
+}
+
+.form-label {
+    padding-right: 5px;
+}
+
+.colorpicker {
+    min-width: 180px;
+    min-height: 80px;
+    max-width: 180px;
+    max-height: 100px;
+}
+/* #viewport_settings {
+   flex-basis: 97%;
 }
 #text_editor {
     flex-basis: 35%;
@@ -39,27 +78,11 @@ body {
 
 #material_settings_container {
     display: flex;
-}
-
-#viewport_settings_form {
-    display: flex;
-    align-items: center;
-}
-
-h1 {
-    font-size: 18px;
-    font-style: italic;
-    color: #cff;
-}
-
-h2 {
-    font-size: 14px;
-    font-style: oblique;
-}
+} */
 
 .unsaved {
     font-style: italic;
-    color: #c00;
+    color: rgb(238, 112, 112);
 }
 
 .saved{
@@ -80,7 +103,7 @@ h2 {
 }
 
 .material-settings-card {
-    min-width: 180px;
+    /* min-width: 180px;
     min-height: 80px;
     max-width: 180px;
     max-height: 100px;
@@ -94,12 +117,16 @@ h2 {
     display: flex;
     flex-wrap: wrap;
     align-content: center;
-    justify-content: space-between;
+    justify-content: space-between; */
+
+    /* border: black solid 1px; */
+    border-radius: 20px;
+    display: flex;
 
     flex-basis: 30%;
 }
 .material-settings-card>div { margin: 5px}
-.material-settings-card-label {
+/* .material-settings-card-label {
     width: 30px;
     height: 30px;
 
@@ -114,8 +141,8 @@ h2 {
     align-items: center;
     justify-content: center;
     align-content: center;
-}
-.material-settings-card-input {
+} */
+/* .material-settings-card-input {
     width: 115px;
     height: 30px;
 
@@ -127,7 +154,7 @@ h2 {
     text-align: center;
     font-size: 18px;
     font-style: italic;
-}
+} */
 .material-settings-enableGlass {
     width: 110px;
     height: 25px;
@@ -163,7 +190,7 @@ h2 {
     width: 0;
     height: 0;
 }
-.slider {
+.checkbox_switch {
     position: absolute;
     cursor: pointer;
     top: 0;
@@ -178,7 +205,7 @@ h2 {
     -webkit-transition: 0.2s;
     transition: 0.2s;
 }
-.slider:before {
+.checkbox_switch:before {
     position: absolute;
     content: "";
     height: 18px;
@@ -193,15 +220,15 @@ h2 {
     transition: 0.2s;
 }
 
-input:checked + .slider {
+input:checked + .checkbox_switch {
     background-color: #2196F3;
 }
 
-input:focus + .slider {
+input:focus + .checkbox_switch {
     box-shadow: 0 0 1px #2196F3;
 }
 
-input:checked + .slider:before {
+input:checked + .checkbox_switch:before {
     -webkit-transform: translateX(14px);
     -ms-transform: translateX(14px);
     transform: translateX(14px);
