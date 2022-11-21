@@ -11,55 +11,54 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="main.css">
 
-        <!-- "adding .. links to files in different folders" -->
-        <script src="../node_modules/playcanvas/build/playcanvas.js" defer></script>
-        <script src="../lib/materials.js" defer></script>
-        <script src="../lib/riceCAD.js" defer></script>
+        <!-- "paths are handled by server, no changes" -->
+        <script src="https://cdn.jsdelivr.net/npm/vanilla-caret-js@1.0.1/dist/VanillaCaret.min.js"></script>
+        <script src="/playcanvas.js" defer></script>
+        <script src="/materials.js" defer></script>
+        <script src="/riceCAD.js" defer></script>
 
         <!-- new font -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
     </head>
-
     <body>
         <div id="BANNER_TO_REFACTOR">
             <h1>riceCAD online <span id="versionNumber">v0.0.0</span></h1>
         </div>
 
-        <div id="main_container">
+        <div id="tool_container">
             <div class="panel" id="viewport_settings">
                 <h2>Viewport Settings</h2>
                 <form id="viewport_settings_form">
-                    
-                    <div id="viewport_setting">
-                        <label for="viewportLock" class="form-label">Lock Viewport</label>
-                        <label class="switch"><input id="viewportLock" type="checkbox" checked><span class="checkbox_switch"></span></label>
+                    <div class="viewport_settings_form_card">
+                        <label class="switch"><input id="viewportLock" type="checkbox" checked><span class="slider"></span></label>
+                        <label for="viewportLock">Lock Viewport</label>
                     </div>
-                    
-                    <div id="viewport_setting">
-                        <label for="viewportRotateSpeed" class="form-label">Rotate speed</label>
-                        <input class="slider" id="viewportRotateSpeed" type="range"   min="0.01" max="0.25" value="0.1" step="0.05">
+
+                    <div class="viewport_settings_form_card">
+                        <input id="viewportRotateSpeed" type="range"   min="0.01" max="0.25" value="0.075" step="0.025">
+                        <label for="viewportRotateSpeed">Rotate speed</label>
                     </div>
-                    
-                    <div id="viewport_setting">
-                        <label for="viewportMoveSpeed" class="form-label">Move speed</label>
-                        <input class="slider" id="viewportMoveSpeed" type="range" min="0.01" max="0.5" value="0.05" step="0.01">
+
+                    <div class="viewport_settings_form_card">
+                        <input   id="viewportMoveSpeed" type="range"     min="0.01" max="0.5" value="0.05" step="0.01">
+                        <label for="viewportMoveSpeed">Move speed</label>
                     </div>
-                    
-                    <div id="viewport_setting">
-                        <label for="viewportZoomSpeed" class="form-label">Zoom speed</label>
-                        <input class="slider" id="viewportZoomSpeed" type="range"     min="1" max="30" value="5" step="0.5">
+
+                    <div class="viewport_settings_form_card">
+                        <input   id="viewportZoomSpeed" type="range"     min="1" max="30" value="5" step="0.5">
+                        <label for="viewportZoomSpeed">Zoom speed</label>
                     </div>
-                    
-                    <div class="viewport_material-settings cardBackground">
-                        <label for="material-background" class="material-settings-card-label">Background Color:</label>
-                        <input type="color" class="colorpicker" id="material-background" value="#38818C">
+
+                    <div class="material-settings-card cardBackground">
+                        <div class="material-settings-card-label"><span>BG</span></div>
+                        <div><input type="text" id="material-background" class="material-settings-card-input" value="#92eff5"></div>
                     </div>
-                    
-                    <div class="viewport_material-settings cardPlane">
-                        <label for="material-plane" class="material-settings-card-label">Panel Color:</label>
-                        <input type="color" class="colorpicker" id="material-plane" value="#f0f0f0">
+
+                    <div class="material-settings-card cardPlane">
+                        <div class="material-settings-card-label"><span>Pl</span></div>
+                        <div><input type="text" id="material-plane" class="material-settings-card-input" value="#f0f0f0"></div>
                     </div>
                 </form>
             </div>
@@ -68,16 +67,12 @@ and open the template in the editor.
                 <canvas id="application-canvas" width="800" height="600"></canvas>
             </div>
 
-            <div class="content_input">
-                <h2 id="content_input_title">Draw below</h2>
-                <textarea id="text_editor_textarea" wrap="off" cols="" rows="">1</textarea>
-
-                <div id="content_file_naming">
-                    <h2>File name: <span id="projectTitle">Unnamed</span></h2>
-                    <button id="filename_button" onclick="renameProject()">Rename file</button>
-                    <button id="filename_button" onclick="downloadChanges()">Download Changes</button>
-                </div>
-                
+            <div class="panel" id="text_editor">
+                <h2>Text Editor: <span id="projectTitle">Unnamed</span></h2>
+                <button onclick="renameProject()">rename</button>
+                <br>
+                <textarea id="text_editor_textarea" wrap="off" cols="" rows="">1234</textarea><br>
+                <button onclick="downloadChanges()">Download Changes</button>
             </div>
 
             <div class="panel" id="material_settings">
@@ -90,7 +85,6 @@ and open the template in the editor.
 
                         <div><label class="switch"><input type="checkbox" id="material-1-glass"><span class="slider"></span></label></div>
                         <div class="material-settings-enableGlass disabled">Enable Glass</div>
-                        
                     </div>
 
                     <div class="material-settings-card card2">
@@ -161,7 +155,7 @@ and open the template in the editor.
                 </div>
             </div>
 
-            <div class="panel" id="project-options">
+            <div class="panel" id="project_options">
                 <h2>Project Settings</h2>
                 <label for="avatar">Choose a file to upload:</label>
                 <input type="file" id="file-selector" accept=".plan">

@@ -11,7 +11,7 @@ html {
     font-family: 'VT323', monospace;
 }
 
-/*RiceCard title*/
+/*riceCAD title*/
 #BANNER_TO_REFACTOR {
     padding: 5px;
     font-style: normal;
@@ -25,15 +25,23 @@ html {
 }
 body {
     background-color: #666;
-    margin: 0px;
+    margin: 0;
+
+    font-family: monospace;
 }
 
-#main_container {
+#tool_container {
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
     align-items: flex-start;
 }
+
+.panel {
+    border: #1c1c21 solid 1px;
+}
+
+
 
 #viewport_settings{
     border: black solid 1px;
@@ -45,6 +53,15 @@ body {
     background-color: rgb(186, 243, 224);
     padding-bottom: 5px;
 }
+#viewport {
+    flex-basis: 60%;
+}
+#text_editor {
+    flex-basis: 35%;
+}
+#material_settings, #project_options {
+    flex-basis: 47.5%;
+}
 
 #viewport_setting {
     padding: 10px;
@@ -54,13 +71,8 @@ body {
     margin-left: 5px;
     font-size: 20px
 }
-
-.switch {
-    position: relative;
-    display: inline-block;
-
-    width: 48px;
-    height: 28px;
+#material_settings_container {
+    display: flex;
 }
 
 #viewport_settings_form {
@@ -93,6 +105,25 @@ body {
 #content_input_title, #content_file_naming{
     margin-left: 10px;
 }
+
+.viewport_settings_form_card, .material-settings-card {
+    min-height: 80px;
+    max-height: 100px;
+
+    background-color: #f9ffff;
+
+    border: #1c1c21 solid 3px;
+    border-radius: 20px;
+
+    padding: 5px;
+    margin: 5px;
+
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: space-between;
+}
+
 #text_editor_textarea {
     margin-left: 10px;
     letter-spacing: 6px;
@@ -145,24 +176,27 @@ body {
 }
 .material-settings-card {
     min-width: 180px;
-    min-height: 80px;
     max-width: 180px;
-    max-height: 100px;
-
-    border: #1c1c21 solid 3px;
-    border-radius: 20px;
-
-    padding: 5px;
-    margin: 5px;
-
-    display: flex;
-    flex-wrap: wrap;
-    align-content: center;
-    justify-content: space-between;
 
     flex-basis: 30%;
 }
+.material-settings-card>div { margin: 5px}
+.material-settings-card-label {
+    width: 30px;
+    height: 30px;
 
+    border: #1c1c21 solid 2px;
+    border-radius: 10px;
+
+    font-size: 24px;
+
+    background-color: #f9ffff;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+}
 .material-settings-card-input {
     width: 115px;
     height: 30px;
@@ -176,17 +210,6 @@ body {
     font-size: 18px;
     font-style: italic;
 }
-
-.switch input {
-    /* opacity: 0;
-    width: 0;
-    height: 0; */
-    /* margin-left: 10px; */
-    /* display: block; */
-    position: relative;
-    left: 20px;
-}
-
 .material-settings-enableGlass {
     width: 110px;
     height: 25px;
@@ -198,7 +221,6 @@ body {
     align-items: center;
     justify-content: center;
 }
-
 
 #project-options {
     margin-top: 10px;
@@ -213,11 +235,19 @@ body {
     margin-left: 5px;
 }
 
+.switch {
+    position: relative;
+    display: inline-block;
 
-
-
-
-.checkbox_switch {
+    width: 48px;
+    height: 28px;
+}
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+.slider {
     position: absolute;
     cursor: pointer;
     top: 0;
@@ -232,7 +262,7 @@ body {
     -webkit-transition: 0.2s;
     transition: 0.2s;
 }
-.checkbox_switch:before {
+.slider:before {
     position: absolute;
     content: "";
     height: 18px;
@@ -261,22 +291,9 @@ input:checked + .checkbox_switch:before {
     transform: translateX(14px);
 }
 
+/* to be added with JS */
 canvas {
     border: #1c1c21 solid 1px;
-    border-radius: 20px;
-    margin-right: 10px;
-}
-
-
-/* to be added with JS */
-.unsaved {
-    font-style: italic;
-    color: #c00;
-}
-
-.saved{
-    font-style: normal;
-    color: #ccffff;
 }
 
 .disabled {
@@ -288,4 +305,13 @@ canvas {
     background-color: #3ab2d8;
 
     font-style: italic;
+}
+
+.unsaved {
+    font-style: italic;
+    color: #c00;
+}
+.saved{
+    font-style: normal;
+    color: #ccffff;
 }
