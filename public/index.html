@@ -12,7 +12,7 @@ and open the template in the editor.
         <link rel="stylesheet" href="main.css">
         <script src="/playcanvas.js" defer></script>
         <script src="/materials.js" defer></script>
-<!--        <script src="/rich-textarea.js" defer></script>-->
+        <script src="https://cdn.jsdelivr.net/npm/vanilla-caret-js@1.0.1/dist/VanillaCaret.min.js"></script>
         <script src="/riceCAD.js" defer></script>
     </head>
     <body>
@@ -33,7 +33,7 @@ and open the template in the editor.
                     </div>
 
                     <div class="viewport_settings_form_card">
-                        <input id="viewportRotateSpeed" type="range"   min="0.01" max="0.25" value="0.1" step="0.05">
+                        <input id="viewportRotateSpeed" type="range"   min="0.01" max="0.25" value="0.075" step="0.025">
                         <label for="viewportRotateSpeed">Rotate speed</label>
                     </div>
 
@@ -67,7 +67,7 @@ and open the template in the editor.
                 <h2>Text Editor: <span id="projectTitle">Unnamed</span></h2>
                 <button onclick="renameProject()">rename</button>
                 <br>
-                <textarea id="text_editor_textarea" wrap="off" cols="" rows="">1</textarea><br>
+                <textarea id="text_editor_textarea" wrap="off" cols="" rows="">1234</textarea><br>
                 <button onclick="downloadChanges()">Download Changes</button>
             </div>
 
