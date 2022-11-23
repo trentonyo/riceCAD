@@ -1,0 +1,36 @@
+{
+  "xas32" : {
+    "title" : "Test Title",
+    "description" : "This is a test project, it's not very interesting. It's more of a proof of concept than anything, really.",
+    "tags" : ["Prototype", "Futuristic"],
+    "downloads" : 0,
+    "palette" : {
+      "1": {"color": "#f9f926", "glass":  false},
+      "2": {"color": "#f9ee26", "glass":  false},
+      "3": {"color": "#eef926", "glass":  true},
+      "4": {"color": "#f9abcd", "glass":  false},
+      "5": {"color": "#faa926", "glass":  false},
+      "6": {"color": "#f9faaa", "glass":  false},
+      "7": {"color": "#b78926", "glass":  false},
+      "8": {"color": "#59f786", "glass":  false},
+      "9": {"color": "#a9f978", "glass":  false}
+    }
+  },
+  "3ba56" : {
+    "title" : "Another Test Title",
+    "description" : "This is also a test project, maybe you've seen the other one?",
+    "tags" : ["Prototype", "Nordic"],
+    "downloads" : 0,
+    "palette" : {
+      "1": {"color": "#eef926", "glass":  false},
+      "2": {"color": "#f9ee26", "glass":  false},
+      "3": {"color": "#eef926", "glass":  true},
+      "4": {"color": "#59f786", "glass":  false},
+      "5": {"color": "#faa926", "glass":  false},
+      "6": {"color": "#f9abcd", "glass":  true},
+      "7": {"color": "#b78926", "glass":  false},
+      "8": {"color": "#f9faaa", "glass":  false},
+      "9": {"color": "#a9f978", "glass":  false}
+    }
+  }
+}
