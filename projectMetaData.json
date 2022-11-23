@@ -5,6 +5,8 @@
     "tags" : ["Prototype", "Futuristic"],
     "downloads" : 0,
     "palette" : {
+      "background": {"color": "#92eff5", "glass":  false},
+      "workingplane": {"color": "#f0f0f0", "glass":  false},
       "1": {"color": "#f9f926", "glass":  false},
       "2": {"color": "#f9ee26", "glass":  false},
       "3": {"color": "#eef926", "glass":  true},
@@ -22,6 +24,8 @@
     "tags" : ["Prototype", "Nordic"],
     "downloads" : 0,
     "palette" : {
+      "background": {"color": "#92eff5", "glass":  false},
+      "workingplane": {"color": "#f0f0f0", "glass":  false},
       "1": {"color": "#eef926", "glass":  false},
       "2": {"color": "#f9ee26", "glass":  false},
       "3": {"color": "#eef926", "glass":  true},

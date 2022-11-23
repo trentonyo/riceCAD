@@ -1,0 +1,14 @@
+<div class="material-settings-card card{{materialID}}">
+    <label class="material-settings-card-label">{{materialID}}</label>
+    <input type="color" class="material-colorpicker" id="material-{{materialID}}" value="#{{materialHex}}">
+
+    <div>
+        <label class="switch">
+            <input type="checkbox" id="material-{{materialID}}-glass"
+            {{#if materialGlass}}
+                checked
+            {{/if}} >
+            <span class="slider"></span></label>
+    </div>
+    <div class="material-settings-enableGlass disabled">Enable Glass</div>
+</div>
