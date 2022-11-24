@@ -27,7 +27,7 @@ body {
     background-color: #666;
     margin: 0;
 
-    font-family: monospace;
+    /*font-family: monospace;*/
 }
 
 #tool_container {
@@ -39,6 +39,7 @@ body {
 
 .panel {
     border: #1c1c21 solid 1px;
+    border-radius: 10px;
 }
 
 
@@ -54,13 +55,17 @@ body {
     padding-bottom: 5px;
 }
 #viewport {
-    flex-basis: 60%;
+    /*flex-basis: 60%;*/
 }
 #text_editor {
-    flex-basis: 35%;
+    width: 250px;
+    background-color: rgb(213, 213, 250);
+    border-radius: 10px;
+    /*flex-basis: 35%;*/
+    margin-left: 10px
 }
 #material_settings, #project_options {
-    flex-basis: 47.5%;
+    /*flex-basis: 47.5%;*/
 }
 
 #viewport_setting {
@@ -89,12 +94,13 @@ body {
     align-items: center;
 }
 
-.viewport_material-settings {
+.viewport_material_settings {
     border-radius: 20px;
     display: flex;
     margin-left: 10px;
     margin-top: 5px;
 }
+
 
 .content_input {
     width: 250px;
@@ -139,7 +145,7 @@ body {
     padding-bottom: 10px;
 }
 
-#filename_button {
+.filename_button {
     background-color: rgb(178, 179, 179);
     border: solid 1px;
     border-radius: 5px;
@@ -222,7 +228,7 @@ body {
     justify-content: center;
 }
 
-#project-options {
+#project_options {
     margin-top: 10px;
     margin-left: 10px;
     border: black solid 1px;
@@ -231,7 +237,7 @@ body {
     height: 110px;
 }
 
-#project-options h2, #project-options label {
+#project_options h2, #project_options label {
     margin-left: 5px;
 }
 

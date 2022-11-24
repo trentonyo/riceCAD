@@ -21,7 +21,9 @@ and open the template in the editor.
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+
     </head>
+
     <body>
         <div id="BANNER_TO_REFACTOR">
             <h1>riceCAD online <span id="versionNumber">v0.0.0</span></h1>
@@ -35,30 +37,38 @@ and open the template in the editor.
                         <label class="switch"><input id="viewportLock" type="checkbox" checked><span class="slider"></span></label>
                         <label for="viewportLock">Lock Viewport</label>
                     </div>
-
+                    
                     <div class="viewport_settings_form_card">
                         <input id="viewportRotateSpeed" type="range"   min="0.01" max="0.25" value="0.075" step="0.025">
                         <label for="viewportRotateSpeed">Rotate speed</label>
                     </div>
-
+                    
                     <div class="viewport_settings_form_card">
                         <input   id="viewportMoveSpeed" type="range"     min="0.01" max="0.5" value="0.05" step="0.01">
                         <label for="viewportMoveSpeed">Move speed</label>
                     </div>
-
+                    
                     <div class="viewport_settings_form_card">
                         <input   id="viewportZoomSpeed" type="range"     min="1" max="30" value="5" step="0.5">
                         <label for="viewportZoomSpeed">Zoom speed</label>
                     </div>
-
-                    <div class="material-settings-card cardBackground">
-                        <div class="material-settings-card-label"><span>BG</span></div>
-                        <div><input type="text" id="material-background" class="material-settings-card-input" value="#92eff5"></div>
+                    <div class="material-settings-card cardBackground viewport_material_settings">
+                        <label for="material-background" class="material-settings-card-label">BG:</label>
+                        <input type="color" class="colorpicker material-settings-card-input" id="material-background" value="#38818C">
                     </div>
+<!--                    <div class="material-settings-card cardBackground">-->
+<!--                        <div class="material-settings-card-label"><span>BG</span></div>-->
+<!--                        <div><input type="text" id="material-background" class="material-settings-card-input" value="#92eff5"></div>-->
+<!--                    </div>-->
+                    
+<!--                    <div class="material-settings-card cardPlane">-->
+<!--                        <div class="material-settings-card-label"><span>Pl</span></div>-->
+<!--                        <div><input type="text" id="material-plane" class="material-settings-card-input" value="#f0f0f0"></div>-->
+<!--                    </div>-->
 
-                    <div class="material-settings-card cardPlane">
-                        <div class="material-settings-card-label"><span>Pl</span></div>
-                        <div><input type="text" id="material-plane" class="material-settings-card-input" value="#f0f0f0"></div>
+                    <div class="material-settings-card cardBackground viewport_material_settings">
+                        <label for="material-plane" class="material-settings-card-label">Pl:</label>
+                        <input type="color" class="colorpicker material-settings-card-input" id="material-plane" value="#92eff5">
                     </div>
                 </form>
             </div>
@@ -68,11 +78,17 @@ and open the template in the editor.
             </div>
 
             <div class="panel" id="text_editor">
-                <h2>Text Editor: <span id="projectTitle">Unnamed</span></h2>
-                <button onclick="renameProject()">rename</button>
-                <br>
+                <h2 id="content_input_title">Draw below</h2>
+<!--                <h2>Text Editor: <span id="projectTitle">Unnamed</span></h2>-->
+<!--                <button onclick="renameProject()">rename</button>-->
+<!--                <br>-->
                 <textarea id="text_editor_textarea" wrap="off" cols="" rows="">1234</textarea><br>
-                <button onclick="downloadChanges()">Download Changes</button>
+<!--                <button onclick="downloadChanges()">Download Changes</button>-->
+                <div id="content_file_naming">
+                    <h2>File name: <span id="projectTitle">Unnamed</span></h2>
+                    <button class="filename_button" onclick="renameProject()">Rename file</button>
+                    <button class="filename_button" onclick="downloadChanges()">Download Changes</button>
+                </div>
             </div>
 
             <div class="panel" id="material_settings">
@@ -157,7 +173,7 @@ and open the template in the editor.
 
             <div class="panel" id="project_options">
                 <h2>Project Settings</h2>
-                <label for="avatar">Choose a file to upload:</label>
+                <label for="file-selector">Choose a file to upload:</label>
                 <input type="file" id="file-selector" accept=".plan">
             </div>
         </div>
