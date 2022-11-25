@@ -1,12 +1,12 @@
 {
   "xas32" : {
-    "title" : "Test Title",
+    "title" : "A Test Title",
     "description" : "This is a test project, it's not very interesting. It's more of a proof of concept than anything, really.",
     "tags" : ["Prototype", "Futuristic"],
     "downloads" : 0,
     "palette" : {
       "background": {"color": "#92eff5", "glass":  false},
-      "workingplane": {"color": "#f0f0f0", "glass":  false},
+      "workingplane": {"color": "#eeffee", "glass":  false},
       "1": {"color": "#f9f926", "glass":  false},
       "2": {"color": "#f9ee26", "glass":  false},
       "3": {"color": "#eef926", "glass":  true},

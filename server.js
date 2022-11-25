@@ -1,4 +1,6 @@
 const express = require("express")
+const fs = require("fs")
+
 let app = express()
 
 const DEFAULT_PORT = 8080
@@ -41,11 +43,41 @@ app.get("/playcanvas.js", function (req, res, next)
 })
 
 /**
- * Serve FileSaver source without giving out internal path
+ * Handle JSON metadata requests
  */
-app.get("/filesaver.js", function (req, res, next)
-{
-    res.status(200).sendFile(__dirname+"/node_modules/filesaver/src/Filesaver.js")
+let projectMetaData
+
+app.get("/projectMetaData.json", function (req, res, next) {
+    if(!projectMetaData)
+    {
+        fs.readFile("./projectMetaData.json", "utf8", function (err, data) {
+            console.log("FILESYSTEM: First metadata read")
+            if(err)
+            {
+                console.log("FILESYSTEM:",err)
+                next()
+            }
+            else
+            {
+                try
+                {
+                    // projectMetaData = JSON.parse(data)
+                    projectMetaData = data
+
+                    res.status(200).send(projectMetaData)
+                }
+                catch (err)
+                {
+                    console.log("JSON:",err)
+                    next()
+                }
+            }
+        })
+    }
+    else
+    {
+        res.status(200).send(projectMetaData)
+    }
 })
 
 /**
