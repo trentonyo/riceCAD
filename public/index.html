@@ -10,44 +10,67 @@ and open the template in the editor.
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="main.css">
+
+        <!-- "paths are handled by server, no changes" -->
+        <script src="https://cdn.jsdelivr.net/npm/vanilla-caret-js@1.0.1/dist/VanillaCaret.min.js"></script>
         <script src="/playcanvas.js" defer></script>
         <script src="/materials.js" defer></script>
         <script src="/riceCAD.js" defer></script>
+
+        <!-- new font -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+
     </head>
+
     <body>
         <div id="BANNER_TO_REFACTOR">
-            <h1>riceCAD <span id="versionNumber">v0.0.0</span></h1>
-            Hla Karki
-            Saya
-
+            <h1>riceCAD online <span id="versionNumber">v0.0.0</span></h1>
         </div>
 
         <div id="tool_container">
             <div class="panel" id="viewport_settings">
                 <h2>Viewport Settings</h2>
                 <form id="viewport_settings_form">
-                    <div><label class="switch"><input id="viewportLock" type="checkbox" checked><span class="slider"></span></label></div>
-                    <label for="viewportLock">Lock Viewport</label>
-
-                    <input id="viewportRotateSpeed" type="range"   min="0.01" max="0.25" value="0.1" step="0.05">
-                    <label for="viewportRotateSpeed">Rotate speed</label>
-
-                    <input   id="viewportMoveSpeed" type="range"     min="0.01" max="0.5" value="0.05" step="0.01">
-                    <label for="viewportMoveSpeed">Move speed</label>
-
-                    <input   id="viewportZoomSpeed" type="range"     min="1" max="30" value="5" step="0.5">
-                    <label for="viewportZoomSpeed">Zoom speed</label>
-
-                    <div class="material-settings-card cardBackground">
-                        <div class="material-settings-card-label"><span>BG</span></div>
-                        <div><input type="text" id="material-background" class="material-settings-card-input" value="#92eff5"></div>
+                    <div class="viewport_settings_form_card">
+                        <label class="switch"><input id="viewportLock" type="checkbox" checked><span class="slider"></span></label>
+                        <label for="viewportLock">Lock Viewport</label>
                     </div>
-
-                    <div class="material-settings-card cardPlane">
-                        <div class="material-settings-card-label"><span>Pl</span></div>
-                        <div><input type="text" id="material-plane" class="material-settings-card-input" value="#f0f0f0"></div>
+                    
+                    <div class="viewport_settings_form_card">
+                        <input id="viewportRotateSpeed" type="range"   min="0.01" max="0.25" value="0.075" step="0.025">
+                        <label for="viewportRotateSpeed">Rotate speed</label>
                     </div>
-                </form><br>
+                    
+                    <div class="viewport_settings_form_card">
+                        <input   id="viewportMoveSpeed" type="range"     min="0.01" max="0.5" value="0.05" step="0.01">
+                        <label for="viewportMoveSpeed">Move speed</label>
+                    </div>
+                    
+                    <div class="viewport_settings_form_card">
+                        <input   id="viewportZoomSpeed" type="range"     min="1" max="30" value="5" step="0.5">
+                        <label for="viewportZoomSpeed">Zoom speed</label>
+                    </div>
+                    <div class="material-settings-card cardBackground viewport_material_settings">
+                        <label for="material-background" class="material-settings-card-label">BG:</label>
+                        <input type="color" class="colorpicker material-settings-card-input" id="material-background" value="#38818C">
+                    </div>
+<!--                    <div class="material-settings-card cardBackground">-->
+<!--                        <div class="material-settings-card-label"><span>BG</span></div>-->
+<!--                        <div><input type="text" id="material-background" class="material-settings-card-input" value="#92eff5"></div>-->
+<!--                    </div>-->
+                    
+<!--                    <div class="material-settings-card cardPlane">-->
+<!--                        <div class="material-settings-card-label"><span>Pl</span></div>-->
+<!--                        <div><input type="text" id="material-plane" class="material-settings-card-input" value="#f0f0f0"></div>-->
+<!--                    </div>-->
+
+                    <div class="material-settings-card cardBackground viewport_material_settings">
+                        <label for="material-plane" class="material-settings-card-label">Pl:</label>
+                        <input type="color" class="colorpicker material-settings-card-input" id="material-plane" value="#92eff5">
+                    </div>
+                </form>
             </div>
 
             <div class="panel" id="viewport">
@@ -55,11 +78,17 @@ and open the template in the editor.
             </div>
 
             <div class="panel" id="text_editor">
-                <h2>Text Editor: <span id="projectTitle">Unnamed</span></h2>
-                <button onclick="renameProject()">rename</button>
-                <br>
-                <textarea id="text_editor_textarea" wrap="off" cols="" rows="">1</textarea><br>
-                <button onclick="downloadChanges()">Download Changes</button>
+                <h2 id="content_input_title">Draw below</h2>
+<!--                <h2>Text Editor: <span id="projectTitle">Unnamed</span></h2>-->
+<!--                <button onclick="renameProject()">rename</button>-->
+<!--                <br>-->
+                <textarea id="text_editor_textarea" wrap="off" cols="" rows="">1234</textarea><br>
+<!--                <button onclick="downloadChanges()">Download Changes</button>-->
+                <div id="content_file_naming">
+                    <h2>File name: <span id="projectTitle">Unnamed</span></h2>
+                    <button class="filename_button" onclick="renameProject()">Rename file</button>
+                    <button class="filename_button" onclick="downloadChanges()">Download Changes</button>
+                </div>
             </div>
 
             <div class="panel" id="material_settings">
@@ -67,64 +96,74 @@ and open the template in the editor.
 
                 <div id="material_settings_container">
                     <div class="material-settings-card card1">
-                        <div class="material-settings-card-label"><span>1</span></div>
-                        <div><input type="text" id="material-1" class="material-settings-card-input" value="#1c1c21"></div>
+                        <label class="material-settings-card-label">1</label>
+                        <input type="color" class="material-colorpicker" id="material-1" value="#1c1c21">
+
                         <div><label class="switch"><input type="checkbox" id="material-1-glass"><span class="slider"></span></label></div>
                         <div class="material-settings-enableGlass disabled">Enable Glass</div>
                     </div>
 
                     <div class="material-settings-card card2">
-                        <div class="material-settings-card-label"><span>2</span></div>
-                        <div><input type="text" id="material-2" class="material-settings-card-input" value="#af2d26"></div>
+                        <label class="material-settings-card-label">2</label>
+                        <input type="color" class="material-colorpicker" id="material-2" value="#af2d26">
+
                         <div><label class="switch"><input type="checkbox" id="material-2-glass"><span class="slider"></span></label></div>
                         <div class="material-settings-enableGlass disabled">Enable Glass</div>
                     </div>
 
                     <div class="material-settings-card card3">
-                        <div class="material-settings-card-label"><span>3</span></div>
-                        <div><input type="text" id="material-3" class="material-settings-card-input" value="#5e7c16"></div>
+                        <label class="material-settings-card-label">3</label>
+                        <input type="color" class="material-colorpicker" id="material-3" value="#5e7c16">
+
                         <div><label class="switch"><input type="checkbox" id="material-3-glass"><span class="slider"></span></label></div>
                         <div class="material-settings-enableGlass disabled">Enable Glass</div>
                     </div>
 
                     <div class="material-settings-card card4">
-                        <div class="material-settings-card-label"><span>4</span></div>
-                        <div><input type="text" id="material-4" class="material-settings-card-input" value="#825433"></div>
+                        <label class="material-settings-card-label">4</label>
+                        <input type="color" class="material-colorpicker" id="material-4" value="#825433">
+
                         <div><label class="switch"><input type="checkbox" id="material-4-glass"><span class="slider"></span></label></div>
                         <div class="material-settings-enableGlass disabled">Enable Glass</div>
                     </div>
 
                     <div class="material-settings-card card5">
-                        <div class="material-settings-card-label"><span>5</span></div>
-                        <div><input type="text" id="material-5" class="material-settings-card-input" value="#8933b7"></div>
+                        <label class="material-settings-card-label">5</label>
+                        <input type="color" class="material-colorpicker" id="material-5" value="#8933b7">
+
                         <div><label class="switch"><input type="checkbox" id="material-5-glass"><span class="slider"></span></label></div>
                         <div class="material-settings-enableGlass disabled">Enable Glass</div>
                     </div>
 
                     <div class="material-settings-card card6">
-                        <div class="material-settings-card-label"><span>6</span></div>
-                        <div><input type="text" id="material-6" class="material-settings-card-input" value="#169b9b"></div>
+                        <label class="material-settings-card-label">6</label>
+                        <input type="color" class="material-colorpicker" id="material-6" value="#169b9b">
+
                         <div><label class="switch"><input type="checkbox" id="material-6-glass"><span class="slider"></span></label></div>
                         <div class="material-settings-enableGlass disabled">Enable Glass</div>
                     </div>
 
                     <div class="material-settings-card card7">
-                        <div class="material-settings-card-label"><span>7</span></div>
-                        <div><input type="text" id="material-7" class="material-settings-card-input" value="#9e9e96"></div>
+                        <label class="material-settings-card-label">7</label>
+                        <input type="color" class="material-colorpicker" id="material-7" value="#9e9e96">
+
+
                         <div><label class="switch"><input type="checkbox" id="material-7-glass"><span class="slider"></span></label></div>
                         <div class="material-settings-enableGlass disabled">Enable Glass</div>
                     </div>
 
                     <div class="material-settings-card card8">
-                        <div class="material-settings-card-label"><span>8</span></div>
-                        <div><input type="text" id="material-8" class="material-settings-card-input" value="#474f51"></div>
+                        <label class="material-settings-card-label">8</label>
+                        <input type="color" class="material-colorpicker" id="material-8" value="#474f51">
+
                         <div><label class="switch"><input type="checkbox" id="material-8-glass"><span class="slider"></span></label></div>
                         <div class="material-settings-enableGlass disabled">Enable Glass</div>
                     </div>
 
                     <div class="material-settings-card card9">
-                        <div class="material-settings-card-label"><span>9</span></div>
-                        <div><input type="text" id="material-9" class="material-settings-card-input" value="#f28caa"></div>
+                        <label class="material-settings-card-label">9</label>
+                        <input type="color" class="material-colorpicker" id="material-9" value="#f28caa">
+
                         <div><label class="switch"><input type="checkbox" id="material-9-glass"><span class="slider"></span></label></div>
                         <div class="material-settings-enableGlass disabled">Enable Glass</div>
                     </div>
@@ -134,6 +173,7 @@ and open the template in the editor.
 
             <div class="panel" id="project_options">
                 <h2>Project Settings</h2>
+                <label for="file-selector">Choose a file to upload:</label>
                 <input type="file" id="file-selector" accept=".plan">
             </div>
         </div>

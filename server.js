@@ -45,7 +45,7 @@ app.get("/playcanvas.js", function (req, res, next)
  */
 app.get("/filesaver.js", function (req, res, next)
 {
-    res.status(200).sendFile(__dirname+"/node_modules/playcanvas/build/filesaver.js")
+    res.status(200).sendFile(__dirname+"/node_modules/filesaver/src/Filesaver.js")
 })
 
 /**
