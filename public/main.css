@@ -5,85 +5,118 @@ and open the template in the editor.
 */
 /* 
     Created on : Mar 20, 2022, 12:25:39 PM
-    Author     : trentonyo
+    Author(s)     : trentonyo, HlaHtun
 */
+html {
+    font-family: 'VT323', monospace;
+}
 
+/*riceCAD title*/
+#BANNER_TO_REFACTOR {
+    padding: 5px;
+    font-style: normal;
+    background-color: rgb(186, 243, 224);
+    margin-bottom: 10px;
+}
+
+#versionNumber {
+    font-size: 16px;
+    font-style: italic;
+}
 body {
     background-color: #666;
-    font-family: monospace;
+    margin: 0;
+
+    /*font-family: monospace;*/
 }
 
 #tool_container {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-evenly;
+    justify-content: flex-start;
     align-items: flex-start;
 }
 
 .panel {
     border: #1c1c21 solid 1px;
+    border-radius: 10px;
 }
 
-#viewport_settings {
-    flex-basis: 97%;
+
+
+#viewport_settings{
+    border: black solid 1px;
+    border-radius: 10px;
+    display:inline-block;
+    font-size: 15px;
+    margin-left: 5px;
+    margin-right: 10px;
+    background-color: rgb(186, 243, 224);
+    padding-bottom: 5px;
 }
 #viewport {
-    flex-basis: 60%;
+    /*flex-basis: 60%;*/
 }
 #text_editor {
-    flex-basis: 35%;
+    width: 250px;
+    background-color: rgb(213, 213, 250);
+    border-radius: 10px;
+    /*flex-basis: 35%;*/
+    margin-left: 10px
 }
 #material_settings, #project_options {
-    flex-basis: 47.5%;
+    /*flex-basis: 47.5%;*/
 }
 
+#viewport_setting {
+    padding: 10px;
+}
+
+#viewport_settings h2{
+    margin-left: 5px;
+    font-size: 20px
+}
 #material_settings_container {
     display: flex;
 }
 
 #viewport_settings_form {
-    display: flex;
+    display: inline-block;
+}
+
+.form-label {
+    padding-right: 5px;
+}
+
+.colorpicker {
+    width: 100%;
+    height: 50px;
     align-items: center;
 }
 
-h1 {
-    font-size: 18px;
-    font-style: italic;
-    color: #cff;
-}
-
-h2 {
-    font-size: 14px;
-    font-style: oblique;
-}
-
-.unsaved {
-    font-style: italic;
-    color: #c00;
-}
-
-.saved{
-    font-style: normal;
-    color: #ccffff;
-}
-
-#text_editor_textarea {
-    letter-spacing: 6px;
-    width: inherit;
-}
-
-#material_settings_container {
+.viewport_material_settings {
+    border-radius: 20px;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-content: center;
+    margin-left: 10px;
+    margin-top: 5px;
 }
 
-.material-settings-card {
-    min-width: 180px;
+
+.content_input {
+    width: 250px;
+    background-color: rgb(213, 213, 250);
+    border-radius: 10px;
+}
+
+#content_input_title, #content_file_naming{
+    margin-left: 10px;
+}
+
+.viewport_settings_form_card, .material-settings-card {
     min-height: 80px;
-    max-width: 180px;
     max-height: 100px;
+
+    background-color: #f9ffff;
 
     border: #1c1c21 solid 3px;
     border-radius: 20px;
@@ -95,6 +128,61 @@ h2 {
     flex-wrap: wrap;
     align-content: center;
     justify-content: space-between;
+}
+
+#text_editor_textarea {
+    margin-left: 10px;
+    letter-spacing: 6px;
+    width: 220px;
+    height: 200px;
+    background-color: rgb(178, 179, 179);
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+#content_file_naming {
+    font-size: 10px;
+    padding-bottom: 10px;
+}
+
+.filename_button {
+    background-color: rgb(178, 179, 179);
+    border: solid 1px;
+    border-radius: 5px;
+    color: black;
+    padding: 10px 15px;
+    text-align: center;
+    font-family: 'VT323', monospace;
+}
+
+#material_settings_container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+#material_settings {
+    margin: 10px 5px 0px 5px;
+    background-color: rgb(213, 213, 250);
+    border: black solid 1px;
+    border-radius: 10px;
+
+    max-width: 700px;
+}
+
+#material_settings h2 {
+    margin-left: 20px;
+}
+
+.material-colorpicker {
+    display: flex;
+    justify-content: space-evenly;
+    width: 90%;
+    height: 60px;
+}
+.material-settings-card {
+    min-width: 180px;
+    max-width: 180px;
 
     flex-basis: 30%;
 }
@@ -138,17 +226,19 @@ h2 {
     display: flex;
     align-items: center;
     justify-content: center;
-    align-content: center;
 }
-.disabled {
-    color: #666666;
-    background-color: #bebeba;
-}
-.enabled {
-    color: #ffffff;
-    background-color: #3ab2d8;
 
-    font-style: italic;
+#project_options {
+    margin-top: 10px;
+    margin-left: 10px;
+    border: black solid 1px;
+    border-radius: 10px;
+    background-color: rgb(186, 243, 224);
+    height: 110px;
+}
+
+#project_options h2, #project_options label {
+    margin-left: 5px;
 }
 
 .switch {
@@ -193,24 +283,41 @@ h2 {
     transition: 0.2s;
 }
 
-input:checked + .slider {
+input:checked + .checkbox_switch {
     background-color: #2196F3;
 }
 
-input:focus + .slider {
+input:focus + .checkbox_switch {
     box-shadow: 0 0 1px #2196F3;
 }
 
-input:checked + .slider:before {
+input:checked + .checkbox_switch:before {
     -webkit-transform: translateX(14px);
     -ms-transform: translateX(14px);
     transform: translateX(14px);
 }
 
-.card1 {
-    background-color: #cc0000;
-}
-
+/* to be added with JS */
 canvas {
     border: #1c1c21 solid 1px;
+}
+
+.disabled {
+    color: #666666;
+    background-color: #bebeba;
+}
+.enabled {
+    color: #ffffff;
+    background-color: #3ab2d8;
+
+    font-style: italic;
+}
+
+.unsaved {
+    font-style: italic;
+    color: #c00;
+}
+.saved{
+    font-style: normal;
+    color: #ccffff;
 }
