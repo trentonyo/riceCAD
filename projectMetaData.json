@@ -2,7 +2,18 @@
   "xas32" : {
     "title" : "A Test Title",
     "description" : "This is a test project, it's not very interesting. It's more of a proof of concept than anything, really.",
-    "tags" : ["Prototype", "Futuristic"],
+    "tags" : [
+      {
+        "background-color" : "red",
+        "text-color" : "white",
+        "tag" : "Prototype"
+      },
+      {
+        "background-color" : "brown",
+        "text-color" : "white",
+        "tag" : "Nordic"
+      }
+    ],
     "downloads" : 0,
     "palette" : {
       "background": {"color": "#92eff5", "glass":  false},
@@ -21,7 +32,18 @@
   "3ba56" : {
     "title" : "Another Test Title",
     "description" : "This is also a test project, maybe you've seen the other one?",
-    "tags" : ["Prototype", "Nordic"],
+    "tags" : [
+      {
+        "background-color" : "red",
+        "text-color" : "white",
+        "tag" : "Prototype"
+      },
+      {
+        "background-color" : "blue",
+        "text-color" : "white",
+        "tag" : "Futuristic"
+      }
+    ],
     "downloads" : 0,
     "palette" : {
       "background": {"color": "#92eff5", "glass":  false},

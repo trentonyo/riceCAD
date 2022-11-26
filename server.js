@@ -28,9 +28,9 @@ app.use(function (req, res, next)
 /**
  * Serve static files
  */
+app.use(express.static("project/"))
 app.use(express.static("public/"))
 app.use(express.static("lib/"))
-app.use(express.static("project/"))
 
 let projectMetaData
 let projectMetaDataJSON
@@ -130,7 +130,10 @@ app.get("/projects/:projectID", function (req, res, next)
 
             res.status(200).render("projectPage", {
                 "projectID" : projectID,
-                "projectMetaData" : projectMetaDataJSON[projectID],
+                "title" : projectMetaDataJSON[projectID].title,
+                "description" : projectMetaDataJSON[projectID].description,
+                "downloads" : projectMetaDataJSON[projectID].downloads,
+                "tags" : projectMetaDataJSON[projectID].tags,
                 "toolVersion" : packageJSON.version
             })
         }
