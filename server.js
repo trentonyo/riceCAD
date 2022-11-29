@@ -1,6 +1,8 @@
 const express = require("express")
-const handlebars = require('handlebars');
-const express_handlebars = require('express-handlebars');
+const handlebars = require('handlebars')
+const express_handlebars = require('express-handlebars')
+const bodyParser = require("body-parser")
+const axios = require("axios")
 const fs = require("fs")
 
 const packageJSON = require('./package.json')
@@ -14,6 +16,11 @@ app.engine('handlebars', express_handlebars.engine({
     defaultLayout: "main"
 }));
 app.set('view engine', 'handlebars');
+
+/**
+ * Middleware to parse POST body
+ */
+app.use(express.json())
 
 /**
  * Log request information at the top of any request
@@ -43,6 +50,14 @@ let projectMetaDataJSON
 app.get("/playcanvas.js", function (req, res, next)
 {
     res.status(200).sendFile(__dirname+"/node_modules/playcanvas/build/playcanvas.js")
+})
+
+/**
+ * Serve axios source without giving out internal path
+ */
+app.get("/axios.js", function (req, res, next)
+{
+    res.status(200).sendFile(__dirname+"/node_modules/axios/dist/axios.js")
 })
 
 /**
@@ -91,6 +106,67 @@ let getProjectMetaData = function(req, res, next)
 getProjectMetaData() //Initial load
 app.get("/projectMetaData.json", getProjectMetaData)
 
+let appendProjectMetaData = function (req, res, next)
+{
+    try
+    {
+        if(req.body)
+        {
+            let newID = req.body.projectID
+            let newMetaData = req.body.metaData
+
+            if (projectMetaDataJSON[newID])
+            {
+                console.log("OVERWRITE FAILED")
+            }
+            else
+            {
+                projectMetaDataJSON[newID] = newMetaData
+                projectMetaData = JSON.stringify(projectMetaDataJSON)
+
+                fs.writeFile("/projectMetaData.json", projectMetaData, function (err)
+                {
+                    if(err)
+                    {
+                        console.log(err)
+                    }
+                })
+
+                console.log(`----SERVER: Appended project with ID ${newID} and metadata:\n`,newMetaData) //TODO debugging
+            }
+        }
+        else
+        {
+            console.log("----SERVER: POST request has no body")
+        }
+    }
+    catch (err)
+    {
+        console.log(err, "----SERVER: Request body below:\n", req.body)
+    }
+}
+
+app.post("/projectMetaData.json", appendProjectMetaData)
+
+//START In class
+
+app.post("/projects/:projectID/addProject", function (req, res, next) {
+
+    let projectID = req.params.projectID
+
+    if(req.body && req.body["title"] && req.body["description"])
+    {
+        console.log("!**!--CLASS", req.body)
+        next()
+    }
+    else
+    {
+        res.status(400).send("Missing/invalid POST request, need a title and description")
+    }
+})
+
+//END In class
+
 //// FRONT-END
 
 /**
@@ -101,6 +177,7 @@ app.get("/edit", function (req, res, next) {
         "projectMetaData" : projectMetaData,
         "toolVersion" : packageJSON.version
     })
+
 })
 
 let serveHomepage = function (req, res, next)
@@ -122,12 +199,12 @@ app.get("/projects/:projectID", function (req, res, next)
 {
     let projectID = req.params.projectID
 
-    if(projectMetaData)
+    console.log("----SERVER: Serving project page", projectID)
+
+    if(projectMetaDataJSON)
     {
         if(projectMetaDataJSON[projectID])
         {
-            console.log(projectMetaDataJSON[projectID])
-
             res.status(200).render("projectPage", {
                 "projectID" : projectID,
                 "title" : projectMetaDataJSON[projectID].title,
@@ -139,6 +216,7 @@ app.get("/projects/:projectID", function (req, res, next)
         }
         else
         {
+            console.log(`----SERVER: Project ID ${projectID} not found`)
             next()
         }
     }
