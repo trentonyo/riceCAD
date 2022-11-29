@@ -39,7 +39,6 @@ app.use(express.static("project/"))
 app.use(express.static("public/"))
 app.use(express.static("lib/"))
 
-let projectMetaData
 let projectMetaDataJSON
 
 //// BACK-END
@@ -65,7 +64,7 @@ app.get("/axios.js", function (req, res, next)
  */
 let getProjectMetaData = function(req, res, next)
 {
-    if(!projectMetaData)
+    if(!projectMetaDataJSON)
     {
         fs.readFile("./projectMetaData.json", "utf8", function (err, data) {
             console.log("FILESYSTEM: First metadata read")
@@ -83,7 +82,7 @@ let getProjectMetaData = function(req, res, next)
 
                     if(res)
                     {
-                        res.status(200).send(projectMetaData)
+                        res.status(200).send(JSON.stringify(projectMetaDataJSON))
                     }
                 }
                 catch (err)
@@ -98,7 +97,7 @@ let getProjectMetaData = function(req, res, next)
     {
         if(res)
         {
-            res.status(200).send(projectMetaData)
+            res.status(200).send(JSON.stringify(projectMetaDataJSON))
         }
     }
 }
@@ -122,9 +121,8 @@ let appendProjectMetaData = function (req, res, next)
             else
             {
                 projectMetaDataJSON[newID] = newMetaData
-                projectMetaData = JSON.stringify(projectMetaDataJSON)
 
-                fs.writeFile("/projectMetaData.json", projectMetaData, function (err)
+                fs.writeFile("/projectMetaData.json", JSON.stringify(projectMetaDataJSON), function (err)
                 {
                     if(err)
                     {
@@ -156,8 +154,27 @@ app.post("/projects/:projectID/addProject", function (req, res, next) {
 
     if(req.body && req.body["title"] && req.body["description"])
     {
-        console.log("!**!--CLASS", req.body)
-        next()
+        let project = {
+            title: req.body.title,
+            description: req.body.description,
+            tags: req.body.tags,
+            downloads: req.body.downloads,
+            palette: req.body.palette
+        }
+
+        projectMetaDataJSON[projectID] = project
+
+        fs.writeFile("./projectMetaData.json", JSON.stringify(projectMetaDataJSON, null, 2), function (err) {
+            if(err)
+            {
+                res.status(500).send("Something went wrong, sry")
+                console.log(err)
+            }
+            else
+            {
+                res.status(200).send("Added a new project")
+            }
+        })
     }
     else
     {
@@ -174,10 +191,9 @@ app.post("/projects/:projectID/addProject", function (req, res, next) {
  */
 app.get("/edit", function (req, res, next) {
     res.status(200).render("riceCADEditor", {
-        "projectMetaData" : projectMetaData,
+        "projectMetaData" : JSON.stringify(projectMetaDataJSON),
         "toolVersion" : packageJSON.version
     })
-
 })
 
 let serveHomepage = function (req, res, next)

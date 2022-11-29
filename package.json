@@ -7,7 +7,8 @@
         "build_label": "handlebars views/partials/label.handlebars -f public/labelTemplate.js",
         "build_materialCard": "handlebars views/partials/materialCard.handlebars -f public/materialCardTemplate.js",
         "build_projectCard": "handlebars views/partials/projectCard.handlebars -f public/projectCardTemplate.js",
-        "prestart": "npm run build_label && npm run build_materialCard && npm run build_projectCard"
+        "prestart": "npm run build_label && npm run build_materialCard && npm run build_projectCard",
+        "dev": "nodemon server.js"
     },
     "keywords": [
         "util",
@@ -27,5 +28,8 @@
         "handlebars": "^4.7.7",
         "playcanvas": "^1.58.0",
         "vanilla-caret-js": "^1.1.0"
+    },
+    "devDependencies": {
+        "nodemon": "^2.0.20"
     }
 }
