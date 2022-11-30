@@ -1,11 +1,11 @@
-<div class="material-settings-card card{{materialID}}">
-    <label class="material-settings-card-label">{{materialID}}</label>
-    <input type="color" class="material-colorpicker" id="material-{{materialID}}" value="#{{materialHex}}">
+<div class="material-settings-card card{{@key}}">
+    <label class="material-settings-card-label">{{@key}}</label>
+    <input type="color" class="material-colorpicker" id="material-{{@key}}" value="{{color}}">
 
     <div>
         <label class="switch">
-            <input type="checkbox" id="material-{{materialID}}-glass"
-            {{#if materialGlass}}
+            <input type="checkbox" id="material-{{@key}}-glass"
+            {{#if glass}}
                 checked
             {{/if}} >
             <span class="slider"></span></label>

@@ -105,46 +105,54 @@ let getProjectMetaData = function(req, res, next)
 getProjectMetaData() //Initial load
 app.get("/projectMetaData.json", getProjectMetaData)
 
-let appendProjectMetaData = function (req, res, next)
+// let appendProjectMetaData = function (req, res, next)
+// {
+//     try
+//     {
+//         if(req.body)
+//         {
+//             let newID = req.body.projectID
+//             let newMetaData = req.body.metaData
+//
+//             if (projectMetaDataJSON[newID])
+//             {
+//                 console.log("OVERWRITE FAILED")
+//             }
+//             else
+//             {
+//                 projectMetaDataJSON[newID] = newMetaData
+//
+//                 fs.writeFile("/projectMetaData.json", JSON.stringify(projectMetaDataJSON), function (err)
+//                 {
+//                     if(err)
+//                     {
+//                         console.log(err)
+//                     }
+//                 })
+//
+//                 console.log(`----SERVER: Appended project with ID ${newID} and metadata:\n`,newMetaData) //TODO debugging
+//             }
+//         }
+//         else
+//         {
+//             console.log("----SERVER: POST request has no body")
+//         }
+//     }
+//     catch (err)
+//     {
+//         console.log(err, "----SERVER: Request body below:\n", req.body)
+//     }
+// }
+//
+// app.post("/projectMetaData.json", appendProjectMetaData)
+
+/**
+ * Serve up project plans
+ */
+app.get("/project/:projectID.plan", function (req, res, next)
 {
-    try
-    {
-        if(req.body)
-        {
-            let newID = req.body.projectID
-            let newMetaData = req.body.metaData
-
-            if (projectMetaDataJSON[newID])
-            {
-                console.log("OVERWRITE FAILED")
-            }
-            else
-            {
-                projectMetaDataJSON[newID] = newMetaData
-
-                fs.writeFile("/projectMetaData.json", JSON.stringify(projectMetaDataJSON), function (err)
-                {
-                    if(err)
-                    {
-                        console.log(err)
-                    }
-                })
-
-                console.log(`----SERVER: Appended project with ID ${newID} and metadata:\n`,newMetaData) //TODO debugging
-            }
-        }
-        else
-        {
-            console.log("----SERVER: POST request has no body")
-        }
-    }
-    catch (err)
-    {
-        console.log(err, "----SERVER: Request body below:\n", req.body)
-    }
-}
-
-app.post("/projectMetaData.json", appendProjectMetaData)
+    res.set({ 'content-type': 'text/plain; charset=utf-8' }).status(200).sendFile(__dirname+`/project/${req.params.projectID}.plan`)
+})
 
 //START In class
 
@@ -189,12 +197,112 @@ app.post("/projects/:projectID/addProject", function (req, res, next) {
 /**
  * Render tool page with handlebars
  */
-app.get("/edit", function (req, res, next) {
+let serveEditor = function(req, res, next)
+{
+    let projectID = req.params.projectID
+    let title
+    let description
+    let tags
+    let downloads
+    let palette_materials = {
+        "1" : {},
+        "2" : {},
+        "3" : {},
+        "4" : {},
+        "5" : {},
+        "6" : {},
+        "7" : {},
+        "8" : {},
+        "9" : {}
+    }
+    let palette_viewport = {
+        "background" : {},
+        "workingplane" : {}
+    }
+
+    if(projectID && projectMetaDataJSON[projectID])
+    {
+        console.log("Trying to open an existing project")
+        title = projectMetaDataJSON[projectID].title
+        description = projectMetaDataJSON[projectID].description
+        tags = projectMetaDataJSON[projectID].tags
+        downloads = projectMetaDataJSON[projectID].downloads
+
+        for (let i = 1; i <= 9; i++)
+        {
+            palette_materials[i.toString()] = projectMetaDataJSON[projectID].palette[i]
+        }
+        palette_viewport["background"] = projectMetaDataJSON[projectID].palette["background"]
+        palette_viewport["workingplane"] = projectMetaDataJSON[projectID].palette["workingplane"]
+    }
+    else //Default values (new project)
+    {
+        projectID = "DEFAULT"
+        title = "Untitled Project"
+        description = "Enter a nice description"
+        tags = []
+        downloads = 0
+        palette_materials = {
+            "1": {
+                "color": "#1c1c21",
+                "glass": false
+            },
+            "2": {
+                "color": "#af2d26",
+                "glass": false
+            },
+            "3": {
+                "color": "#5e7c16",
+                "glass": false
+            },
+            "4": {
+                "color": "#825433",
+                "glass": false
+            },
+            "5": {
+                "color": "#8933b7",
+                "glass": false
+            },
+            "6": {
+                "color": "#169b9b",
+                "glass": false
+            },
+            "7": {
+                "color": "#9e9e96",
+                "glass": false
+            },
+            "8": {
+                "color": "#474f51",
+                "glass": false
+            },
+            "9": {
+                "color": "#f28caa",
+                "glass": false
+            }
+        }
+        palette_viewport = {
+            "background": {
+                "color": "#92eff5",
+                "glass": false
+            },
+            "workingplane": {
+                "color": "#eeffee",
+                "glass": false
+            }
+        }
+    }
+
     res.status(200).render("riceCADEditor", {
+        "projectID" : projectID,
+        "title" : title,
+        "palette_materials" : palette_materials,
         "projectMetaData" : JSON.stringify(projectMetaDataJSON),
         "toolVersion" : packageJSON.version
     })
-})
+}
+
+app.get("/edit", function (req, res, next) { serveEditor(req, res, next) })
+app.get("/edit/:projectID", function (req, res, next) { serveEditor(req, res, next) })
 
 let serveHomepage = function (req, res, next)
 {

@@ -39,7 +39,7 @@
     </div>
 
     <div class="panel" id="text_editor">
-        <h2>Text Editor: <span id="projectTitle">Unnamed</span></h2>
+        <h2>Text Editor: <span id="projectTitle">{{title}}</span></h2>
         <button onclick="renameProject()">rename</button>
         <br>
         <textarea id="text_editor_textarea" wrap="off" cols="" rows="">1234</textarea><br>
@@ -50,84 +50,17 @@
         <h2>Material Settings</h2>
 
         <div id="material_settings_container">
-            <div class="material-settings-card card1">
-                <label class="material-settings-card-label">1</label>
-                <input type="color" class="material-colorpicker" id="material-1" value="#1c1c21">
 
-                <div><label class="switch"><input type="checkbox" id="material-1-glass"><span class="slider"></span></label></div>
-                <div class="material-settings-enableGlass disabled">Enable Glass</div>
-            </div>
-
-            <div class="material-settings-card card2">
-                <label class="material-settings-card-label">2</label>
-                <input type="color" class="material-colorpicker" id="material-2" value="#af2d26">
-
-                <div><label class="switch"><input type="checkbox" id="material-2-glass"><span class="slider"></span></label></div>
-                <div class="material-settings-enableGlass disabled">Enable Glass</div>
-            </div>
-
-            <div class="material-settings-card card3">
-                <label class="material-settings-card-label">3</label>
-                <input type="color" class="material-colorpicker" id="material-3" value="#5e7c16">
-
-                <div><label class="switch"><input type="checkbox" id="material-3-glass"><span class="slider"></span></label></div>
-                <div class="material-settings-enableGlass disabled">Enable Glass</div>
-            </div>
-
-            <div class="material-settings-card card4">
-                <label class="material-settings-card-label">4</label>
-                <input type="color" class="material-colorpicker" id="material-4" value="#825433">
-
-                <div><label class="switch"><input type="checkbox" id="material-4-glass"><span class="slider"></span></label></div>
-                <div class="material-settings-enableGlass disabled">Enable Glass</div>
-            </div>
-
-            <div class="material-settings-card card5">
-                <label class="material-settings-card-label">5</label>
-                <input type="color" class="material-colorpicker" id="material-5" value="#8933b7">
-
-                <div><label class="switch"><input type="checkbox" id="material-5-glass"><span class="slider"></span></label></div>
-                <div class="material-settings-enableGlass disabled">Enable Glass</div>
-            </div>
-
-            <div class="material-settings-card card6">
-                <label class="material-settings-card-label">6</label>
-                <input type="color" class="material-colorpicker" id="material-6" value="#169b9b">
-
-                <div><label class="switch"><input type="checkbox" id="material-6-glass"><span class="slider"></span></label></div>
-                <div class="material-settings-enableGlass disabled">Enable Glass</div>
-            </div>
-
-            <div class="material-settings-card card7">
-                <label class="material-settings-card-label">7</label>
-                <input type="color" class="material-colorpicker" id="material-7" value="#9e9e96">
-
-
-                <div><label class="switch"><input type="checkbox" id="material-7-glass"><span class="slider"></span></label></div>
-                <div class="material-settings-enableGlass disabled">Enable Glass</div>
-            </div>
-
-            <div class="material-settings-card card8">
-                <label class="material-settings-card-label">8</label>
-                <input type="color" class="material-colorpicker" id="material-8" value="#474f51">
-
-                <div><label class="switch"><input type="checkbox" id="material-8-glass"><span class="slider"></span></label></div>
-                <div class="material-settings-enableGlass disabled">Enable Glass</div>
-            </div>
-
-            <div class="material-settings-card card9">
-                <label class="material-settings-card-label">9</label>
-                <input type="color" class="material-colorpicker" id="material-9" value="#f28caa">
-
-                <div><label class="switch"><input type="checkbox" id="material-9-glass"><span class="slider"></span></label></div>
-                <div class="material-settings-enableGlass disabled">Enable Glass</div>
-            </div>
+            {{#each palette_materials}}
+                {{> materialCard}}
+            {{/each}}
 
         </div>
     </div>
 
     <div class="panel" id="project_options">
         <h2>Project Settings</h2>
+        <input id="projectID" value="{{projectID}}" hidden>
         <label for="avatar">Choose a file to upload:</label>
         <input type="file" id="file-selector" accept=".plan">
     </div>
