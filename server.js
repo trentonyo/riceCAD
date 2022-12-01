@@ -152,7 +152,7 @@ app.get("/projectMetaData.json", getProjectMetaData)
  */
 app.get("/project/:projectID.plan", function (req, res, next)
 {
-    res.set({ 'content-type': 'text/plain; charset=utf-8' }).status(200).sendFile(__dirname+`/project/${req.params.projectID}.plan`)
+    res.set({ 'content-type': 'text/plain; charset=utf-8' }).status(200).sendFile(__dirname+`/project/${req.params.projectID}.plan`) //TODO need to detect if the file exists and 404 if not
 })
 
 //START In class
