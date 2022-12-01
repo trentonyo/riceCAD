@@ -34,8 +34,7 @@
     </div>
 
     <div class="panel" id="text_editor">
-        <h2>Text Editor: <span id="projectTitle">{{title}}</span></h2>
-        <button onclick="renameProject()">rename</button>
+        <h2>Text Editor</h2>
         <br>
         <textarea id="text_editor_textarea" wrap="off" cols="" rows="">1</textarea><br>
         <button onclick="downloadChanges()">Download Changes</button>
@@ -56,7 +55,16 @@
     <div class="panel" id="project_options">
         <h2>Project Settings</h2>
         <input id="projectID" value="{{projectID}}" hidden>
-        <label for="avatar">Choose a file to upload:</label>
+        <h2>Title: <span id="projectTitle">{{title}}</span></h2>
+        <button onclick="renameProject()">rename</button>
+        <textarea id="projectDescription"></textarea>
+        <div id="projectLabelsContainer">
+            {{#each newLabels}}
+                <input type="checkbox" value="{{tag}}">
+                {{> label}}
+            {{/each}}
+        </div>
+        <label for="file-selector">Upload a .plan file:</label>
         <input type="file" id="file-selector" accept=".plan">
     </div>
 </div>

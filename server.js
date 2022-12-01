@@ -5,7 +5,8 @@ const bodyParser = require("body-parser")
 const axios = require("axios")
 const fs = require("fs")
 
-const packageJSON = require('./package.json')
+const packageJSON = require("./package.json")
+const labelsJSON = require("./labels.json")
 
 let app = express()
 
@@ -299,6 +300,7 @@ let serveEditor = function(req, res, next)
         "title" : title,
         "palette_materials" : palette_materials,
         "palette_viewport" : palette_viewport,
+        "newLabels" : labelsJSON,
         "projectMetaData" : JSON.stringify(projectMetaDataJSON),
         "toolVersion" : packageJSON.version
     })
