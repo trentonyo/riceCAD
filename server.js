@@ -221,7 +221,14 @@ let serveEditor = function(req, res, next)
         "workingplane" : {}
     }
 
-    if(projectID && projectMetaDataJSON[projectID])
+    //If a projectID is provided, but it is not in the database
+    if(projectID && !(projectID in projectMetaDataJSON))
+    {
+        console.log(`Didn't find ${projectID} in the database`)
+        next() //Kick down to a 404
+    }
+    //If a projectID is provided, and it IS in the database
+    else if(projectID && (projectID in projectMetaDataJSON))
     {
         console.log("Trying to open an existing project")
         title = projectMetaDataJSON[projectID].title
@@ -236,6 +243,7 @@ let serveEditor = function(req, res, next)
         palette_viewport["background"] = projectMetaDataJSON[projectID].palette["background"]
         palette_viewport["workingplane"] = projectMetaDataJSON[projectID].palette["workingplane"]
     }
+    //If no projectID is provided
     else //Default values (new project)
     {
         projectID = "DEFAULT"
@@ -306,8 +314,8 @@ let serveEditor = function(req, res, next)
     })
 }
 
-app.get("/edit", function (req, res, next) { serveEditor(req, res, next) })
 app.get("/edit/:projectID", function (req, res, next) { serveEditor(req, res, next) })
+app.get("/edit", function (req, res, next) { serveEditor(req, res, next) })
 
 let serveHomepage = function (req, res, next)
 {
