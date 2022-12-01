@@ -130,8 +130,6 @@ let generateNewProjectID = function (title)
 
     while(!(newID in projectMetaDataJSON))
     {
-        newID = ""
-
         /**
          * Returns a color from a string's hash
          * based on esmiralha's StackOverflow response (https://stackoverflow.com/a/7616484)
@@ -155,7 +153,14 @@ let generateNewProjectID = function (title)
 
         if(!(newID in projectMetaDataJSON))
         {
-            projectMetaDataJSON[newID] = {}
+            projectMetaDataJSON[newID] = {
+                "title" : title
+            }
+        }
+        else
+        {
+            newID = ""
+            salt++
         }
     }
 
@@ -163,7 +168,6 @@ let generateNewProjectID = function (title)
 }
 
 app.post("/projects/:projectID/addProject", function (req, res, next) {
-
 
     if(req.body && req.body["title"] && req.body["description"])
     {
@@ -193,6 +197,7 @@ app.post("/projects/:projectID/addProject", function (req, res, next) {
     }
     else
     {
+        console.log(`-- SERVER: Got an invalid POST request, req.body: ${req.body}`)
         res.status(400).send("Missing/invalid POST request, need a title and description")
     }
 })
