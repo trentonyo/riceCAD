@@ -54,11 +54,13 @@
       },
       "background": {
         "color": "#92eff5",
-        "glass": false
+        "glass": false,
+        "viewport": true
       },
       "workingplane": {
         "color": "#eeffee",
-        "glass": false
+        "glass": false,
+        "viewport": true
       }
     }
   },
@@ -117,11 +119,13 @@
       },
       "background": {
         "color": "#92eff5",
-        "glass": false
+        "glass": false,
+        "viewport": true
       },
       "workingplane": {
         "color": "#f0f0f0",
-        "glass": false
+        "glass": false,
+        "viewport": true
       }
     }
   },
@@ -180,11 +184,13 @@
       },
       "background": {
         "color": "#f5ed92",
-        "glass": false
+        "glass": false,
+        "viewport": true
       },
       "workingplane": {
         "color": "#b3d5ac",
-        "glass": false
+        "glass": false,
+        "viewport": true
       }
     }
   }

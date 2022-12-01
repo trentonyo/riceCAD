@@ -283,11 +283,13 @@ let serveEditor = function(req, res, next)
         palette_viewport = {
             "background": {
                 "color": "#92eff5",
-                "glass": false
+                "glass": false,
+                "viewport": true
             },
             "workingplane": {
                 "color": "#eeffee",
-                "glass": false
+                "glass": false,
+                "viewport": true
             }
         }
     }
@@ -296,6 +298,7 @@ let serveEditor = function(req, res, next)
         "projectID" : projectID,
         "title" : title,
         "palette_materials" : palette_materials,
+        "palette_viewport" : palette_viewport,
         "projectMetaData" : JSON.stringify(projectMetaDataJSON),
         "toolVersion" : packageJSON.version
     })

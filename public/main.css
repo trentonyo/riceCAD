@@ -321,3 +321,7 @@ canvas {
     font-style: normal;
     color: #ccffff;
 }
+
+.viewport_label{
+    width: 100%;
+}
