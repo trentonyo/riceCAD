@@ -106,47 +106,6 @@ let getProjectMetaData = function(req, res, next)
 getProjectMetaData() //Initial load
 app.get("/projectMetaData.json", getProjectMetaData)
 
-// let appendProjectMetaData = function (req, res, next)
-// {
-//     try
-//     {
-//         if(req.body)
-//         {
-//             let newID = req.body.projectID
-//             let newMetaData = req.body.metaData
-//
-//             if (projectMetaDataJSON[newID])
-//             {
-//                 console.log("OVERWRITE FAILED")
-//             }
-//             else
-//             {
-//                 projectMetaDataJSON[newID] = newMetaData
-//
-//                 fs.writeFile("/projectMetaData.json", JSON.stringify(projectMetaDataJSON), function (err)
-//                 {
-//                     if(err)
-//                     {
-//                         console.log(err)
-//                     }
-//                 })
-//
-//                 console.log(`----SERVER: Appended project with ID ${newID} and metadata:\n`,newMetaData) //TODO debugging
-//             }
-//         }
-//         else
-//         {
-//             console.log("----SERVER: POST request has no body")
-//         }
-//     }
-//     catch (err)
-//     {
-//         console.log(err, "----SERVER: Request body below:\n", req.body)
-//     }
-// }
-//
-// app.post("/projectMetaData.json", appendProjectMetaData)
-
 /**
  * Serve up project plans
  */

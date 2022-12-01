@@ -129,7 +129,7 @@
       }
     }
   },
-  "tempo": {
+  "DEFAULT": {
     "title": "Server Test Title",
     "description": "This is also a server post test",
     "tags": [
@@ -184,13 +184,11 @@
       },
       "background": {
         "color": "#f5ed92",
-        "glass": false,
-        "viewport": true
+        "glass": false
       },
       "workingplane": {
         "color": "#b3d5ac",
-        "glass": false,
-        "viewport": true
+        "glass": false
       }
     }
   }
