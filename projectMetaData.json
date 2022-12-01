@@ -129,9 +129,9 @@
       }
     }
   },
-  "DEFAULT": {
+  "t9zxln": {
     "title": "Server Test Title",
-    "description": "This is also a server post test",
+    "description": "What a kiss ass",
     "tags": [
       {
         "background-color": "red",
@@ -188,6 +188,115 @@
       },
       "workingplane": {
         "color": "#b3d5ac",
+        "glass": false
+      }
+    }
+  },
+  "2peqr9": {
+    "title": "asg",
+    "description": "hi",
+    "tags": [
+      "Nordic"
+    ],
+    "downloads": "DEFAULT",
+    "palette": {
+      "1": {
+        "color": "#1b1b20",
+        "glass": false
+      },
+      "2": {
+        "color": "#ae2c25",
+        "glass": false
+      },
+      "3": {
+        "color": "#5d7b15",
+        "glass": false
+      },
+      "4": {
+        "color": "#815332",
+        "glass": false
+      },
+      "5": {
+        "color": "#8832b6",
+        "glass": false
+      },
+      "6": {
+        "color": "#159a9a",
+        "glass": false
+      },
+      "7": {
+        "color": "#9d9d95",
+        "glass": false
+      },
+      "8": {
+        "color": "#464e50",
+        "glass": false
+      },
+      "9": {
+        "color": "#f18ba9",
+        "glass": false
+      },
+      "background": {
+        "color": "#91eef4",
+        "glass": false
+      },
+      "workingplane": {
+        "color": "#edfeed",
+        "glass": false
+      }
+    }
+  },
+  "npj08t": {
+    "title": "CHRIST",
+    "description": "also this",
+    "tags": [
+      "Prototype",
+      "Nordic"
+    ],
+    "downloads": "DEFAULT",
+    "palette": {
+      "1": {
+        "color": "#1b1b20",
+        "glass": false
+      },
+      "2": {
+        "color": "#ae2c25",
+        "glass": false
+      },
+      "3": {
+        "color": "#5d7b15",
+        "glass": false
+      },
+      "4": {
+        "color": "#815332",
+        "glass": false
+      },
+      "5": {
+        "color": "#8832b6",
+        "glass": false
+      },
+      "6": {
+        "color": "#159a9a",
+        "glass": false
+      },
+      "7": {
+        "color": "#9d9d95",
+        "glass": false
+      },
+      "8": {
+        "color": "#464e50",
+        "glass": false
+      },
+      "9": {
+        "color": "#f18ba9",
+        "glass": false
+      },
+      "background": {
+        "color": "#91eef4",
+        "glass": false
+      },
+      "workingplane": {
+        "color": "#edfeed",
         "glass": false
       }
     }

@@ -55,6 +55,7 @@
     <div class="panel" id="project_options">
         <h2>Project Settings</h2>
         <input id="projectID" value="{{projectID}}" hidden>
+        <input id="projectDownloads" value="{{projectID}}" hidden>
         <h2>Title: <span id="projectTitle">{{title}}</span></h2>
         <button onclick="renameProject()">rename</button>
         <textarea id="projectDescription"></textarea>
@@ -66,5 +67,6 @@
         </div>
         <label for="file-selector">Upload a .plan file:</label>
         <input type="file" id="file-selector" accept=".plan">
+        <button id="DEBUG">PRESS ME PLS</button>
     </div>
 </div>
