@@ -58,7 +58,7 @@
         <input id="projectDownloads" value="{{downloads}}" hidden>
         <h2>Title: <span id="projectTitle">{{title}}</span></h2>
         <button onclick="renameProject()">rename</button>
-        <textarea id="projectDescription">An interesting description</textarea>
+        <textarea id="projectDescription">{{description}}</textarea>
         <div id="projectLabelsContainer">
             {{#each newLabels}}
                 <input type="checkbox" value="{{tag}}">

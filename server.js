@@ -425,6 +425,7 @@ let serveEditor = function(req, res, next)
     res.status(200).render("riceCADEditor", {
         "projectID" : projectID,
         "title" : title,
+        "description" : description,
         "palette_materials" : palette_materials,
         "palette_viewport" : palette_viewport,
         "newLabels" : labelsJSON,
