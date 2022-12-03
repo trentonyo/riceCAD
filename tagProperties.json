@@ -1,0 +1,14 @@
+{
+  "Prototype" : {
+    "background-color": "red",
+    "text-color": "white"
+  },
+  "Futuristic" : {
+    "background-color": "blue",
+    "text-color": "white"
+  },
+  "Nordic" : {
+    "background-color": "brown",
+    "text-color": "white"
+  }
+}

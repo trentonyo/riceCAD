@@ -1,11 +1,17 @@
-<div>
-    <img src="/project/{{@key}}.png">
-    <h1>{{title}}</h1>
-    <p>{{description}}</p>
-    <div class="labels">
-        {{#each tags}}
-            <span>{{tag}}</span>
-        {{/each}}
+<div class="post">
+    <div class="post-contents">
+        <a href="/projects/{{@key}}" class="post-title">{{title}}</a>
+        <div class="post-image-container">
+            <img src="/project/{{@key}}.png" alt="{{title}} post-image">
+        </div>
+        <div class="post-tags-container">
+            {{#each tags}}
+                <span>{{>label}}</span>
+            {{/each}}
+        </div>
+        </div>
+        <div class="post-info-container">
+            <span class="build-num">Downloads: {{downloads}}</span>
+        </div>
     </div>
-    <div>{{downloads}}</div>
 </div>

@@ -7,6 +7,7 @@ const fs = require("fs")
 
 const packageJSON = require("./package.json")
 const labelsJSON = require("./labels.json")
+const tagPropertiesJSON = require("./tagProperties.json")
 
 let app = express()
 
@@ -80,7 +81,6 @@ let getProjectMetaData = function(req, res, next)
             {
                 try
                 {
-                    projectMetaData = data
                     projectMetaDataJSON = JSON.parse(data)
 
                     if(res)
@@ -216,9 +216,19 @@ app.post("/projects/addProjectMetaData", function (req, res, next) {
         let project = {
             title: req.body.title,
             description: req.body.description,
-            tags: req.body.tags,
+            tags: [],
             downloads: req.body.downloads,
             palette: req.body.palette
+        }
+
+        for (let i = 0; i < req.body.tags.length; i++) {
+            let currentTag = req.body.tags[i]
+
+            project.tags.push({
+                "background-color" : tagPropertiesJSON[currentTag]["background-color"],
+                "text-color" : tagPropertiesJSON[currentTag]["text-color"],
+                "tag" : currentTag
+            })
         }
 
         projectMetaDataJSON[projectID] = project
@@ -428,7 +438,10 @@ app.get("/edit", function (req, res, next) { serveEditor(req, res, next) })
 
 let serveHomepage = function (req, res, next)
 {
-    res.status(200).sendFile(__dirname+"/public/projectPage.html")
+    res.status(200).render("homePage", {
+        "projects" : projectMetaDataJSON,
+        "toolVersion" : packageJSON.version
+    })
 }
 
 /**
