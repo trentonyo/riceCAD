@@ -53,8 +53,8 @@
     </div>
 
     <div class="panel" id="project_options">
+
         <h2>Project Settings</h2>
-        <input id="projectID" value="{{projectID}}" hidden>
         <input id="projectDownloads" value="{{projectID}}" hidden>
         <h2>Title: <span id="projectTitle">{{title}}</span></h2>
         <button onclick="renameProject()">rename</button>
@@ -67,6 +67,12 @@
         </div>
         <label for="file-selector">Upload a .plan file:</label>
         <input type="file" id="file-selector" accept=".plan">
-        <button id="postProject">Publish Project</button>
+
+<!--        <form method="post" enctype="multipart/form-data" action="/postProjectThumbnail">-->
+            <input id="projectID" value="{{projectID}}" hidden>
+            <input type="file" id="thumbnail" hidden>
+            <!--        <button id="postProject">Publish Project</button>-->
+            <input type="submit" id="postProject" value="Publish Project">
+<!--        </form>-->
     </div>
 </div>

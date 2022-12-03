@@ -13,6 +13,8 @@ let app = express()
 const DEFAULT_PORT = 8080
 let port = process.env.PORT ? process.env.PORT : DEFAULT_PORT
 
+const DEFAULT_PROJECTID = "DEFAULT"
+
 app.engine('handlebars', express_handlebars.engine({
     defaultLayout: "main"
 }));
@@ -111,7 +113,42 @@ app.get("/projectMetaData.json", getProjectMetaData)
  */
 app.get("/project/:projectID.plan", function (req, res, next)
 {
-    res.set({ 'content-type': 'text/plain; charset=utf-8' }).status(200).sendFile(__dirname+`/project/${req.params.projectID}.plan`) //TODO need to detect if the file exists and 404 if not
+    let path = `${__dirname}/project/${req.params.projectID}.plan`
+
+    try
+    {
+        fs.accessSync(path)
+
+        res.set({ 'content-type': 'text/plain; charset=utf-8' }).status(200).sendFile(path)
+    }
+    catch (err)
+    {
+        next()
+    }
+})
+
+/**
+ * Serve up project thumbnails
+ */
+app.get("/project/:projectID.png", function (req, res, next) {
+
+    res.set({ 'content-type': 'image/png' }).status(200).sendFile(__dirname+`/project/${req.params.projectID}.png`, function (err) {
+        if(err && err.code === "ENOENT")
+        {
+            res.set({ 'content-type': 'image/png' }).status(200).sendFile(__dirname+`/project/${DEFAULT_PROJECTID}.png`, function (err) {
+                if(err)
+                {
+                    console.log("---- SERVER: Unable to read default thumbnail!", err)
+                    next()
+                }
+            })
+        }
+        else if(err)
+        {
+            console.log("---- SERVER: Something strange went wrong while serving a thumbnail", err)
+            next()
+        }
+    })
 })
 
 //START In class
@@ -216,6 +253,35 @@ app.post("/projects/addProjectPlan", function (req, res, next) {
         let planContent = req.body.plan
 
         fs.writeFile(`./project/${projectID}.plan`, planContent, function (err) {
+            if(err)
+            {
+                res.status(500).send("SERVER: Something went wrong. It's not you, it's me.")
+                console.log(err)
+            }
+            else
+            {
+                res.status(200).send(projectID)
+            }
+        })
+    }
+    else
+    {
+        console.log(`-- SERVER: Got an invalid POST request, req.body: ${req.body}`)
+        res.status(400).send("Missing/invalid POST request, need a title and description")
+    }
+})
+
+/**
+ * Handle a PUT for new project thumbnail
+ */
+app.post("/projects/addProjectThumbnail", function (req, res, next) {
+
+    if(req.body && req.body["thumbnail"] && req.body["projectID"])
+    {
+        let projectID = req.body.projectID
+        let thumbnail = req.body.thumbnail
+
+        fs.writeFile(`./project/${projectID}.png`, thumbnail, undefined, function (err) {
             if(err)
             {
                 res.status(500).send("SERVER: Something went wrong. It's not you, it's me.")
