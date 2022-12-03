@@ -13,12 +13,16 @@ html {
 
 /*riceCAD title*/
 #BANNER_TO_REFACTOR {
-    padding: 5px;
-    font-style: normal;
+    padding: 15px;
     background-color: rgb(186, 243, 224);
     margin-bottom: 10px;
 }
-
+/*riceCAD title text*/
+#BANNER_TO_REFACTOR a {
+    font-size: 1.25rem;
+    text-decoration: none;
+    color: black;
+}
 #versionNumber {
     font-size: 16px;
     font-style: italic;

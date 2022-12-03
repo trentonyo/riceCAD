@@ -1,39 +1,41 @@
 <body>
-<div id="mySidenav" class="sidenav">
-    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-    <a href="#">Home</a>
-    <a href="#">Posts</a>
-    <a href="#">Tutorial</a>
-    <a href="#">About</a>
-</div>
+    <section class="main-section">
+        <div id="mySidenav" class="sidenav">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <a href="#">Home</a>
+            <a href="#">Posts</a>
+            <a href="#">Tutorial</a>
+            <a href="#">About</a>
+        </div>
 
-    <!-- Filter  -->
-    <div class="filter-container">
-        <h2>Filter Settings</h2>
-        <form action="/action_page.php">
-            <label for="ftag">Tags</label>
-            <input type="text" id="ftag"  placeholder="add tags...">
+        <!-- Filter  -->
+        <div class="filter-container">
+            <h2>Filter Settings</h2>
+            <form action="/action_page.php">
+                <label for="ftag">Tags</label>
+                <input type="text" id="ftag"  placeholder="add tags...">
 
-            <label for="fname">Name</label>
-            <input type="text" id="fname"  placeholder="add Name...">
+                <label for="fname">Name</label>
+                <input type="text" id="fname"  placeholder="add Name...">
 
-            <label for="fauthor">Author</label>
-            <input type="text" id="fauthor"  placeholder="add Author...">
+                <label for="fauthor">Author</label>
+                <input type="text" id="fauthor"  placeholder="add Author...">
 
-            <input type="submit" value="Submit">
-        </form>
-    </div>
+                <input type="submit" value="Submit">
+            </form>
+        </div>
 
-    <!-- Posts -->
+        <!-- Posts -->
 
-    <section id="posts">
+        <section id="posts">
 
-    {{#each projects}}
-        {{> projectCard}}
-    {{/each}}
+            {{#each projects}}
+                {{> projectCard}}
+            {{/each}}
+
+        </section>
 
     </section>
-
 </body>
 
 <footer>

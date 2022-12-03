@@ -7,6 +7,9 @@ and open the template in the editor.
     Created on : Nov 20, 2022, 2:56:00 PM
     Author(s)     : Cameron, Kroeker
 */
+* {
+    box-sizing: border-box;
+}
 img{
   object-fit:contain;
 
@@ -20,7 +23,7 @@ img{
 
 body{
     margin: 0px;
-    font-family: 'Roboto';
+    font-family: 'VT323', monospace;
     display: inline;
     height: auto;
     width: auto;
@@ -42,7 +45,8 @@ header{
 }
 .btn{
     float: right;
-    padding: 25px;
+    margin-top: -5px;
+    /*padding: 25px;*/
     font-size: 40px;
     background-color: rgba(148, 255, 219, 0);
     border: 0px;
@@ -69,10 +73,10 @@ input[type=text] {
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
-  }
+}
   
-  /* Style the submit button */
-  input[type=submit] {
+/* Style the submit button */
+input[type=submit] {
     width: 100%;
     background-color: #04AA6D;
     color: white;
@@ -81,50 +85,63 @@ input[type=text] {
     border: none;
     border-radius: 4px;
     cursor: pointer;
-  }
-  
-  /* Add a background color to the submit button on mouse-over */
-  input[type=submit]:hover {
-    background-color: #029b63;
-  }
-
-.filter-container {
-  display: inline-block;
-  min-width: 200px;
-  max-width: 200px;
-  margin: 20px 10px auto 10px;
-  padding: 20px;
-  border-radius: 3px;
-  
-  background-color: rgb(239, 243, 231);
 }
 
-#posts{
+/* Add a background color to the submit button on mouse-over */
+input[type=submit]:hover {
+    background-color: #029b63;
+}
 
-    margin: 10px;
+.main-section {
     display: flex;
+}
+
+.filter-container {
+    /*position: relative;*/
+    display: inline-block;
+    min-width: 200px;
+    max-width: 250px;
+    width: 250px;
+    border-radius: 3px;
+    margin: 10px 0px 0px 10px;
+    padding: 0 20px 20px 10px;
+    background-color: rgb(239, 243, 231);
+}
+
+
+#posts{
+    margin: 10px 0px 0px 5px;
+    display: inline-flex;
     flex-direction: row;
+    justify-content: space-evenly;
     align-items: center;
     flex-wrap: wrap;
     
     width: 80%;
-    height: auto;
+    height: 350px;
     
     scroll-behavior: auto;
   
-    position: relative;
     left: 265px;
     bottom: 380px;
 }
 
 .post{
-  background-color: rgb(218, 218, 218);
-  margin: 10px 10px 0px 10px;
-  display: inline-block;
-  width: 420px;
-  height: 350px;
-  border: 3px solid rgb(0, 0, 0);
-  border-radius: 1%;
+    background-color: rgb(218, 218, 218);
+    display: inline-block;
+    width: 420px;
+    height: 350px;
+    border: 3px solid rgb(0, 0, 0);
+    border-radius: 1%;
+    margin-bottom: 20px;
+}
+
+/*adds an empty post if there is uneven number of posts*/
+#posts::after {
+    content:"";
+    width: 420px;
+    height: 350px;
+    margin-bottom: 15px;
 }
 
 .post-contents{
@@ -160,34 +177,34 @@ input[type=text] {
     overflow-x: hidden; /* Disable horizontal scroll */
     padding-top: 60px; /* Place content 60px from the top */
     transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
-  }
+}
   
-  /* The navigation menu links */
-  .sidenav a {
-    padding: 8px 8px 8px 32px;
-    text-decoration: none;
-    font-size: 25px;
-    color: #818181;
-    display: block;
-    transition: 0.3s;
-  }
+/* The navigation menu links */
+.sidenav a {
+padding: 8px 8px 8px 32px;
+text-decoration: none;
+font-size: 25px;
+color: #818181;
+display: block;
+transition: 0.3s;
+}
   
-  /* When you mouse over the navigation links, change their color */
-  .sidenav a:hover {
-    color: #f1f1f1;
-  }
+/* When you mouse over the navigation links, change their color */
+.sidenav a:hover {
+color: #f1f1f1;
+}
   
-  /* Position and style the close button (top right corner) */
-  .sidenav .closebtn {
-    position: absolute;
-    top: 0;
-    right: 25px;
-    font-size: 36px;
-    margin-left: 50px;
-  }
+/* Position and style the close button (top right corner) */
+.sidenav .closebtn {
+position: absolute;
+top: 0;
+right: 25px;
+font-size: 36px;
+margin-left: 50px;
+}
   
-  /* Style page content - use this if you want to push the page content to the right when you open the side navigation */
-  #main {
-    transition: margin-left .5s;
-    padding: 20px;
-  }
+/* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+#main {
+transition: margin-left .5s;
+padding: 20px;
+}
