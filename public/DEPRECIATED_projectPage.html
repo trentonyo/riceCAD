@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<!--
+
+-->
+<html>
+    <head>
+        <title>riceCAD</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="Dev.css">
+        <script src="sidebar.js" charset="utf-8" defer></script>
+
+        <link rel="shortcut icon" type= "image.png" href="https://icons8.com/icon/G7rTPtUcWVQu/build">
+        <!-- new font -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        
+    </head>
+    
+    <body>
+        <div id="mySidenav" class="sidenav">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <a href="#">Home</a>
+            <a href="#">Posts</a>
+            <a href="#">Tutorial</a>
+            <a href="#">About</a>
+          </div>
+
+        <div>
+         <!-- Header -->
+        <header>
+            <div id="BANNER_TO_REFACTOR">
+                <h1 id="Title">riceCAD online <span id="versionNumber">v0.0.0</span></h1>
+    
+                <button class="btn" onclick="openNav()"><i class="fa fa-bars"></i></button>
+                <button class="btn"><i class="fa fa-home"></i></button>
+
+            </div>
+        </header>
+
+     
+
+        <!-- Filter  -->
+        <div class="filter-container">
+            <h2>Filter Settings</h2>
+            <form action="/action_page.php">
+                <label for="ftag">Tags</label>
+                <input type="text" id="ftag"  placeholder="add tags...">
+              
+                <label for="fname">Name</label>
+                <input type="text" id="fname"  placeholder="add Name...">
+              
+                <label for="fauthor">Author</label>
+                <input type="text" id="fauthor"  placeholder="add Author...">
+              
+                <input type="submit" value="Submit">
+              </form>
+        </div>
+        
+        <!-- Posts -->
+
+        <section id="posts">
+
+          <div class="post">
+            <div class="post-contents">
+              <a href="#" class="post-title">Title</a>
+              <div class="post-image-container">
+                <img src="https://pm1.narvii.com/6118/31349262516efbc07a0286b81c1d5863dd95d220_hq.jpg" alt="post-image">
+              </div>
+              <div class="post-info-container">
+                 <span class="build-num">Built 10 times</span> 
+              </div>
+            </div>
+          </div>
+
+          <div class="post">
+            <div class="post-contents">
+              <a href="#" class="post-title">Title</a>
+              <div class="post-image-container">
+                <img src="https://i.pinimg.com/736x/4d/86/9a/4d869aebc941c0b580d4dd555c76790a--minecraft-small-house-easy-minecraft-houses.jpg" alt="post-image">
+              </div>
+              <div class="post-info-container">
+                 <span class="build-num">Built 17 times</span> 
+              </div>
+            </div>
+          </div>
+
+          <div class="post">
+            <div class="post-contents">
+              <a href="#" class="post-title">Title</a>
+              <div class="post-image-container">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSX3gYy9Rjsy3FZTrKDLJ5nkQaFHS3PxaKb5g&usqp=CAU" alt="post-image">
+              </div>
+              <div class="post-info-container">
+                 <span class="build-num">Built 10 times</span> 
+              </div>
+            </div>
+          </div>
+
+          <div class="post">
+            <div class="post-contents">
+              <a href="#" class="post-title">Title</a>
+              <div class="post-image-container">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSX3gYy9Rjsy3FZTrKDLJ5nkQaFHS3PxaKb5g&usqp=CAU" alt="post-image">
+              </div>
+              <div class="post-info-container">
+                 <span class="build-num">Built 10 times</span> 
+              </div>
+            </div>
+          </div>
+
+          <div class="post">
+            <div class="post-contents">
+              <a href="#" class="post-title">Title</a>
+              <div class="post-image-container">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSX3gYy9Rjsy3FZTrKDLJ5nkQaFHS3PxaKb5g&usqp=CAU" alt="post-image">
+              </div>
+              <div class="post-info-container">
+                 <span class="build-num">Built 10 times</span> 
+              </div>
+            </div>
+          </div>
+
+        </section>
+
+    </body>
+
+    <footer>
+
+    </footer>
+</html>

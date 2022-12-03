@@ -1,62 +1,202 @@
 {
-  "xas32" : {
-    "title" : "A Test Title",
-    "description" : "This is a test project, it's not very interesting. It's more of a proof of concept than anything, really.",
-    "tags" : [
+  "xas32": {
+    "title": "A Test Title",
+    "description": "This is a test project, it's not very interesting. It's more of a proof of concept than anything, really.",
+    "tags": [
       {
-        "background-color" : "red",
-        "text-color" : "white",
-        "tag" : "Prototype"
+        "background-color": "red",
+        "text-color": "white",
+        "tag": "Prototype"
       },
       {
-        "background-color" : "brown",
-        "text-color" : "white",
-        "tag" : "Nordic"
+        "background-color": "brown",
+        "text-color": "white",
+        "tag": "Nordic"
       }
     ],
-    "downloads" : 0,
-    "palette" : {
-      "background": {"color": "#92eff5", "glass":  false},
-      "workingplane": {"color": "#eeffee", "glass":  false},
-      "1": {"color": "#f9f926", "glass":  false},
-      "2": {"color": "#f9ee26", "glass":  false},
-      "3": {"color": "#eef926", "glass":  true},
-      "4": {"color": "#f9abcd", "glass":  false},
-      "5": {"color": "#faa926", "glass":  false},
-      "6": {"color": "#f9faaa", "glass":  false},
-      "7": {"color": "#b78926", "glass":  false},
-      "8": {"color": "#59f786", "glass":  false},
-      "9": {"color": "#a9f978", "glass":  false}
+    "downloads": 0,
+    "palette": {
+      "1": {
+        "color": "#f9f926",
+        "glass": false
+      },
+      "2": {
+        "color": "#f9ee26",
+        "glass": false
+      },
+      "3": {
+        "color": "#eef926",
+        "glass": true
+      },
+      "4": {
+        "color": "#f9abcd",
+        "glass": false
+      },
+      "5": {
+        "color": "#faa926",
+        "glass": false
+      },
+      "6": {
+        "color": "#f9faaa",
+        "glass": false
+      },
+      "7": {
+        "color": "#b78926",
+        "glass": false
+      },
+      "8": {
+        "color": "#59f786",
+        "glass": false
+      },
+      "9": {
+        "color": "#a9f978",
+        "glass": false
+      },
+      "background": {
+        "color": "#92eff5",
+        "glass": false,
+        "viewport": true
+      },
+      "workingplane": {
+        "color": "#eeffee",
+        "glass": false,
+        "viewport": true
+      }
     }
   },
-  "3ba56" : {
-    "title" : "Another Test Title",
-    "description" : "This is also a test project, maybe you've seen the other one?",
-    "tags" : [
+  "3ba56": {
+    "title": "Another Test Title",
+    "description": "This is also a test project, maybe you've seen the other one?",
+    "tags": [
       {
-        "background-color" : "red",
-        "text-color" : "white",
-        "tag" : "Prototype"
+        "background-color": "red",
+        "text-color": "white",
+        "tag": "Prototype"
       },
       {
-        "background-color" : "blue",
-        "text-color" : "white",
-        "tag" : "Futuristic"
+        "background-color": "blue",
+        "text-color": "white",
+        "tag": "Futuristic"
       }
     ],
-    "downloads" : 0,
-    "palette" : {
-      "background": {"color": "#92eff5", "glass":  false},
-      "workingplane": {"color": "#f0f0f0", "glass":  false},
-      "1": {"color": "#eef926", "glass":  false},
-      "2": {"color": "#f9ee26", "glass":  false},
-      "3": {"color": "#eef926", "glass":  true},
-      "4": {"color": "#59f786", "glass":  false},
-      "5": {"color": "#faa926", "glass":  false},
-      "6": {"color": "#f9abcd", "glass":  true},
-      "7": {"color": "#b78926", "glass":  false},
-      "8": {"color": "#f9faaa", "glass":  false},
-      "9": {"color": "#a9f978", "glass":  false}
+    "downloads": 0,
+    "palette": {
+      "1": {
+        "color": "#eef926",
+        "glass": false
+      },
+      "2": {
+        "color": "#f9ee26",
+        "glass": false
+      },
+      "3": {
+        "color": "#eef926",
+        "glass": true
+      },
+      "4": {
+        "color": "#59f786",
+        "glass": false
+      },
+      "5": {
+        "color": "#faa926",
+        "glass": false
+      },
+      "6": {
+        "color": "#f9abcd",
+        "glass": true
+      },
+      "7": {
+        "color": "#b78926",
+        "glass": false
+      },
+      "8": {
+        "color": "#f9faaa",
+        "glass": false
+      },
+      "9": {
+        "color": "#a9f978",
+        "glass": false
+      },
+      "background": {
+        "color": "#92eff5",
+        "glass": false,
+        "viewport": true
+      },
+      "workingplane": {
+        "color": "#f0f0f0",
+        "glass": false,
+        "viewport": true
+      }
+    }
+  },
+  "jas0sa": {
+    "title": "Tags all of them",
+    "description": "An interesting description",
+    "tags": [
+      {
+        "background-color": "red",
+        "text-color": "white",
+        "tag": "Prototype"
+      },
+      {
+        "background-color": "blue",
+        "text-color": "white",
+        "tag": "Futuristic"
+      },
+      {
+        "background-color": "brown",
+        "text-color": "white",
+        "tag": "Nordic"
+      }
+    ],
+    "downloads": "",
+    "palette": {
+      "1": {
+        "color": "#1b1b20",
+        "glass": false
+      },
+      "2": {
+        "color": "#ae2c25",
+        "glass": false
+      },
+      "3": {
+        "color": "#5d7b15",
+        "glass": false
+      },
+      "4": {
+        "color": "#815332",
+        "glass": false
+      },
+      "5": {
+        "color": "#8832b6",
+        "glass": false
+      },
+      "6": {
+        "color": "#159a9a",
+        "glass": false
+      },
+      "7": {
+        "color": "#9d9d95",
+        "glass": false
+      },
+      "8": {
+        "color": "#464e50",
+        "glass": false
+      },
+      "9": {
+        "color": "#f18ba9",
+        "glass": false
+      },
+      "background": {
+        "color": "#91eef4",
+        "glass": false,
+        "viewport": true
+      },
+      "workingplane": {
+        "color": "#edfeed",
+        "glass": false,
+        "viewport": true
+      }
     }
   }
 }

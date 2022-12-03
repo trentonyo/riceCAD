@@ -1,13 +1,14 @@
 {
     "name": "riceCAD",
-    "version": "0.3.9",
+    "version": "0.5.0",
     "main": "server.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "build_label": "handlebars views/partials/label.handlebars -f public/labelTemplate.js",
         "build_materialCard": "handlebars views/partials/materialCard.handlebars -f public/materialCardTemplate.js",
         "build_projectCard": "handlebars views/partials/projectCard.handlebars -f public/projectCardTemplate.js",
-        "prestart": "npm run build_label && npm run build_materialCard && npm run build_projectCard"
+        "prestart": "npm run build_label && npm run build_materialCard && npm run build_projectCard",
+        "dev": "nodemon server.js"
     },
     "keywords": [
         "util",
@@ -19,11 +20,16 @@
     "author": "trentonyo",
     "contributors": [],
     "dependencies": {
+        "axios": "^1.2.0",
+        "body-parser": "^1.20.1",
         "express": "^4.18.2",
         "express-handlebars": "^6.0.6",
         "filesaver": "^0.0.13",
         "handlebars": "^4.7.7",
         "playcanvas": "^1.58.0",
         "vanilla-caret-js": "^1.1.0"
+    },
+    "devDependencies": {
+        "nodemon": "^2.0.20"
     }
 }

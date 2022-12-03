@@ -10,10 +10,15 @@ and open the template in the editor.
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/main.css">
+    <link rel="stylesheet" href="/Dev.css"> <!--TODO combine-->
+
+    <link rel="shortcut icon" type= "image.png" href="https://icons8.com/icon/G7rTPtUcWVQu/build">
+    <script src="https://cdn.jsdelivr.net/npm/vanilla-caret-js@1.0.1/dist/VanillaCaret.min.js"></script>
 
     <!-- "paths are handled by server, no changes" -->
-    <script src="https://cdn.jsdelivr.net/npm/vanilla-caret-js@1.0.1/dist/VanillaCaret.min.js"></script>
+    <script src="/sidebar.js" charset="utf-8" defer></script>
     <script src="/playcanvas.js" defer></script>
+    <script src="/axios.js" defer></script>
     <script src="/materials.js" defer></script>
     <script src="/riceCAD.js" defer></script>
 
@@ -21,10 +26,24 @@ and open the template in the editor.
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 </head>
 <body>
 <div id="BANNER_TO_REFACTOR">
-    <h1>riceCAD online <span id="versionNumber">v{{toolVersion}}</span></h1>
+    <a href="../"><h1>riceCAD online <span id="versionNumber">v{{toolVersion}}</span></h1></a>
+
+    <button class="btn" onclick="openNav()"><i class="fa fa-bars"></i></button>
+    <button class="btn"><i class="fa fa-home"></i></button>
+
+</div>
+
+<div id="mySidenav" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <a href="../">Home</a>
+    <a href="../edit">Editor</a>
+    <a href="#">Tutorial</a>
+    <a href="#">About</a>
 </div>
 
 {{{body}}}

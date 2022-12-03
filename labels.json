@@ -1,0 +1,17 @@
+[
+  {
+    "background-color": "red",
+    "text-color": "white",
+    "tag": "Prototype"
+  },
+  {
+    "background-color": "blue",
+    "text-color": "white",
+    "tag": "Futuristic"
+  },
+  {
+    "background-color": "brown",
+    "text-color": "white",
+    "tag": "Nordic"
+  }
+]

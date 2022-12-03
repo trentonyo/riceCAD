@@ -1,19 +1,30 @@
 const express = require("express")
-const handlebars = require('handlebars');
-const express_handlebars = require('express-handlebars');
+const handlebars = require('handlebars')
+const express_handlebars = require('express-handlebars')
+const bodyParser = require("body-parser")
+const axios = require("axios")
 const fs = require("fs")
 
-const packageJSON = require('./package.json')
+const packageJSON = require("./package.json")
+const labelsJSON = require("./labels.json")
+const tagPropertiesJSON = require("./tagProperties.json")
 
 let app = express()
 
 const DEFAULT_PORT = 8080
 let port = process.env.PORT ? process.env.PORT : DEFAULT_PORT
 
+const DEFAULT_PROJECTID = "DEFAULT"
+
 app.engine('handlebars', express_handlebars.engine({
     defaultLayout: "main"
 }));
 app.set('view engine', 'handlebars');
+
+/**
+ * Middleware to parse POST body
+ */
+app.use(express.json())
 
 /**
  * Log request information at the top of any request
@@ -32,7 +43,6 @@ app.use(express.static("project/"))
 app.use(express.static("public/"))
 app.use(express.static("lib/"))
 
-let projectMetaData
 let projectMetaDataJSON
 
 //// BACK-END
@@ -46,11 +56,19 @@ app.get("/playcanvas.js", function (req, res, next)
 })
 
 /**
+ * Serve axios source without giving out internal path
+ */
+app.get("/axios.js", function (req, res, next)
+{
+    res.status(200).sendFile(__dirname+"/node_modules/axios/dist/axios.js")
+})
+
+/**
  * Handle JSON metadata requests
  */
 let getProjectMetaData = function(req, res, next)
 {
-    if(!projectMetaData)
+    if(!projectMetaDataJSON)
     {
         fs.readFile("./projectMetaData.json", "utf8", function (err, data) {
             console.log("FILESYSTEM: First metadata read")
@@ -63,12 +81,11 @@ let getProjectMetaData = function(req, res, next)
             {
                 try
                 {
-                    projectMetaData = data
                     projectMetaDataJSON = JSON.parse(data)
 
                     if(res)
                     {
-                        res.status(200).send(projectMetaData)
+                        res.status(200).send(JSON.stringify(projectMetaDataJSON))
                     }
                 }
                 catch (err)
@@ -83,7 +100,7 @@ let getProjectMetaData = function(req, res, next)
     {
         if(res)
         {
-            res.status(200).send(projectMetaData)
+            res.status(200).send(JSON.stringify(projectMetaDataJSON))
         }
     }
 }
@@ -91,21 +108,341 @@ let getProjectMetaData = function(req, res, next)
 getProjectMetaData() //Initial load
 app.get("/projectMetaData.json", getProjectMetaData)
 
+/**
+ * Serve up project plans
+ */
+app.get("/project/:projectID.plan", function (req, res, next)
+{
+    let path = `${__dirname}/project/${req.params.projectID}.plan`
+
+    try
+    {
+        fs.accessSync(path)
+
+        res.set({ 'content-type': 'text/plain; charset=utf-8' }).status(200).sendFile(path)
+    }
+    catch (err)
+    {
+        next()
+    }
+})
+
+/**
+ * Serve up project thumbnails
+ */
+app.get("/project/:projectID.png", function (req, res, next) {
+
+    res.set({ 'content-type': 'image/png' }).status(200).sendFile(__dirname+`/project/${req.params.projectID}.png`, function (err) {
+        if(err && err.code === "ENOENT")
+        {
+            res.set({ 'content-type': 'image/png' }).status(200).sendFile(__dirname+`/project/${DEFAULT_PROJECTID}.png`, function (err) {
+                if(err)
+                {
+                    console.log("---- SERVER: Unable to read default thumbnail!", err)
+                    next()
+                }
+            })
+        }
+        else if(err)
+        {
+            console.log("---- SERVER: Something strange went wrong while serving a thumbnail", err)
+            next()
+        }
+    })
+})
+
+//START In class
+/**
+ * Generate new project ID
+ */
+let generateNewProjectID = function (title)
+{
+    let salt = 0
+    let newID = ""
+
+    if(title.length === 0)
+    {
+        title = "DEFAULT"
+    }
+
+    while(!(newID in projectMetaDataJSON))
+    {
+        /**
+         * Returns a color from a string's hash
+         * based on esmiralha's StackOverflow response (https://stackoverflow.com/a/7616484)
+         */
+        let hash = 0
+        let chr
+
+        for(let i = 1; i <= 3; i++)
+        {
+            for (let j = (title.length / 3) * (i - 1); j < (title.length / 3) * i; j++)
+            {
+                chr = title.charCodeAt(j)
+                hash = ((hash << 5) - hash) + chr + salt
+                hash |= 0 // Convert to 32bit integer
+            }
+            let next = "00" + Math.abs(hash % (36 * 36)).toString(36)
+            next = next.slice(-2)
+
+            newID = `${newID}${next}`
+        }
+
+        if(!(newID in projectMetaDataJSON))
+        {
+            projectMetaDataJSON[newID] = {
+                "title" : title
+            }
+        }
+        else
+        {
+            newID = ""
+            salt++
+        }
+    }
+
+    return newID
+}
+
+/**
+ * Handle a POST for new project metadata
+ */
+app.post("/projects/addProjectMetaData", function (req, res, next) {
+
+    if(req.body && req.body["title"] && req.body["description"])
+    {
+        let projectID = generateNewProjectID(req.body["title"])
+
+        let project = {
+            title: req.body.title,
+            description: req.body.description,
+            tags: [],
+            downloads: req.body.downloads,
+            palette: req.body.palette
+        }
+
+        for (let i = 0; i < req.body.tags.length; i++) {
+            let currentTag = req.body.tags[i]
+
+            project.tags.push({
+                "background-color" : tagPropertiesJSON[currentTag]["background-color"],
+                "text-color" : tagPropertiesJSON[currentTag]["text-color"],
+                "tag" : currentTag
+            })
+        }
+
+        projectMetaDataJSON[projectID] = project
+
+        fs.writeFile("./projectMetaData.json", JSON.stringify(projectMetaDataJSON, null, 2), function (err) {
+            if(err)
+            {
+                res.status(500).send("SERVER: Something went wrong. It's not you, it's me.")
+                console.log(err)
+            }
+            else
+            {
+                res.status(200).send(projectID)
+            }
+        })
+    }
+    else
+    {
+        console.log(`-- SERVER: Got an invalid POST request, req.body: ${req.body}`)
+        res.status(400).send("Missing/invalid POST request, need a title and description")
+    }
+})
+
+/**
+ * Handle a POST for new project plan
+ */
+app.post("/projects/addProjectPlan", function (req, res, next) {
+
+    if(req.body && req.body["plan"] && req.body["projectID"])
+    {
+        let projectID = req.body.projectID
+        let planContent = req.body.plan
+
+        fs.writeFile(`./project/${projectID}.plan`, planContent, function (err) {
+            if(err)
+            {
+                res.status(500).send("SERVER: Something went wrong. It's not you, it's me.")
+                console.log(err)
+            }
+            else
+            {
+                res.status(200).send(projectID)
+            }
+        })
+    }
+    else
+    {
+        console.log(`-- SERVER: Got an invalid POST request, req.body: ${req.body}`)
+        res.status(400).send("Missing/invalid POST request, need a title and description")
+    }
+})
+
+/**
+ * Handle a PUT for new project thumbnail
+ */
+app.post("/projects/addProjectThumbnail", function (req, res, next) {
+
+    if(req.body && req.body["thumbnail"] && req.body["projectID"])
+    {
+        let projectID = req.body.projectID
+        let thumbnail = req.body.thumbnail
+
+        fs.writeFile(`./project/${projectID}.png`, thumbnail, undefined, function (err) {
+            if(err)
+            {
+                res.status(500).send("SERVER: Something went wrong. It's not you, it's me.")
+                console.log(err)
+            }
+            else
+            {
+                res.status(200).send(projectID)
+            }
+        })
+    }
+    else
+    {
+        console.log(`-- SERVER: Got an invalid POST request, req.body: ${req.body}`)
+        res.status(400).send("Missing/invalid POST request, need a title and description")
+    }
+})
+
+//END In class
+
 //// FRONT-END
 
 /**
  * Render tool page with handlebars
  */
-app.get("/edit", function (req, res, next) {
+let serveEditor = function(req, res, next)
+{
+    let projectID = req.params.projectID
+    let title
+    let description
+    let tags
+    let downloads
+    let palette_materials = {
+        "1" : {},
+        "2" : {},
+        "3" : {},
+        "4" : {},
+        "5" : {},
+        "6" : {},
+        "7" : {},
+        "8" : {},
+        "9" : {}
+    }
+    let palette_viewport = {
+        "background" : {},
+        "workingplane" : {}
+    }
+
+    //If a projectID is provided, but it is not in the database
+    if(projectID && !(projectID in projectMetaDataJSON))
+    {
+        console.log(`Didn't find ${projectID} in the database`)
+        next() //Kick down to a 404
+    }
+    //If a projectID is provided, and it IS in the database
+    else if(projectID && (projectID in projectMetaDataJSON))
+    {
+        console.log("Trying to open an existing project")
+        title = projectMetaDataJSON[projectID].title
+        description = projectMetaDataJSON[projectID].description
+        tags = projectMetaDataJSON[projectID].tags
+        downloads = projectMetaDataJSON[projectID].downloads
+
+        for (let i = 1; i <= 9; i++)
+        {
+            palette_materials[i.toString()] = projectMetaDataJSON[projectID].palette[i]
+        }
+        palette_viewport["background"] = projectMetaDataJSON[projectID].palette["background"]
+        palette_viewport["workingplane"] = projectMetaDataJSON[projectID].palette["workingplane"]
+    }
+    //If no projectID is provided
+    else //Default values (new project)
+    {
+        projectID = "DEFAULT"
+        title = "Untitled Project"
+        description = "Enter a nice description"
+        tags = []
+        downloads = 0
+        palette_materials = {
+            "1": {
+                "color": "#1c1c21",
+                "glass": false
+            },
+            "2": {
+                "color": "#af2d26",
+                "glass": false
+            },
+            "3": {
+                "color": "#5e7c16",
+                "glass": false
+            },
+            "4": {
+                "color": "#825433",
+                "glass": false
+            },
+            "5": {
+                "color": "#8933b7",
+                "glass": false
+            },
+            "6": {
+                "color": "#169b9b",
+                "glass": false
+            },
+            "7": {
+                "color": "#9e9e96",
+                "glass": false
+            },
+            "8": {
+                "color": "#474f51",
+                "glass": false
+            },
+            "9": {
+                "color": "#f28caa",
+                "glass": false
+            }
+        }
+        palette_viewport = {
+            "background": {
+                "color": "#92eff5",
+                "glass": false,
+                "viewport": true
+            },
+            "workingplane": {
+                "color": "#eeffee",
+                "glass": false,
+                "viewport": true
+            }
+        }
+    }
+
     res.status(200).render("riceCADEditor", {
-        "projectMetaData" : projectMetaData,
+        "projectID" : projectID,
+        "title" : title,
+        "description" : description,
+        "palette_materials" : palette_materials,
+        "palette_viewport" : palette_viewport,
+        "newLabels" : labelsJSON,
+        "projectMetaData" : JSON.stringify(projectMetaDataJSON),
         "toolVersion" : packageJSON.version
     })
-})
+}
+
+app.get("/edit/:projectID", function (req, res, next) { serveEditor(req, res, next) })
+app.get("/edit", function (req, res, next) { serveEditor(req, res, next) })
 
 let serveHomepage = function (req, res, next)
 {
-    res.status(200).sendFile(__dirname+"/public/projectPage.html")
+    res.status(200).render("homePage", {
+        "projects" : projectMetaDataJSON,
+        "toolVersion" : packageJSON.version
+    })
 }
 
 /**
@@ -122,12 +459,12 @@ app.get("/projects/:projectID", function (req, res, next)
 {
     let projectID = req.params.projectID
 
-    if(projectMetaData)
+    console.log("----SERVER: Serving project page", projectID)
+
+    if(projectMetaDataJSON)
     {
         if(projectMetaDataJSON[projectID])
         {
-            console.log(projectMetaDataJSON[projectID])
-
             res.status(200).render("projectPage", {
                 "projectID" : projectID,
                 "title" : projectMetaDataJSON[projectID].title,
@@ -139,6 +476,7 @@ app.get("/projects/:projectID", function (req, res, next)
         }
         else
         {
+            console.log(`----SERVER: Project ID ${projectID} not found`)
             next()
         }
     }
