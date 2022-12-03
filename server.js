@@ -167,7 +167,10 @@ let generateNewProjectID = function (title)
     return newID
 }
 
-app.post("/projects/:projectID/addProject", function (req, res, next) {
+/**
+ * Handle a POST for new project metadata
+ */
+app.post("/projects/addProjectMetaData", function (req, res, next) {
 
     if(req.body && req.body["title"] && req.body["description"])
     {
@@ -186,12 +189,41 @@ app.post("/projects/:projectID/addProject", function (req, res, next) {
         fs.writeFile("./projectMetaData.json", JSON.stringify(projectMetaDataJSON, null, 2), function (err) {
             if(err)
             {
-                res.status(500).send("Something went wrong, sry")
+                res.status(500).send("SERVER: Something went wrong. It's not you, it's me.")
                 console.log(err)
             }
             else
             {
-                res.status(200).send("Added a new project")
+                res.status(200).send(projectID)
+            }
+        })
+    }
+    else
+    {
+        console.log(`-- SERVER: Got an invalid POST request, req.body: ${req.body}`)
+        res.status(400).send("Missing/invalid POST request, need a title and description")
+    }
+})
+
+/**
+ * Handle a POST for new project plan
+ */
+app.post("/projects/addProjectPlan", function (req, res, next) {
+
+    if(req.body && req.body["plan"] && req.body["projectID"])
+    {
+        let projectID = req.body.projectID
+        let planContent = req.body.plan
+
+        fs.writeFile(`./project/${projectID}.plan`, planContent, function (err) {
+            if(err)
+            {
+                res.status(500).send("SERVER: Something went wrong. It's not you, it's me.")
+                console.log(err)
+            }
+            else
+            {
+                res.status(200).send(projectID)
             }
         })
     }
