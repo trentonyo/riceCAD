@@ -189,11 +189,13 @@
       },
       "background": {
         "color": "#91eef4",
-        "glass": false
+        "glass": false,
+        "viewport": true
       },
       "workingplane": {
         "color": "#edfeed",
-        "glass": false
+        "glass": false,
+        "viewport": true
       }
     }
   }
