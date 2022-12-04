@@ -164,6 +164,10 @@ body {
     letter-spacing: 1px;
 }
 
+#download-changes-button:hover {
+    background-color: #05e58f;
+}
+
 #content_file_naming {
     font-size: 10px;
     padding-bottom: 10px;
@@ -292,6 +296,10 @@ body {
     margin-bottom: 20px;
 }
 
+#rename-project-button:hover {
+    background-color: #05e58f;
+}
+
 #projectDescription {
     margin-top: 5px;
     width: 225px;
@@ -319,11 +327,19 @@ body {
     letter-spacing: 1px;
 }
 
+#file-selector:hover {
+    background-color: #05e58f;
+}
+
 /*publish button*/
 #postProject {
     width: 90%;
     color: black;
     font-size: 20px;
+}
+
+#postProject:hover {
+    background-color: #05e58f;
 }
 
 .switch {
