@@ -1,14 +1,46 @@
 {
-  "Prototype" : {
-    "background-color": "red",
+  "Art" : {
+    "background-color": "#939",
+    "text-color": "white"
+  },
+  "Business" : {
+    "background-color": "gray",
+    "text-color": "black"
+  },
+  "Desert" : {
+    "background-color": "#cc7",
+    "text-color": "black"
+  },
+  "Fantasy" : {
+    "background-color": "#393",
     "text-color": "white"
   },
   "Futuristic" : {
-    "background-color": "blue",
+    "background-color": "#aaf",
+    "text-color": "black"
+  },
+  "House" : {
+    "background-color": "pink",
+    "text-color": "black"
+  },
+  "Ice" : {
+    "background-color": "eef",
+    "text-color": "black"
+  },
+  "Medieval" : {
+    "background-color": "#333",
     "text-color": "white"
   },
   "Nordic" : {
     "background-color": "brown",
     "text-color": "white"
+  },
+  "Prototype" : {
+    "background-color": "red",
+    "text-color": "white"
+  },
+  "Steampunk" : {
+    "background-color": "#993",
+    "text-color": "black"
   }
 }
