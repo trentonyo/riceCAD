@@ -198,5 +198,127 @@
         "viewport": true
       }
     }
+  },
+  "u81qoi": {
+    "title": "Better Colored House",
+    "description": "This is a remix of the first test project, it uses sensical colors.",
+    "tags": [
+      {
+        "background-color": "brown",
+        "text-color": "white",
+        "tag": "Nordic"
+      }
+    ],
+    "downloads": "",
+    "palette": {
+      "1": {
+        "color": "#995b22",
+        "glass": false
+      },
+      "2": {
+        "color": "#696852",
+        "glass": false
+      },
+      "3": {
+        "color": "#fcfeda",
+        "glass": true
+      },
+      "4": {
+        "color": "#f8aacc",
+        "glass": false
+      },
+      "5": {
+        "color": "#f9a825",
+        "glass": false
+      },
+      "6": {
+        "color": "#f8f9a9",
+        "glass": false
+      },
+      "7": {
+        "color": "#b68825",
+        "glass": false
+      },
+      "8": {
+        "color": "#58f685",
+        "glass": false
+      },
+      "9": {
+        "color": "#a8f877",
+        "glass": false
+      },
+      "background": {
+        "color": "#91eef4",
+        "glass": false,
+        "viewport": true
+      },
+      "workingplane": {
+        "color": "#edfeed",
+        "glass": false,
+        "viewport": true
+      }
+    },
+    "parentProjectID": "xas32"
+  },
+  "hzrli9": {
+    "title": "Nice Little House",
+    "description": "I remixed the test project!",
+    "tags": [
+      {
+        "background-color": "brown",
+        "text-color": "white",
+        "tag": "Nordic"
+      }
+    ],
+    "downloads": "0",
+    "palette": {
+      "1": {
+        "color": "#a9a996",
+        "glass": false
+      },
+      "2": {
+        "color": "#484a59",
+        "glass": false
+      },
+      "3": {
+        "color": "#aae7e6",
+        "glass": true
+      },
+      "4": {
+        "color": "#882419",
+        "glass": false
+      },
+      "5": {
+        "color": "#f9a825",
+        "glass": false
+      },
+      "6": {
+        "color": "#f8f9a9",
+        "glass": false
+      },
+      "7": {
+        "color": "#b68825",
+        "glass": false
+      },
+      "8": {
+        "color": "#58f685",
+        "glass": false
+      },
+      "9": {
+        "color": "#a8f877",
+        "glass": false
+      },
+      "background": {
+        "color": "#91eef4",
+        "glass": false,
+        "viewport": true
+      },
+      "workingplane": {
+        "color": "#edfeed",
+        "glass": false,
+        "viewport": true
+      }
+    },
+    "parentProjectID": "xas32"
   }
 }
