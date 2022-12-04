@@ -40,13 +40,8 @@ body {
     margin-top: 30px;
 }
 
-.panel {
-    border: #1c1c21 solid 1px;
-    border-radius: 10px;
-}
-
 #viewport_settings{
-    border: black solid 1px;
+    border: 1px solid black;
     border-radius: 10px;
     display:inline-block;
     font-size: 15px;
@@ -58,12 +53,8 @@ body {
 }
 
 #viewport {
-    margin-right: 50px;
+    margin-right: 40px;
     float: left;
-}
-
-#material_settings, #project_options {
-    /*flex-basis: 47.5%;*/
 }
 
 #viewport_setting {
@@ -124,9 +115,10 @@ body {
 #text_editor {
     width: auto;
     background-color: rgb(213, 213, 250);
-    border-radius: 10px;
-    margin: 0px 35px 0px 0px;
+    margin: 0px 35px 0px 10px;
     padding-right: 10px;
+    border-radius: 10px;
+    border: 1px solid black;
 }
 
 #text_editor h2 {
@@ -185,9 +177,9 @@ body {
 }
 
 #material_settings {
-    margin: 0px 40px 0px 5px;
+    margin: 0px 40px 40px 5px;
     background-color: rgb(213, 213, 250);
-    border: black solid 1px;
+    border: 1px solid black;
     border-radius: 10px;
     max-width: 700px;
 }
@@ -287,7 +279,7 @@ input[type="color"]::-webkit-color-swatch-wrapper {
 #project_options {
     margin-top: 0px;
     margin-left: 10px;
-    border: black solid 1px;
+    border: 1px solid black;
     border-radius: 10px;
     background-color: rgb(186, 243, 224);
     padding-left: 10px;
@@ -668,4 +660,12 @@ input[type=submit]:hover {
 #main {
     transition: margin-left .5s;
     padding: 20px;
+}
+
+/*tweaking the canvas*/
+canvas {
+    border: 2px solid black;
+    border-radius: 15px;
+    overflow: hidden;
+    -webkit-mask-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC); /* this fixes the overflow:hidden in Chrome/Opera */
 }
