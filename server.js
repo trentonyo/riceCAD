@@ -6,7 +6,6 @@ const axios = require("axios")
 const fs = require("fs")
 
 const packageJSON = require("./package.json")
-const labelsJSON = require("./labels.json")
 const tagPropertiesJSON = require("./tagProperties.json")
 
 let app = express()
@@ -216,7 +215,7 @@ app.post("/projects/addProjectMetaData", function (req, res, next) {
         let project = {
             title: req.body.title,
             description: req.body.description,
-            tags: [],
+            tags: {},
             downloads: req.body.downloads,
             palette: req.body.palette
         }
@@ -225,14 +224,14 @@ app.post("/projects/addProjectMetaData", function (req, res, next) {
             project["parentProjectID"] = req.body.existingProjectID
         }
 
+        console.log("Tags in the POST metadata request:", req.body.tags)
+
         for (let i = 0; i < req.body.tags.length; i++) {
             let currentTag = req.body.tags[i]
 
-            project.tags.push({
-                "background-color" : tagPropertiesJSON[currentTag]["background-color"],
-                "text-color" : tagPropertiesJSON[currentTag]["text-color"],
-                "tag" : currentTag
-            })
+            console.log("In the tags for,", currentTag)
+
+            project.tags[currentTag] = tagPropertiesJSON[currentTag]
         }
 
         projectMetaDataJSON[projectID] = project
@@ -327,7 +326,14 @@ let serveEditor = function(req, res, next)
     let projectID = req.params.projectID
     let title
     let description
-    let tags
+
+    //Adds ALL tags
+    let tags = {}
+    for (let tag in tagPropertiesJSON)
+    {
+        tags[tag] = JSON.parse(JSON.stringify(tagPropertiesJSON[tag])) //Dirty clone, sorry
+    }
+
     let downloads
     let palette_materials = {
         "1" : {},
@@ -358,8 +364,15 @@ let serveEditor = function(req, res, next)
         console.log("Trying to open an existing project")
         title = projectMetaDataJSON[projectID].title
         description = projectMetaDataJSON[projectID].description
-        tags = projectMetaDataJSON[projectID].tags
         downloads = projectMetaDataJSON[projectID].downloads
+
+        let projectTags = projectMetaDataJSON[projectID].tags
+        console.log("In serving the editor, project tags:", projectTags)
+
+        for (let currentTag in projectTags)
+        {
+            tags[currentTag]["checked"] = true
+        }
 
         for (let i = 1; i <= 9; i++)
         {
@@ -379,7 +392,6 @@ let serveEditor = function(req, res, next)
         projectID = "DEFAULT"
         title = "Untitled Project"
         description = "Enter a nice description"
-        tags = []
         downloads = 0
         palette_materials = {
             "1": {
@@ -440,7 +452,7 @@ let serveEditor = function(req, res, next)
         "downloads" : downloads,
         "palette_materials" : palette_materials,
         "palette_viewport" : palette_viewport,
-        "newLabels" : labelsJSON, /*Handle the labels such that the appropriate ones are checked*/
+        "tags" : tags,
         "projectMetaData" : JSON.stringify(projectMetaDataJSON),
         "toolVersion" : packageJSON.version
     }
