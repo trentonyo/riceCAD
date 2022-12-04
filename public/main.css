@@ -426,3 +426,14 @@ canvas {
 .viewport_label{
     width: 100%;
 }
+
+.success {
+    color: #0a1800;
+    border: #0a1800 1px;
+    background-color: rgb(200, 236, 171);
+}
+.failure {
+    color: #180000;
+    border: #180000 1px;
+    background-color: rgb(211, 115, 115);
+}
