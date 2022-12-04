@@ -37,6 +37,7 @@ body {
     flex-wrap: wrap;
     justify-content: flex-start;
     align-items: flex-start;
+    margin-top: 30px;
 }
 
 .panel {
@@ -49,13 +50,16 @@ body {
     border-radius: 10px;
     display:inline-block;
     font-size: 15px;
-    margin-left: 5px;
-    margin-right: 10px;
+    margin-left: 10px;
+    margin-right: 50px;
     background-color: rgb(186, 243, 224);
     padding-bottom: 5px;
+    margin-bottom: 40px;
 }
+
 #viewport {
-    /*flex-basis: 60%;*/
+    margin-right: 50px;
+    float: left;
 }
 
 #material_settings, #project_options {
@@ -128,7 +132,7 @@ body {
     width: 250px;
     background-color: rgb(213, 213, 250);
     border-radius: 10px;
-    margin: 0px 0px 0px 10px
+    margin: 0px 0px 0px 0px;
 }
 
 #text_editor h2 {
@@ -146,7 +150,7 @@ body {
 }
 
 #download-changes-button {
-    width: 60%;
+    width: 70%;
     padding: 14px 20px;
     display: block;
     margin: 0px 0px 10px 10px;
@@ -157,6 +161,7 @@ body {
     cursor: pointer;
     font-family: inherit;
     font-size: 15px;
+    letter-spacing: 1px;
 }
 
 #content_file_naming {
@@ -178,10 +183,11 @@ body {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    margin-bottom: 20px;
 }
 
 #material_settings {
-    margin: 10px 5px 0px 5px;
+    margin: 0px 40px 0px 5px;
     background-color: rgb(213, 213, 250);
     border: black solid 1px;
     border-radius: 10px;
@@ -193,19 +199,14 @@ body {
     margin-left: 20px;
 }
 
-.material-colorpicker {
-    display: flex;
-    justify-content: space-evenly;
-    width: 90%;
-    height: 60px;
-}
 .material-settings-card {
     min-width: 180px;
     max-width: 180px;
 
     flex-basis: 30%;
+    margin-top: 20px;
 }
-.material-settings-card>div { margin: 5px}
+/*.material-settings-card>div { margin: 5px}*/
 .material-settings-card-label {
     width: 30px;
     height: 30px;
@@ -247,17 +248,82 @@ body {
     justify-content: center;
 }
 
+.material-colorpicker {
+    display: flex;
+    justify-content: space-evenly;
+    width: 90%;
+    height: 60px;
+}
+
 #project_options {
-    margin-top: 10px;
+    margin-top: 0px;
     margin-left: 10px;
     border: black solid 1px;
     border-radius: 10px;
     background-color: rgb(186, 243, 224);
-    height: 110px;
+    padding-left: 10px;
+    padding-bottom: 20px;
+    width: 350px;
+}
+.project-setting-contents {
+    margin-top: 30px;
+    margin-left: 20px;
+}
+#project-title-h2, #project-description-label, #upload-plan-file-label {
+    font-size: 20px;
 }
 
-#project_options h2, #project_options label {
-    margin-left: 5px;
+#projectTitle {
+    font-size: 18px;
+}
+
+#rename-project-button {
+    width: 70%;
+    background-color: #04AA6D;
+    color: black;
+    padding: 14px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 18px;
+    letter-spacing: 1px;
+    display: block;
+    margin-bottom: 20px;
+}
+
+#projectDescription {
+    margin-top: 5px;
+    width: 225px;
+    height: 65px;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+#projectLabelsContainer {
+   margin: 10px 0px;
+}
+
+#file-selector {
+    width: 70%;
+    background-color: #04AA6D;
+    color: black;
+    padding: 14px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 12px;
+    display: block;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+}
+
+/*publish button*/
+#postProject {
+    width: 90%;
+    color: black;
+    font-size: 20px;
 }
 
 .switch {
