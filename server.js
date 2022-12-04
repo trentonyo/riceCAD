@@ -410,7 +410,7 @@ let serveEditor = function(req, res, next)
         }
         palette_viewport = {
             "background": {
-                "color": "#92eff5",
+                "color": "#73A3A8",
                 "glass": false,
                 "viewport": true
             },
