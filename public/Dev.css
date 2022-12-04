@@ -93,7 +93,7 @@ input[type=submit] {
 
 /* Add a background color to the submit button on mouse-over */
 input[type=submit]:hover {
-    background-color: #029b63;
+    background-color: #03b979;
 }
 
 .main-section {

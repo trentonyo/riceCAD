@@ -165,7 +165,7 @@ body {
 }
 
 #download-changes-button:hover {
-    background-color: #05e58f;
+    background-color: #03b979;
 }
 
 #content_file_naming {
@@ -297,7 +297,7 @@ body {
 }
 
 #rename-project-button:hover {
-    background-color: #05e58f;
+    background-color: #03b979;
 }
 
 #projectDescription {
@@ -328,7 +328,7 @@ body {
 }
 
 #file-selector:hover {
-    background-color: #05e58f;
+    background-color: #03b979;
 }
 
 /*publish button*/
@@ -339,7 +339,7 @@ body {
 }
 
 #postProject:hover {
-    background-color: #05e58f;
+    background-color: #03b979;
 }
 
 .switch {
