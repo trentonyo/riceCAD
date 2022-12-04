@@ -220,6 +220,10 @@ app.post("/projects/addProjectMetaData", function (req, res, next) {
             downloads: req.body.downloads,
             palette: req.body.palette
         }
+        if("existingProjectID" in req.body)
+        {
+            project["parentProjectID"] = req.body.existingProjectID
+        }
 
         for (let i = 0; i < req.body.tags.length; i++) {
             let currentTag = req.body.tags[i]
@@ -270,7 +274,8 @@ app.post("/projects/addProjectPlan", function (req, res, next) {
             }
             else
             {
-                res.status(200).send(projectID)
+                req.params.projectID = projectID
+                serveProjectPage(req, res, next)
             }
         })
     }
@@ -339,6 +344,7 @@ let serveEditor = function(req, res, next)
         "background" : {},
         "workingplane" : {}
     }
+    let output = {}
 
     //If a projectID is provided, but it is not in the database
     if(projectID && !(projectID in projectMetaDataJSON))
@@ -361,6 +367,11 @@ let serveEditor = function(req, res, next)
         }
         palette_viewport["background"] = projectMetaDataJSON[projectID].palette["background"]
         palette_viewport["workingplane"] = projectMetaDataJSON[projectID].palette["workingplane"]
+
+        if("parentProjectID" in projectMetaDataJSON[projectID])
+        {
+            output["parentProjectID"] = projectMetaDataJSON[projectID].parentProjectID
+        }
     }
     //If no projectID is provided
     else //Default values (new project)
@@ -422,16 +433,19 @@ let serveEditor = function(req, res, next)
         }
     }
 
-    res.status(200).render("riceCADEditor", {
+    output = {
         "projectID" : projectID,
         "title" : title,
         "description" : description,
+        "downloads" : downloads,
         "palette_materials" : palette_materials,
         "palette_viewport" : palette_viewport,
-        "newLabels" : labelsJSON,
+        "newLabels" : labelsJSON, /*Handle the labels such that the appropriate ones are checked*/
         "projectMetaData" : JSON.stringify(projectMetaDataJSON),
         "toolVersion" : packageJSON.version
-    })
+    }
+
+    res.status(200).render("riceCADEditor", output)
 }
 
 app.get("/edit/:projectID", function (req, res, next) { serveEditor(req, res, next) })
@@ -455,7 +469,7 @@ app.get("/projects", serveHomepage)
 /**
  * Handle project pages
  */
-app.get("/projects/:projectID", function (req, res, next)
+let serveProjectPage = function (req, res, next)
 {
     let projectID = req.params.projectID
 
@@ -465,14 +479,23 @@ app.get("/projects/:projectID", function (req, res, next)
     {
         if(projectMetaDataJSON[projectID])
         {
-            res.status(200).render("projectPage", {
+            let output = {
                 "projectID" : projectID,
                 "title" : projectMetaDataJSON[projectID].title,
                 "description" : projectMetaDataJSON[projectID].description,
                 "downloads" : projectMetaDataJSON[projectID].downloads,
+                "palette_materials" : projectMetaDataJSON[projectID].palette_materials,
+                "palette_viewport" : projectMetaDataJSON[projectID].palette_viewport,
                 "tags" : projectMetaDataJSON[projectID].tags,
                 "toolVersion" : packageJSON.version
-            })
+            }
+
+            if("parentProjectID" in projectMetaDataJSON[projectID])
+            {
+                output["parentProjectID"] = projectMetaDataJSON[projectID].parentProjectID
+            }
+
+            res.status(200).render("projectPage", output)
         }
         else
         {
@@ -484,7 +507,10 @@ app.get("/projects/:projectID", function (req, res, next)
     {
         console.log("There's no project meta data loaded")
     }
-})
+}
+
+app.get("/projects/:projectID", serveProjectPage)
+
 
 /**
  * 404 - final fallthrough reached

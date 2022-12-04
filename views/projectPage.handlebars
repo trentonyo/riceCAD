@@ -6,4 +6,10 @@
         <span>{{> label}}</span>
     {{/each}}
 </div>
+<div><a href="../edit/{{projectID}}">Remix this project</a></div>
 <div>Downloaded {{downloads}} times</div>
+{{#if parentProjectID}}
+    <div>
+        <a href="../projects/{{parentProjectID}}">Parent project: {{parentProjectID}}</a>
+    </div>
+{{/if}}
