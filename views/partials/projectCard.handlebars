@@ -1,6 +1,8 @@
 <div class="post">
     <div class="post-contents">
-        <a href="/projects/{{@key}}" class="post-title">{{title}}</a>
+        <div class="post-title-position">
+            <a href="/projects/{{@key}}" class="post-title">{{title}}</a>
+        </div>
         <div class="post-image-container">
             <img src="/project/{{@key}}.png" alt="{{title}} post-image">
         </div>
@@ -8,7 +10,6 @@
             {{#each tags}}
                 <span>{{>label}}</span>
             {{/each}}
-        </div>
         </div>
         <div class="post-info-container">
             <span class="build-num">Downloads: {{downloads}}</span>
