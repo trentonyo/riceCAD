@@ -30,8 +30,6 @@ html {
 body {
     background-color: #666;
     margin: 0;
-
-    /*font-family: monospace;*/
 }
 
 #tool_container {
@@ -46,8 +44,6 @@ body {
     border-radius: 10px;
 }
 
-
-
 #viewport_settings{
     border: black solid 1px;
     border-radius: 10px;
@@ -61,13 +57,7 @@ body {
 #viewport {
     /*flex-basis: 60%;*/
 }
-#text_editor {
-    width: 250px;
-    background-color: rgb(213, 213, 250);
-    border-radius: 10px;
-    /*flex-basis: 35%;*/
-    margin-left: 10px
-}
+
 #material_settings, #project_options {
     /*flex-basis: 47.5%;*/
 }
@@ -134,14 +124,39 @@ body {
     justify-content: space-between;
 }
 
+#text_editor {
+    width: 250px;
+    background-color: rgb(213, 213, 250);
+    border-radius: 10px;
+    margin: 0px 0px 0px 10px
+}
+
+#text_editor h2 {
+    margin-left: 10px;
+}
+
 #text_editor_textarea {
     margin-left: 10px;
     letter-spacing: 6px;
     width: 220px;
     height: 200px;
-    background-color: rgb(178, 179, 179);
+    background-color: rgb(222, 222, 222);
     border-radius: 5px;
     margin-bottom: 10px;
+}
+
+#download-changes-button {
+    width: 60%;
+    padding: 14px 20px;
+    display: block;
+    margin: 0px 0px 10px 10px;
+    background-color: #04AA6D;
+    color: black;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 15px;
 }
 
 #content_file_naming {
@@ -287,15 +302,15 @@ body {
     transition: 0.2s;
 }
 
-input:checked + .checkbox_switch {
+input:checked + .slider {
     background-color: #2196F3;
 }
 
-input:focus + .checkbox_switch {
+input:focus + .slider {
     box-shadow: 0 0 1px #2196F3;
 }
 
-input:checked + .checkbox_switch:before {
+input:checked + .slider:before {
     -webkit-transform: translateX(14px);
     -ms-transform: translateX(14px);
     transform: translateX(14px);
