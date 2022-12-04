@@ -129,10 +129,11 @@ body {
 }
 
 #text_editor {
-    width: 250px;
+    width: auto;
     background-color: rgb(213, 213, 250);
     border-radius: 10px;
     margin: 0px 0px 0px 0px;
+    padding-right: 10px;
 }
 
 #text_editor h2 {
