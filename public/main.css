@@ -84,6 +84,14 @@ body {
     margin-top: 5px;
 }
 
+/*tweaking the canvas*/
+canvas {
+    border: 2px solid black;
+    border-radius: 15px;
+    overflow: hidden;
+    -webkit-mask-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC); /* this fixes the overflow:hidden in Chrome/Opera */
+}
+
 .content_input {
     width: 250px;
     background-color: rgb(213, 213, 250);
@@ -599,20 +607,20 @@ input[type=submit]:hover {
 }
 
 .post-tags-container, .post-info-container {
-    margin-left: 15px;
+    margin-left: 45px;
     width: fit-content;
 }
 
 .post-tags-container {
-    border-left: 1px solid black;
-    border-top: 1px solid black;
-    border-bottom: 1px solid black;
-    border-radius: 3px;
-    margin-bottom: 5px;
+    margin-top: 15px;
+    margin-bottom: 8px;
 }
 
-.post-tags-container span {
-    border-right: 1px solid black;
+.project_label {
+    padding: 3px;
+    border: 1px solid black;
+    border-radius: 10px;
+    margin-right: 3px;
 }
 
 .post-info-container{
@@ -660,12 +668,4 @@ input[type=submit]:hover {
 #main {
     transition: margin-left .5s;
     padding: 20px;
-}
-
-/*tweaking the canvas*/
-canvas {
-    border: 2px solid black;
-    border-radius: 15px;
-    overflow: hidden;
-    -webkit-mask-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC); /* this fixes the overflow:hidden in Chrome/Opera */
 }
