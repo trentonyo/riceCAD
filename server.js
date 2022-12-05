@@ -6,7 +6,6 @@ const axios = require("axios")
 const fs = require("fs")
 
 const packageJSON = require("./package.json")
-const labelsJSON = require("./labels.json")
 const tagPropertiesJSON = require("./tagProperties.json")
 
 let app = express()
@@ -216,19 +215,23 @@ app.post("/projects/addProjectMetaData", function (req, res, next) {
         let project = {
             title: req.body.title,
             description: req.body.description,
-            tags: [],
+            tags: {},
             downloads: req.body.downloads,
             palette: req.body.palette
         }
+        if("existingProjectID" in req.body)
+        {
+            project["parentProjectID"] = req.body.existingProjectID
+        }
+
+        console.log("Tags in the POST metadata request:", req.body.tags)
 
         for (let i = 0; i < req.body.tags.length; i++) {
             let currentTag = req.body.tags[i]
 
-            project.tags.push({
-                "background-color" : tagPropertiesJSON[currentTag]["background-color"],
-                "text-color" : tagPropertiesJSON[currentTag]["text-color"],
-                "tag" : currentTag
-            })
+            console.log("In the tags for,", currentTag)
+
+            project.tags[currentTag] = tagPropertiesJSON[currentTag]
         }
 
         projectMetaDataJSON[projectID] = project
@@ -270,7 +273,8 @@ app.post("/projects/addProjectPlan", function (req, res, next) {
             }
             else
             {
-                res.status(200).send(projectID)
+                req.params.projectID = projectID
+                serveProjectPage(req, res, next)
             }
         })
     }
@@ -322,7 +326,14 @@ let serveEditor = function(req, res, next)
     let projectID = req.params.projectID
     let title
     let description
-    let tags
+
+    //Adds ALL tags
+    let tags = {}
+    for (let tag in tagPropertiesJSON)
+    {
+        tags[tag] = JSON.parse(JSON.stringify(tagPropertiesJSON[tag])) //Dirty clone, sorry
+    }
+
     let downloads
     let palette_materials = {
         "1" : {},
@@ -339,6 +350,7 @@ let serveEditor = function(req, res, next)
         "background" : {},
         "workingplane" : {}
     }
+    let output = {}
 
     //If a projectID is provided, but it is not in the database
     if(projectID && !(projectID in projectMetaDataJSON))
@@ -352,8 +364,15 @@ let serveEditor = function(req, res, next)
         console.log("Trying to open an existing project")
         title = projectMetaDataJSON[projectID].title
         description = projectMetaDataJSON[projectID].description
-        tags = projectMetaDataJSON[projectID].tags
         downloads = projectMetaDataJSON[projectID].downloads
+
+        let projectTags = projectMetaDataJSON[projectID].tags
+        console.log("In serving the editor, project tags:", projectTags)
+
+        for (let currentTag in projectTags)
+        {
+            tags[currentTag]["checked"] = true
+        }
 
         for (let i = 1; i <= 9; i++)
         {
@@ -361,6 +380,11 @@ let serveEditor = function(req, res, next)
         }
         palette_viewport["background"] = projectMetaDataJSON[projectID].palette["background"]
         palette_viewport["workingplane"] = projectMetaDataJSON[projectID].palette["workingplane"]
+
+        if("parentProjectID" in projectMetaDataJSON[projectID])
+        {
+            output["parentProjectID"] = projectMetaDataJSON[projectID].parentProjectID
+        }
     }
     //If no projectID is provided
     else //Default values (new project)
@@ -368,7 +392,6 @@ let serveEditor = function(req, res, next)
         projectID = "DEFAULT"
         title = "Untitled Project"
         description = "Enter a nice description"
-        tags = []
         downloads = 0
         palette_materials = {
             "1": {
@@ -410,7 +433,7 @@ let serveEditor = function(req, res, next)
         }
         palette_viewport = {
             "background": {
-                "color": "#92eff5",
+                "color": "#73A3A8",
                 "glass": false,
                 "viewport": true
             },
@@ -422,16 +445,19 @@ let serveEditor = function(req, res, next)
         }
     }
 
-    res.status(200).render("riceCADEditor", {
+    output = {
         "projectID" : projectID,
         "title" : title,
         "description" : description,
+        "downloads" : downloads,
         "palette_materials" : palette_materials,
         "palette_viewport" : palette_viewport,
-        "newLabels" : labelsJSON,
+        "tags" : tags,
         "projectMetaData" : JSON.stringify(projectMetaDataJSON),
         "toolVersion" : packageJSON.version
-    })
+    }
+
+    res.status(200).render("riceCADEditor", output)
 }
 
 app.get("/edit/:projectID", function (req, res, next) { serveEditor(req, res, next) })
@@ -455,7 +481,7 @@ app.get("/projects", serveHomepage)
 /**
  * Handle project pages
  */
-app.get("/projects/:projectID", function (req, res, next)
+let serveProjectPage = function (req, res, next)
 {
     let projectID = req.params.projectID
 
@@ -465,14 +491,23 @@ app.get("/projects/:projectID", function (req, res, next)
     {
         if(projectMetaDataJSON[projectID])
         {
-            res.status(200).render("projectPage", {
+            let output = {
                 "projectID" : projectID,
                 "title" : projectMetaDataJSON[projectID].title,
                 "description" : projectMetaDataJSON[projectID].description,
                 "downloads" : projectMetaDataJSON[projectID].downloads,
+                "palette_materials" : projectMetaDataJSON[projectID].palette_materials,
+                "palette_viewport" : projectMetaDataJSON[projectID].palette_viewport,
                 "tags" : projectMetaDataJSON[projectID].tags,
                 "toolVersion" : packageJSON.version
-            })
+            }
+
+            if("parentProjectID" in projectMetaDataJSON[projectID])
+            {
+                output["parentProjectID"] = projectMetaDataJSON[projectID].parentProjectID
+            }
+
+            res.status(200).render("projectPage", output)
         }
         else
         {
@@ -484,7 +519,10 @@ app.get("/projects/:projectID", function (req, res, next)
     {
         console.log("There's no project meta data loaded")
     }
-})
+}
+
+app.get("/projects/:projectID", serveProjectPage)
+
 
 /**
  * 404 - final fallthrough reached

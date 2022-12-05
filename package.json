@@ -1,10 +1,11 @@
 {
     "name": "riceCAD",
-    "version": "0.5.0",
+    "version": "0.5.9",
     "main": "server.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "build_label": "handlebars views/partials/label.handlebars -f public/labelTemplate.js",
+        "build_labelCheckbox": "handlebars views/partials/labelCheckbox.handlebars -f public/labelCheckboxTemplate.js",
         "build_materialCard": "handlebars views/partials/materialCard.handlebars -f public/materialCardTemplate.js",
         "build_projectCard": "handlebars views/partials/projectCard.handlebars -f public/projectCardTemplate.js",
         "prestart": "npm run build_label && npm run build_materialCard && npm run build_projectCard",
@@ -15,7 +16,9 @@
         "functional",
         "server",
         "client",
-        "browser"
+        "browser",
+        "minecraft",
+        "CAD"
     ],
     "author": "trentonyo",
     "contributors": [],
