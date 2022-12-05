@@ -597,7 +597,7 @@ input[type=submit]:hover {
 }
 
 .post-image-container{
-    margin: 10px;
+    margin: 10px 10px 5px 10px;
     text-align: center;
 }
 
@@ -612,8 +612,8 @@ input[type=submit]:hover {
 }
 
 .post-tags-container {
-    margin-top: 15px;
-    margin-bottom: 8px;
+    margin-top: 5px;
+    margin-bottom: 10px;
 }
 
 .project_label {
@@ -632,6 +632,8 @@ input[type=submit]:hover {
 
 .post-info-container{
     font-size: 20px;
+    margin-top: -10px;
+    margin-left: 50px;
 }
 
 .sidenav {
