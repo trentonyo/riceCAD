@@ -669,3 +669,14 @@ input[type=submit]:hover {
     transition: margin-left .5s;
     padding: 20px;
 }
+
+.success {
+    color: #0a1800;
+    border: #0a1800 1px;
+    background-color: rgb(200, 236, 171);
+}
+.failure {
+    color: #180000;
+    border: #180000 1px;
+    background-color: rgb(211, 115, 115);
+}
