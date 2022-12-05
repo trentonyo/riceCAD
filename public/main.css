@@ -617,10 +617,17 @@ input[type=submit]:hover {
 }
 
 .project_label {
-    padding: 3px;
-    border: 1px solid black;
-    border-radius: 10px;
-    margin-right: 3px;
+    display: inline-block;
+    padding: 6px;
+    border: 2px solid #ffffff;
+    border-radius: 18px;
+    margin: 3px;
+    background-color: #f9ffff;
+}
+
+.selected {
+    border: 2px solid #000000;
+    font-style: italic;
 }
 
 .post-info-container{
@@ -680,3 +687,11 @@ input[type=submit]:hover {
     border: #180000 1px;
     background-color: rgb(211, 115, 115);
 }
+
+.project_label input {
+    display: none;
+}
+
+/*.project_label input:checked {*/
+/*    display: inline;*/
+/*}*/
