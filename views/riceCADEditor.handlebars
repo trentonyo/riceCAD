@@ -62,20 +62,17 @@
             <label id="project-description-label">Describe your project</label>
             <textarea id="projectDescription">{{description}}</textarea>
             <div id="projectLabelsContainer">
-                {{#each newLabels}}
-                    <input type="checkbox" value="{{tag}}">
+                {{#each tags}}
+                    <input type="checkbox" value="{{@key}}" {{#if checked}}checked{{/if}} >
                     {{> label}}
                 {{/each}}
             </div>
             <label for="file-selector" id="upload-plan-file-label">Upload a .plan file</label>
             <input type="file" id="file-selector" accept=".plan">
 
-    <!--        <form method="post" enctype="multipart/form-data" action="/postProjectThumbnail">-->
-                <input id="projectID" value="{{projectID}}" hidden>
-                <input type="file" id="thumbnail" hidden>
-                <!--        <button id="postProject">Publish Project</button>-->
-                <input type="submit" id="postProject" value="Publish Project">
-    <!--        </form>-->
+            <input id="projectID" value="{{projectID}}" hidden>
+            <input type="file" id="thumbnail" hidden>
+            <input type="submit" id="postProject" value="Publish Project">
         </div>
     </div>
 </div>

@@ -2,18 +2,16 @@
   "xas32": {
     "title": "A Test Title",
     "description": "This is a test project, it's not very interesting. It's more of a proof of concept than anything, really.",
-    "tags": [
-      {
+    "tags": {
+      "Prototype": {
         "background-color": "red",
-        "text-color": "white",
-        "tag": "Prototype"
+        "text-color": "white"
       },
-      {
+      "Nordic": {
         "background-color": "brown",
-        "text-color": "white",
-        "tag": "Nordic"
+        "text-color": "white"
       }
-    ],
+    },
     "downloads": 0,
     "palette": {
       "1": {
@@ -67,18 +65,16 @@
   "3ba56": {
     "title": "Another Test Title",
     "description": "This is also a test project, maybe you've seen the other one?",
-    "tags": [
-      {
+    "tags": {
+      "Prototype": {
         "background-color": "red",
-        "text-color": "white",
-        "tag": "Prototype"
+        "text-color": "white"
       },
-      {
+      "Futuristic": {
         "background-color": "blue",
-        "text-color": "white",
-        "tag": "Futuristic"
+        "text-color": "white"
       }
-    ],
+    },
     "downloads": 0,
     "palette": {
       "1": {
@@ -129,163 +125,39 @@
       }
     }
   },
-  "jas0sa": {
-    "title": "Tags all of them",
-    "description": "An interesting description",
-    "tags": [
-      {
+  "v58f4i": {
+    "title": "All tags",
+    "description": "This remix was to test label propogation",
+    "tags": {
+      "Prototype": {
         "background-color": "red",
-        "text-color": "white",
-        "tag": "Prototype"
+        "text-color": "white"
       },
-      {
+      "Futuristic": {
         "background-color": "blue",
-        "text-color": "white",
-        "tag": "Futuristic"
+        "text-color": "white"
       },
-      {
+      "Nordic": {
         "background-color": "brown",
-        "text-color": "white",
-        "tag": "Nordic"
-      }
-    ],
-    "downloads": "",
-    "palette": {
-      "1": {
-        "color": "#1b1b20",
-        "glass": false
-      },
-      "2": {
-        "color": "#ae2c25",
-        "glass": false
-      },
-      "3": {
-        "color": "#5d7b15",
-        "glass": false
-      },
-      "4": {
-        "color": "#815332",
-        "glass": false
-      },
-      "5": {
-        "color": "#8832b6",
-        "glass": false
-      },
-      "6": {
-        "color": "#159a9a",
-        "glass": false
-      },
-      "7": {
-        "color": "#9d9d95",
-        "glass": false
-      },
-      "8": {
-        "color": "#464e50",
-        "glass": false
-      },
-      "9": {
-        "color": "#f18ba9",
-        "glass": false
-      },
-      "background": {
-        "color": "#91eef4",
-        "glass": false,
-        "viewport": true
-      },
-      "workingplane": {
-        "color": "#edfeed",
-        "glass": false,
-        "viewport": true
-      }
-    }
-  },
-  "u81qoi": {
-    "title": "Better Colored House",
-    "description": "This is a remix of the first test project, it uses sensical colors.",
-    "tags": [
-      {
-        "background-color": "brown",
-        "text-color": "white",
-        "tag": "Nordic"
-      }
-    ],
-    "downloads": "",
-    "palette": {
-      "1": {
-        "color": "#995b22",
-        "glass": false
-      },
-      "2": {
-        "color": "#696852",
-        "glass": false
-      },
-      "3": {
-        "color": "#fcfeda",
-        "glass": true
-      },
-      "4": {
-        "color": "#f8aacc",
-        "glass": false
-      },
-      "5": {
-        "color": "#f9a825",
-        "glass": false
-      },
-      "6": {
-        "color": "#f8f9a9",
-        "glass": false
-      },
-      "7": {
-        "color": "#b68825",
-        "glass": false
-      },
-      "8": {
-        "color": "#58f685",
-        "glass": false
-      },
-      "9": {
-        "color": "#a8f877",
-        "glass": false
-      },
-      "background": {
-        "color": "#91eef4",
-        "glass": false,
-        "viewport": true
-      },
-      "workingplane": {
-        "color": "#edfeed",
-        "glass": false,
-        "viewport": true
+        "text-color": "white"
       }
     },
-    "parentProjectID": "xas32"
-  },
-  "hzrli9": {
-    "title": "Nice Little House",
-    "description": "I remixed the test project!",
-    "tags": [
-      {
-        "background-color": "brown",
-        "text-color": "white",
-        "tag": "Nordic"
-      }
-    ],
     "downloads": "0",
     "palette": {
       "1": {
-        "color": "#a9a996",
+        "color": "#edf825",
         "glass": false
       },
       "2": {
-        "color": "#484a59",
+        "color": "#f8ed25",
         "glass": false
       },
       "3": {
-        "color": "#aae7e6",
+        "color": "#edf825",
         "glass": true
       },
       "4": {
-        "color": "#882419",
+        "color": "#58f685",
         "glass": false
       },
       "5": {
@@ -293,15 +165,15 @@
         "glass": false
       },
       "6": {
-        "color": "#f8f9a9",
-        "glass": false
+        "color": "#f8aacc",
+        "glass": true
       },
       "7": {
         "color": "#b68825",
         "glass": false
       },
       "8": {
-        "color": "#58f685",
+        "color": "#f8f9a9",
         "glass": false
       },
       "9": {
@@ -314,11 +186,11 @@
         "viewport": true
       },
       "workingplane": {
-        "color": "#edfeed",
+        "color": "#efefef",
         "glass": false,
         "viewport": true
       }
     },
-    "parentProjectID": "xas32"
+    "parentProjectID": "3ba56"
   }
 }
