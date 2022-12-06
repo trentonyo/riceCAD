@@ -521,7 +521,7 @@ input[type=text] {
 }
 
 /* Style the submit button */
-input[type=submit] {
+#filterbutton{
     width: 100%;
     background-color: #04AA6D;
     color: white;
@@ -536,7 +536,7 @@ input[type=submit] {
 }
 
 /* Add a background color to the submit button on mouse-over */
-input[type=submit]:hover {
+#filterbutton:hover {
     background-color: #03b979;
 }
 
