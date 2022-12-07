@@ -546,7 +546,7 @@ input[type=text] {
 
 .filter-container {
     /*position: relative;*/
-    display: inline-block;
+    display: block;
     min-width: 200px;
     max-width: 250px;
     width: 250px;
@@ -556,6 +556,17 @@ input[type=text] {
     background-color: rgb(239, 243, 231);
 }
 
+#fdownloads_min{
+    position: relative;
+    display: inline;
+    width: 48%;
+}
+
+#fdownloads_max{
+    position: relative;
+    display: inline;
+    width: 48%;
+}
 
 #posts{
     margin: 10px 0px 0px 40px;
