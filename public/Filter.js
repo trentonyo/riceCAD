@@ -6,25 +6,27 @@ function filterPosts(){
 
     var filtertag = document.getElementById("ftag").value
     var filterName = document.getElementById("fname").value
-    var filterAuthor = document.getElementById("fauthor").value
+    var filterMin = document.getElementById("fdownloads_min").value
+    var filterMax = document.getElementById("fdownloads_max").value
 
 
-    if (checkEmpty(filtertag,filterAuthor,filterName) == false) {logfilterValues(filtertag,filterAuthor,filterName)}
+    if (checkEmpty(filtertag,filterMin,filterMax,filterName) == false) {logfilterValues(filtertag,filterMin,filterMax,filterName)}
 
 
     
 }
 
-function checkEmpty (tag, name, author){
-    if (tag =='' && name =='' && author==''){console.log ("All Empty"); return true}
+function checkEmpty (tag, min, max, name, author){
+    if (tag =='' && name =='' && min=='' && max==''){console.log ("All Empty"); return true}
     else return false;
 
 }
 
-function logfilterValues(tag, name, author){
+function logfilterValues(tag, min, max, name){
 console.log("filtertag ==", tag)
 console.log ("filterName ==", name)
-console.log ("filterAuthor ==", author)
+console.log ("filterMin ==", min)
+console.log ("filterMax ==", max)
 }
 
 //Open Input Menu
