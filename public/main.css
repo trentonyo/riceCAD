@@ -143,25 +143,6 @@ canvas {
     margin-bottom: 10px;
 }
 
-#download-changes-button {
-    width: 70%;
-    padding: 14px 20px;
-    display: block;
-    margin: 0px 0px 10px 10px;
-    background-color: #04AA6D;
-    color: black;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-family: inherit;
-    font-size: 15px;
-    letter-spacing: 1px;
-}
-
-#download-changes-button:hover {
-    background-color: #03b979;
-}
-
 #content_file_naming {
     font-size: 10px;
     padding-bottom: 10px;
@@ -298,6 +279,17 @@ input[type="color"]::-webkit-color-swatch-wrapper {
     margin-top: 30px;
     margin-left: 20px;
 }
+
+.project-setting-divider {
+    position: relative;
+    left: -5px;
+    width: 270px;
+    margin-left: 0px;
+    margin-bottom: 10px;
+    border-bottom: 3px solid black;
+    border-radius: 5px;
+}
+
 #project-title-h2, #project-description-label, #upload-plan-file-label {
     font-size: 20px;
 }
@@ -327,6 +319,7 @@ input[type="color"]::-webkit-color-swatch-wrapper {
 
 #projectDescription {
     margin-top: 5px;
+    margin-bottom: 15px;
     width: 225px;
     height: 65px;
     border: 1px solid black;
@@ -356,11 +349,36 @@ input[type="color"]::-webkit-color-swatch-wrapper {
     background-color: #03b979;
 }
 
+.publish-and-download-button{
+    display: flex;
+}
+
 /*publish button*/
 #postProject {
-    width: 90%;
+    margin: 0px 0px 0px 0px;
+    width: 65%;
     color: black;
     font-size: 20px;
+    letter-spacing: 1px;
+}
+/* download changes button */
+#download-changes-button {
+    width: 90px;
+    padding: 14px 20px;
+    display: block;
+    margin: 0px 20px 0px 10px;
+    background-color: #3f83fb;
+    color: black;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 14px;
+    letter-spacing: 1px;
+}
+
+#download-changes-button:hover {
+    background-color: #5f94f3;
 }
 
 #postProject:hover {
@@ -694,6 +712,4 @@ input[type=submit]:hover {
     display: none;
 }
 
-/*.project_label input:checked {*/
-/*    display: inline;*/
-/*}*/
+/*Individual ProjectPage Styles*/
