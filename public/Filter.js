@@ -1,36 +1,47 @@
 function filterPosts(posts){
 
     var posts = document.getElementsByClassName("post")
-    console.log(posts.length)
 
-    var filtertag1 = document.getElementById("filter_tag_prototype").checked
-    var filtertag2 = document.getElementById("filter_tag_nordic").checked
-    var filtertag3 = document.getElementById("filter_tag_futuristic").checked
-    
+    var filtertags = document.querySelectorAll(".project_label input:checked")
+
     var filterName = document.getElementById("fname").value
     var filterMin = document.getElementById("fdownloads_min").value
     var filterMax = document.getElementById("fdownloads_max").value
 
 
-    if (checkEmpty(filtertag1, filtertag2, filtertag3, filterMin,filterMax,filterName) == false) {logfilterValues(filtertag1, filtertag2, filtertag3,filterMin,filterMax,filterName)}
-    deletingPosts(posts)
-    
+    if (checkEmpty(filtertags, filterMin,filterMax,filterName) == false) {logfilterValues(filtertags, filterMin,filterMax,filterName) }
+    //deletingPosts(posts)
+    listAllPostProperties(posts);
+
+}
+function listAllPostProperties(posts){
+    for (let i = posts.length; i>0; i--){
+        console.log(posts[i-1].dataset.title)
+        console.log(posts[i-1].dataset.downloads)
+        console.log(posts[i-1].dataset.tags)
+    }
 }
 
-function checkEmpty (tag1, tag2, tag3, min, max, name, author){
-    if (tag1 ==false && tag2 ==false && tag3 ==false && name =='' && min=='' && max==''){console.log ("All Empty"); return true}
+function checkEmpty (tags, min, max, name){
+
+    if (tags.length == 0 && name =='' && min=='' && max==''){console.log ("All Empty"); return true}
     else return false;
 
 }
 
-function logfilterValues(tag1, tag2, tag3, min, max, name){
-console.log("filtertag ==", tag1)
-console.log("filtertag ==", tag2)
-console.log("filtertag ==", tag3)
+function logfilterValues(tags, min, max, name){
 
-console.log ("filterName ==", name)
-console.log ("filterMin ==", min)
-console.log ("filterMax ==", max)
+    var stringtag = ''
+    for (let i = tags.length; i>0; i--){
+        console.log (tags[i-1].value)
+        stringtag = tags[i-1].value + ',' + stringtag
+    }
+
+    console.log ("stringtag ==", stringtag)
+    console.log ("filterName ==", name)
+    console.log ("filterMin ==", min)
+    console.log ("filterMax ==", max)
+
 }
 
 function deletingPosts(posts){
@@ -38,9 +49,10 @@ function deletingPosts(posts){
     for (let i = posts.length-1; i >= 0; i--) {
         posts[i].remove()
       }
-   
 }
 
 //Open Input Menu
 var filterButton = document.getElementById("filterbutton")
 filterButton.addEventListener("click", filterPosts)
+
+//string.split USE
