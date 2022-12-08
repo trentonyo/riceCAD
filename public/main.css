@@ -697,3 +697,27 @@ input[type=submit]:hover {
 /*.project_label input:checked {*/
 /*    display: inline;*/
 /*}*/
+
+.about-container {
+    background-color: rgb(186, 243, 224);
+    display: inline-block;
+    font-size: 30px;
+    margin-left: 200px;
+    margin-right: 200px;
+    justify-content: center;
+    padding: 30px 30px 30px 30px;
+    border-radius: 20px;
+    filter: drop-shadow(10px 10px 10px #000000);
+    width: clamp(500px, 50%, 1500px);
+}
+
+#about-title{
+    background-color: rgb(213, 213, 250);
+    margin: 3px 3px 30px 3px;
+    border: thick double #0a1800;
+}
+
+#about-title:hover {
+    filter: drop-shadow(3px 3px 3px #000000);
+    cursor: grabbing;
+}

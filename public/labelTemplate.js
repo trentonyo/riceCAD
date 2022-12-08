@@ -13,7 +13,7 @@ templates['label'] = template({"compiler":[8,">= 4.3.0"],"main":function(contain
     + ";\r\n              color: "
     + alias4(((helper = (helper = lookupProperty(helpers,"text-color") || (depth0 != null ? lookupProperty(depth0,"text-color") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"text-color","hash":{},"data":data,"loc":{"start":{"line":3,"column":21},"end":{"line":3,"column":35}}}) : helper)))
     + "\">\r\n    "
-    + alias4(((helper = (helper = lookupProperty(helpers,"tag") || (depth0 != null ? lookupProperty(depth0,"tag") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"tag","hash":{},"data":data,"loc":{"start":{"line":4,"column":4},"end":{"line":4,"column":11}}}) : helper)))
+    + alias4(((helper = (helper = lookupProperty(helpers,"key") || (data && lookupProperty(data,"key"))) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"key","hash":{},"data":data,"loc":{"start":{"line":4,"column":4},"end":{"line":4,"column":12}}}) : helper)))
     + "\r\n</span>";
 },"useData":true});
 })();

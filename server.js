@@ -46,6 +46,10 @@ let projectMetaDataJSON
 
 //// BACK-END
 
+app.get('/about', function (req, res, next) {
+    res.status(200).render('aboutPage');
+});
+
 /**
  * Serve playcanvas source without giving out internal path
  */
@@ -522,6 +526,7 @@ let serveProjectPage = function (req, res, next)
 }
 
 app.get("/projects/:projectID", serveProjectPage)
+
 
 
 /**
