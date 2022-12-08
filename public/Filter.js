@@ -31,12 +31,12 @@ function checkEmpty (tags, min, max, name){
 
 function logfilterValues(tags, min, max, name){
 
-    var stringtag = ''
+    var filtertag = ''
     for (let i = tags.length; i>0; i--){
-        stringtag = tags[i-1].value + ',' + stringtag
+        filtertag = tags[i-1].value + ',' + filtertag
     }
 
-    console.log ("stringtag ==", stringtag)
+    console.log ("filtertag ==", filtertag)
     console.log ("filterName ==", name)
     console.log ("filterMin ==", min)
     console.log ("filterMax ==", max)
