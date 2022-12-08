@@ -6,11 +6,11 @@
         <div class="post-image-container">
             <img src="/project/{{@key}}.png" alt="{{title}} post-image">
         </div>
-            <div id="projectLabelsContainer">
-                {{#each tags}}
-                    {{> labelCheckbox}}
-                {{/each}}
-            </div>
+        <div class="post-tags-container">
+            {{#each tags}}
+                <span>{{>label}}</span>
+            {{/each}}
+        </div>
         <div class="post-info-container">
             <span class="build-num">Downloads: {{downloads}}</span>
         </div>
