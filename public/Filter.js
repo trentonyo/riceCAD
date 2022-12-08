@@ -1,5 +1,4 @@
-
-function filterPosts(){
+function filterPosts(posts){
 
     var posts = document.getElementsByClassName("post")
     console.log(posts.length)
@@ -14,6 +13,7 @@ function filterPosts(){
 
 
     if (checkEmpty(filtertag1, filtertag2, filtertag3, filterMin,filterMax,filterName) == false) {logfilterValues(filtertag1, filtertag2, filtertag3,filterMin,filterMax,filterName)}
+    deletingPosts(posts)
     
 }
 
@@ -31,6 +31,14 @@ console.log("filtertag ==", tag3)
 console.log ("filterName ==", name)
 console.log ("filterMin ==", min)
 console.log ("filterMax ==", max)
+}
+
+function deletingPosts(posts){
+
+    for (let i = posts.length-1; i >= 0; i--) {
+        posts[i].remove()
+      }
+   
 }
 
 //Open Input Menu
