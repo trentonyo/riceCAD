@@ -16,9 +16,9 @@ function filterPosts(posts){
 }
 function listAllPostProperties(posts){
     for (let i = posts.length; i>0; i--){
-        console.log(posts[i-1].dataset.title)
-        console.log(posts[i-1].dataset.downloads)
-        console.log(posts[i-1].dataset.tags)
+        console.log("post", i, "title ==", posts[i-1].dataset.title)
+        console.log("post", i, "downloads ==", posts[i-1].dataset.downloads)
+        console.log("post", i, "tags ==", posts[i-1].dataset.tags)
     }
 }
 
@@ -33,7 +33,6 @@ function logfilterValues(tags, min, max, name){
 
     var stringtag = ''
     for (let i = tags.length; i>0; i--){
-        console.log (tags[i-1].value)
         stringtag = tags[i-1].value + ',' + stringtag
     }
 
