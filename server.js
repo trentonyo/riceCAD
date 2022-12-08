@@ -467,7 +467,8 @@ let serveHomepage = function (req, res, next)
 {
     res.status(200).render("homePage", {
         "projects" : projectMetaDataJSON,
-        "toolVersion" : packageJSON.version
+        "toolVersion" : packageJSON.version,
+        "tags" : tagPropertiesJSON
     })
 }
 

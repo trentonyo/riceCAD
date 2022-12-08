@@ -12,21 +12,10 @@
             <h2>Filter Settings</h2>
             <form action="/action_page.php">
                 <label for="ftag">Tags</label>
-                <div>
-                    <div>
-                        <input type="checkbox" id="filter_tag_prototype" name="prototype" value="Prototype">
-                        <label for="Prototype"> Prototype</label>
-                    </div>
-
-                    <div>
-                        <input type="checkbox" id="filter_tag_nordic" name="nordic" value="Nordic">
-                        <label for="Nordic"> Nordic</label>
-                    </div>
-
-                    <div>
-                        <input type="checkbox" id="filter_tag_futuristic" name="futuristic" value="Futuristic">
-                        <label for="Futuristic"> Futuristic</label>
-                    </div>
+               <div id="projectLabelsContainer">
+                {{#each tags}}
+                    {{> labelCheckbox}}
+                {{/each}}
                 </div>
              
 
