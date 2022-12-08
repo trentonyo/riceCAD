@@ -15,10 +15,10 @@ function filterPosts(posts){
 
 }
 function listAllPostProperties(posts){
-    for (let i = posts.length; i>0; i--){
-        console.log("post", i, "title ==", posts[i-1].dataset.title)
-        console.log("post", i, "downloads ==", posts[i-1].dataset.downloads)
-        console.log("post", i, "tags ==", posts[i-1].dataset.tags)
+    for (let i = 0; i<posts.length; i++){
+        console.log("post", i, "title ==", posts[i].dataset.title)
+        console.log("post", i, "downloads ==", posts[i].dataset.downloads)
+        console.log("post", i, "tags ==", posts[i].dataset.tags)
     }
 }
 
