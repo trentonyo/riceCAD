@@ -17,11 +17,24 @@ function filterPosts(posts){
 
         deletingPosts(posts);
 
+        //!!!Check Tags!!!
 
+        //Loop for each post
         for (let i = 0; i<Allposts.length; i++){
-        var numTags = (filtertags.length-1)
 
-        Addpost( Allposts[i].tags, Allposts[i].downloads, Allposts[i].title, "https://placekitten.com/200/300")
+            //Loop for each post label
+            var PostTagArray = Allposts[i].tags.split(',')
+            for (let k = 0; k<PostTagArray.length; k++){
+                console.log(PostTagArray[k])
+
+        
+                //Loop for each value of filtertags
+                for(let t = 0; t<filtertags.length; t++){
+                if (PostTagArray[k] == filtertags[t].value){ Addpost( Allposts[i].tags, Allposts[i].downloads, Allposts[i].title, "https://placekitten.com/200/300")}
+                                                                                                                                                                            
+                }
+            }
+        
 
         }
 
@@ -64,6 +77,8 @@ var newimage = document.createElement("img")
 newimage.src = posturl
 imgContainer.appendChild(newimage)
 
+console.log(filtertags)
+
 var tagsList = filtertags.split(',')
 
 //tag container
@@ -72,37 +87,35 @@ var tagsContainer = document.createElement("div")
 tagsContainer.classList.add("post-tags-container")
 contents.appendChild(tagsContainer)
 
-var tagLabels = document.createElement("span")
-tagsContainer.appendChild(tagLabels)
-
 for (let i = 0; i<tagsList.length-1; i++){
 
-console.log(tagsList[i])
-
-
- var tagValues = document.createElement("span")
- tagValues.classList.add("project_label")
-
-
- //Change styles *HARD CODED*
- if (tagsList[i] == "Art"){tagValues.style.background = " #939", tagValues.style.color = "white"}
- if (tagsList[i] == "Business"){tagValues.style.background = " gray", tagValues.style.color = "black"}
- if (tagsList[i] == "Desert"){tagValues.style.background = " #cc7", tagValues.style.color =  "black"}
- if (tagsList[i] == "Fantasy"){tagValues.style.background = " #393", tagValues.style.color = "white"}
- if (tagsList[i] == "Futuristic"){tagValues.style.background = " #aaf", tagValues.style.color =  "black"}
- if (tagsList[i] == "House"){tagValues.style.background = " pink", tagValues.style.color =  "black"}
- if (tagsList[i] == "Ice"){tagValues.style.background = " #eef", tagValues.style.color =  "black"}
- if (tagsList[i] == "Medieval"){tagValues.style.background = " #333", tagValues.style.color =  "white"}
- if (tagsList[i] == "Nordic"){tagValues.style.background = " brown", tagValues.style.color = "white"}
- if (tagsList[i] == "Prototype"){tagValues.style.background = "red" , tagValues.style.color = "white"}
- if (tagsList[i] == "Steampunk"){tagValues.style.background = " #993", tagValues.style.color = "black"}
-
- tagValues.textContent = tagsList[i]
-
- tagLabels.appendChild(tagValues)
-
-}
-
+    var Spancontainer = document.createElement("span")
+    tagsContainer.appendChild(Spancontainer)
+    
+     var tagLabels = document.createElement("span")
+    
+     tagLabels.classList.add("project_label")
+     tagLabels.classList.add("post-tags-container")
+    
+    
+     //Change styles *HARD CODED*
+     if (tagsList[i] == "Art"){tagLabels.style.background = "#939", tagLabels.style.color = "white"}
+     if (tagsList[i] == "Business"){tagLabels.style.background = "gray", tagLabels.style.color = "black"}
+     if (tagsList[i] == "Desert"){tagLabels.style.background = "#cc7", tagLabels.style.color =  "black"}
+     if (tagsList[i] == "Fantasy"){tagLabels.style.background = "#393", tagLabels.style.color = "white"}
+     if (tagsList[i] == "Futuristic"){tagLabels.style.background = "#aaf", tagLabels.style.color =  "black"}
+     if (tagsList[i] == "House"){tagLabels.style.background = "pink", tagLabels.style.color =  "black"}
+     if (tagsList[i] == "Ice"){tagLabels.style.background = "#eef", tagLabels.style.color =  "black"}
+     if (tagsList[i] == "Medieval"){tagLabels.style.background = "#333", tagLabels.style.color =  "white"}
+     if (tagsList[i] == "Nordic"){tagLabels.style.background = "brown", tagLabels.style.color = "white"}
+     if (tagsList[i] == "Prototype"){tagLabels.style.background = "red" , tagLabels.style.color = "white"}
+     if (tagsList[i] == "Steampunk"){tagLabels.style.background = "#993", tagLabels.style.color = "black"}
+    
+     tagLabels.textContent = tagsList[i]
+    
+     Spancontainer.appendChild(tagLabels)
+    
+    }
 
 
 //info container
