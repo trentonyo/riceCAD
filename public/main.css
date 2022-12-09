@@ -704,11 +704,10 @@ input[type=submit]:hover {
     font-size: 30px;
     margin-left: 200px;
     margin-right: 200px;
-    justify-content: center;
+    justify-content: space-evenly;
     padding: 30px 30px 30px 30px;
     border-radius: 20px;
     filter: drop-shadow(10px 10px 10px #000000);
-    width: clamp(500px, 50%, 1500px);
 }
 
 #about-title{
@@ -720,4 +719,21 @@ input[type=submit]:hover {
 #about-title:hover {
     filter: drop-shadow(3px 3px 3px #000000);
     cursor: grabbing;
+}
+
+.tutorial-container{
+    background-color: rgb(186, 243, 224);
+    display: inline-block;
+    font-size: 30px;
+    margin-left: 200px;
+    margin-right: 200px;
+    margin-bottom: 50px;
+    justify-content: space-evenly;
+    padding: 30px 30px 30px 30px;
+    border-radius: 20px;
+    filter: drop-shadow(10px 10px 10px #000000);
+}
+
+#tut-step{
+    border-bottom: 2mm ridge rgba(211, 220, 50, .6);
 }
