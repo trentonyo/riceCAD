@@ -9,44 +9,25 @@ function filterPosts(posts){
     var filterMax = document.getElementById("fdownloads_max").value
 
 
+
+
     if (checkEmpty(filtertags, filterMin,filterMax,filterName) == false) {
 
-        listAllPostProperties(posts);
+        //listAllPostProperties(posts);
 
-        logfilterValues(filtertags, filterMin,filterMax,filterName) 
+        deletingPosts(posts);
 
-        deletingPosts(posts)
 
         for (let i = 0; i<Allposts.length; i++){
         var numTags = (filtertags.length-1)
 
-        Addpost(posts.tags, posts.downloads, posts.title, posts.url)
+        Addpost( Allposts[i].tags, Allposts[i].downloads, Allposts[i].title, "https://placekitten.com/200/300")
 
         }
 
     }
 
-
 }
-
-// {/* <div class="post" data-title="{{title}}" data-downloads="{{downloads}}" data-tags="{{#each tags}}{{@key}},{{/each}}">
-//     <div class="post-contents">
-//         <div class="post-title-position">
-//             <a href="/projects/{{@key}}" class="post-title">{{title}}</a>
-//         </div>
-//         <div class="post-image-container">
-//             <img src="/project/{{@key}}.png" alt="{{title}} post-image">
-//         </div>
-//         <div class="post-tags-container">
-//             {{#each tags}}
-//                 <span>{{>label}}</span>
-//             {{/each}}
-//         </div>
-//         <div class="post-info-container">
-//             <span class="build-num">Downloads: {{downloads}}</span>
-//         </div>
-//     </div>
-// </div> */}
 
 function Addpost(filtertags, filterDownloads, filterName, posturl){
 
@@ -88,8 +69,15 @@ var tagsContainer = document.createElement("div")
 tagsContainer.classList.add("post-tags-container")
 contents.appendChild(tagsContainer)
 
-var tagLabels = document.createElement("span")
-tagLabels = filtertags
+ var tagLabels = document.createElement("span")
+tagsContainer.appendChild(tagLabels)
+
+ var tagValues = document.createElement("span")
+ tagValues.classList.add("project_label")
+ tagValues.style = "background-color: red; color: white"
+ tagValues.textContent = filtertags
+
+ tagLabels.appendChild(tagValues)
 
 //info container
 var infoContainer = document.createElement("div")
@@ -99,6 +87,10 @@ contents.appendChild(infoContainer)
 var newdownloads = document.createElement("span")
 newdownloads.classList.add("build-num")
 infoContainer.appendChild(newdownloads)
+
+//Push everything to posts
+var PostContainer = document.getElementById("posts")
+PostContainer.appendChild(NewPost)
 
 }
 
@@ -116,11 +108,16 @@ function StoreStartingItems(posts){
         tags:"",
     }
 
-    postData.url = images[i-1].src
+    //FIX HERE!!!!!!!!!!!!!!!
+    var tempImage = "placekitten.com/200/300"
+    postData.url = tempImage
     postData.title = posts[i-1].dataset.title
     postData.downloads = posts[i-1].dataset.downloads
     postData.tags = posts[i-1].dataset.tags
-    Allposts[i] = postData
+    console.log(i-1)
+    Allposts[i-1] = postData
+
+    console.log(Allposts[i-1].tags)
 
     }
 
@@ -152,7 +149,7 @@ function logfilterValues(tags, min, max, name){
         filtertag = tags[i].value + ',' + filtertag
     }
 
-    console.log ("filtertag ==", filtertag.split(','))
+    console.log ("filtertag ==", filtertag)
     console.log ("filterName ==", name)
     console.log ("filterMin ==", min)
     console.log ("filterMax ==", max)
