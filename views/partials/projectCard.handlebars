@@ -1,14 +1,14 @@
 <div class="post" data-title="{{title}}" data-downloads="{{downloads}}" data-tags="{{#each tags}}{{@key}},{{/each}}">
     <div class="post-contents">
         <div class="post-title-position">
-            <a href="/projects/{{@key}}" class="post-title">{{title}}</a>
+            <a href="/projects/{{#if @key}}{{@key}}{{else}}{{#if projectID}}{{projectID}}{{else}}DEFAULT{{/if}}{{/if}}" class="post-title">{{title}}</a>
         </div>
         <div class="post-image-container">
-            <img src="/project/{{@key}}.png" alt="{{title}} post-image">
+            <img src="/project/{{#if @key}}{{@key}}{{else}}{{#if projectID}}{{projectID}}{{else}}DEFAULT{{/if}}{{/if}}.png" alt="{{title}} post-image">
         </div>
         <div class="post-tags-container">
             {{#each tags}}
-                <span>{{>label}}</span>
+                <span>{{> label}}</span>
             {{/each}}
         </div>
         <div class="post-info-container">
