@@ -898,3 +898,70 @@ input[type=text] {
 .hovered {
     background-color: #5f94f3;
 }
+
+/*.project_label input:checked {*/
+/*    display: inline;*/
+/*}*/
+
+.about-container {
+    background-color: rgb(186, 243, 224);
+    display: inline-block;
+    font-size: 30px;
+    margin-left: 200px;
+    margin-right: 200px;
+    margin-top: 20px;
+    justify-content: space-evenly;
+    padding: 30px 30px 30px 30px;
+    border-radius: 20px;
+    filter: drop-shadow(10px 10px 10px #000000);
+}
+
+#about-title{
+    background-color: rgb(213, 213, 250);
+    margin: 3px 3px 30px 3px;
+    border: thick double #0a1800;
+}
+
+#about-title:hover {
+    filter: drop-shadow(3px 3px 3px #000000);
+    cursor: grabbing;
+}
+
+.tutorial-container{
+    background-color: rgb(186, 243, 224);
+    display: inline-block;
+    font-size: 30px;
+    margin-left: 200px;
+    margin-right: 200px;
+    margin-bottom: 50px;
+    margin-top: 20px;
+    justify-content: space-evenly;
+    padding: 30px 30px 30px 30px;
+    border-radius: 20px;
+    filter: drop-shadow(10px 10px 10px #000000);
+}
+
+#tut-step{
+    border-bottom: 2mm ridge rgba(211, 220, 50, .6);
+}
+
+#tut-title{
+    border-bottom: 5mm ridge rgba(186, 243, 224);
+    font-size: 100px;
+    margin-left: 215px;
+    margin-right: 200px;
+    margin-bottom: 70px;
+    color: antiquewhite;
+    filter: drop-shadow(3px 3px 3px #000000);
+    cursor: grabbing;
+}
+
+img{
+    max-width: 100%;
+    height: auto;
+}
+
+.img-container{
+    display: flex;
+    flex-wrap: wrap;
+}
