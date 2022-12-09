@@ -22,13 +22,14 @@ function filterPosts(posts){
         //Loop for each post
         for (let i = 0; i<Allposts.length; i++){
 
-            //Loop for each post label
+            //Loop for each post label unless its empty
             var PostTagArray = Allposts[i].tags.split(',')
-            for (let k = 0; k<PostTagArray.length; k++){
+            
+            {for (let k = 0; k<PostTagArray.length; k++){
                 console.log(PostTagArray[k])
 
         
-                //Loop for each value of filtertags
+                //Loop for each value of filtertags 
                 for(let t = 0; t<filtertags.length; t++){
                 if (PostTagArray[k] == filtertags[t].value){ Addpost( Allposts[i].tags, Allposts[i].downloads, Allposts[i].title, "https://placekitten.com/200/300")}
                                                                                                                                                                             
