@@ -13,33 +13,52 @@ function filterPosts(posts){
 
     if (checkEmpty(filtertags, filterMin,filterMax,filterName) == false) {
 
-        //listAllPostProperties(posts);
-
+        //Start with Clean DOM
         deletingPosts(posts);
 
         //!!!Check Tags!!!
 
         //Loop for each post
         for (let i = 0; i<Allposts.length; i++){
-
+ 
             //Loop for each post label unless its empty
             var PostTagArray = Allposts[i].tags.split(',')
             
-            {for (let k = 0; k<PostTagArray.length; k++){
+            for (let k = 0; k<PostTagArray.length; k++){
                 console.log(PostTagArray[k])
 
         
                 //Loop for each value of filtertags 
                 for(let t = 0; t<filtertags.length; t++){
-                if (PostTagArray[k] == filtertags[t].value){ Addpost( Allposts[i].tags, Allposts[i].downloads, Allposts[i].title, "https://placekitten.com/200/300")}
-                                                                                                                                                                            
-                }
-            }
+
+                    //Check Tag
+                    if (PostTagArray[k] == filtertags[t].value){Addpost( Allposts[i].tags, Allposts[i].downloads, Allposts[i].title, "https://placekitten.com/200/300")} else{
+                } }
+                    //Check Title
+                    }if (Allposts[i].title == filterName){Addpost( Allposts[i].tags, Allposts[i].downloads, Allposts[i].title, "https://placekitten.com/200/300")} else{
+
+                    //Check
+                    }if (Allposts[i].downloads >= filterMin && Allposts[i].downloads <= filterMax){Addpost( Allposts[i].tags, Allposts[i].downloads, Allposts[i].title, "https://placekitten.com/200/300")}
+
+   
+            }                                                                                                                                                                    
+                
+            
         
 
-        }
+        //!!!Check Title!!! No search for content YET...
+            console.log(Allposts[i].title)
+            console.log(filterName)
 
+        
+
+        //!!!Check MIN MAX DOWNLOADS
+            console.log(Allposts[i].downloads)
+            console.log(filterMin)
+            console.log(filterMax)                                                                                                                                                       
+        
     }
+    
 
 }
 
@@ -134,6 +153,7 @@ var PostContainer = document.getElementById("posts")
 PostContainer.appendChild(NewPost)
 
 }
+
 
 function StoreStartingItems(posts){
 
