@@ -546,7 +546,7 @@ input[type=text] {
 }
 
 /* Style the submit button */
-input[type=submit] {
+#filterbutton{
     width: 100%;
     background-color: #04AA6D;
     color: white;
@@ -561,7 +561,7 @@ input[type=submit] {
 }
 
 /* Add a background color to the submit button on mouse-over */
-input[type=submit]:hover {
+#filterbutton:hover {
     background-color: #03b979;
 }
 
@@ -582,6 +582,17 @@ input[type=submit]:hover {
     background-color: rgb(239, 243, 231);
 }
 
+#fdownloads_min{
+    position: relative;
+    display: inline;
+    width: 48%;
+}
+
+#fdownloads_max{
+    position: relative;
+    display: inline;
+    width: 48%;
+}
 
 #posts{
     margin: 10px 0px 0px 40px;
