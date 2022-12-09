@@ -600,7 +600,9 @@ app.get("/projects/:projectID", serveProjectPage)
  */
 app.get("*", function (req, res, next)
 {
-    res.status(404).render("pageNotFound", {})
+    res.status(404).render("pageNotFound", {
+        "toolVersion" : packageJSON.version
+    })
 })
 
 app.listen(port, undefined,function ()

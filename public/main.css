@@ -828,6 +828,51 @@ input[type=submit]:hover {
     text-decoration: none;
 }
 
+/**********************Styling for 404 Page/Page Not Found*****************/
+.pageNF {
+    background-color: rgba(250, 142, 142, 0.72);
+    height: -webkit-fill-available;
+}
+
+.pageNF-content {
+    text-align: center;
+    padding-top: 150px;
+}
+
+.pageNF-404-text {
+    font-size: 200px;
+}
+
+.pageNF-page-not-found-text {
+    font-size: 50px;
+    margin: 0px 0px 20px 0px;
+}
+
+.pageNF-Opps-text {
+    font-style: italic;
+}
+
+.pageNF-explain-text {
+    font-size: 30px;
+    margin: 0px 0px 60px 0px;
+}
+
+.pageNF-goHome-text {
+    background-color: #04AA6D;
+    border: 2px solid black;
+    border-radius: 10px;
+    font-size: 20px;
+    letter-spacing: 2px;
+    text-decoration: none;
+    /*font-style: italic;*/
+    color: black;
+    padding: 20px 30px;
+}
+
+.pageNF-goHome-text:hover {
+    background-color: #03b979;
+}
+
 /* js injected code for copy id button */
 .success {
     color: #0a1800;
