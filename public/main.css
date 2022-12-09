@@ -750,3 +750,13 @@ input[type=submit]:hover {
     filter: drop-shadow(3px 3px 3px #000000);
     cursor: grabbing;
 }
+
+img{
+    max-width: 100%;
+    height: auto;
+}
+
+.img-container{
+    display: flex;
+    flex-wrap: wrap;
+}
