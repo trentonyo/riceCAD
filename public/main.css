@@ -704,6 +704,7 @@ input[type=submit]:hover {
     font-size: 30px;
     margin-left: 200px;
     margin-right: 200px;
+    margin-top: 20px;
     justify-content: space-evenly;
     padding: 30px 30px 30px 30px;
     border-radius: 20px;
@@ -728,6 +729,7 @@ input[type=submit]:hover {
     margin-left: 200px;
     margin-right: 200px;
     margin-bottom: 50px;
+    margin-top: 20px;
     justify-content: space-evenly;
     padding: 30px 30px 30px 30px;
     border-radius: 20px;
@@ -736,4 +738,15 @@ input[type=submit]:hover {
 
 #tut-step{
     border-bottom: 2mm ridge rgba(211, 220, 50, .6);
+}
+
+#tut-title{
+    border-bottom: 5mm ridge rgba(186, 243, 224);
+    font-size: 100px;
+    margin-left: 215px;
+    margin-right: 200px;
+    margin-bottom: 70px;
+    color: antiquewhite;
+    filter: drop-shadow(3px 3px 3px #000000);
+    cursor: grabbing;
 }
