@@ -7,6 +7,11 @@ const fs = require("fs")
 
 const packageJSON = require("./package.json")
 const tagPropertiesJSON = require("./tagProperties.json")
+const approvedAddressesJSON = require("./approvedRobotAddresses.json")
+
+console.log(approvedAddressesJSON)
+
+console.log(approvedAddressesJSON.indexOf("1ba9a59e-2540-4b12-ae8e-9374162aec90") !== -1)
 
 let app = express()
 
@@ -115,6 +120,61 @@ let getProjectMetaData = function(req, res, next)
 getProjectMetaData() //Initial load
 app.get("/projectMetaData.json", getProjectMetaData)
 
+let incrementDownloads = function(projectID)
+{
+    if (!(projectID in projectMetaDataJSON))
+    {
+        console.log("Attempting to increment downloads for invalid project ID.")
+        return
+    }
+
+    let newDownloads = ++projectMetaDataJSON[projectID].downloads
+
+    fs.writeFile("./projectMetaData.json", JSON.stringify(projectMetaDataJSON, null, 2), function (err) {
+        if(err)
+        {
+            console.log(err)
+        }
+        else
+        {
+            console.log("Incremented downloads for", projectID, ". New download count:", newDownloads)
+        }
+    })
+}
+let incrementBuilds = function(projectID, robotAddress)
+{
+    if (!(projectID in projectMetaDataJSON))
+    {
+        console.log("Attempting to increment builds for invalid project ID.")
+        return false
+    }
+    if (approvedAddressesJSON.indexOf(robotAddress) === -1)
+    {
+        console.log("Unapproved address attempted to increment approved builds")
+        return false
+    }
+
+    if (!("builds" in projectMetaDataJSON[projectID]))
+    {
+        projectMetaDataJSON[projectID]["builds"] = 0
+    }
+
+    let newBuilds = ++projectMetaDataJSON[projectID].builds
+
+    fs.writeFile("./projectMetaData.json", JSON.stringify(projectMetaDataJSON, null, 2), function (err) {
+        if(err)
+        {
+            console.log(err)
+        }
+        else
+        {
+            console.log("Incremented approved builds for", projectID, ". New builds count:", newBuilds)
+        }
+    })
+
+    return true
+}
+
 /**
  * Serve up project plans
  */
@@ -125,6 +185,20 @@ app.get("/project/:projectID.plan", function (req, res, next)
     try
     {
         fs.accessSync(path)
+
+        console.log("Query:", req.query)
+
+        let built = false
+
+        if("addr" in req.query && req.query.addr)
+        {
+            built = incrementBuilds(req.params.projectID, req.query.addr)
+        }
+
+        if(!built && "download" in req.query && req.query.download)
+        {
+            incrementDownloads(req.params.projectID)
+        }
 
         res.set({ 'content-type': 'text/plain; charset=utf-8' }).status(200).sendFile(path)
     }
@@ -475,7 +549,8 @@ let serveHomepage = function (req, res, next)
 {
     res.status(200).render("homePage", {
         "projects" : projectMetaDataJSON,
-        "toolVersion" : packageJSON.version
+        "toolVersion" : packageJSON.version,
+        "tags" : tagPropertiesJSON
     })
 }
 
@@ -504,6 +579,7 @@ let serveProjectPage = function (req, res, next)
                 "title" : projectMetaDataJSON[projectID].title,
                 "description" : projectMetaDataJSON[projectID].description,
                 "downloads" : projectMetaDataJSON[projectID].downloads,
+                "builds" : projectMetaDataJSON[projectID].builds,
                 "palette_materials" : projectMetaDataJSON[projectID].palette_materials,
                 "palette_viewport" : projectMetaDataJSON[projectID].palette_viewport,
                 "tags" : projectMetaDataJSON[projectID].tags,
@@ -538,7 +614,9 @@ app.get("/projects/:projectID", serveProjectPage)
  */
 app.get("*", function (req, res, next)
 {
-    res.status(404).render("pageNotFound", {})
+    res.status(404).render("pageNotFound", {
+        "toolVersion" : packageJSON.version
+    })
 })
 
 app.listen(port, undefined,function ()
