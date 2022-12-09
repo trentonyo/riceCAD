@@ -64,20 +64,46 @@ var newimage = document.createElement("img")
 newimage.src = posturl
 imgContainer.appendChild(newimage)
 
+var tagsList = filtertags.split(',')
+
 //tag container
+
 var tagsContainer = document.createElement("div")
 tagsContainer.classList.add("post-tags-container")
 contents.appendChild(tagsContainer)
 
- var tagLabels = document.createElement("span")
+var tagLabels = document.createElement("span")
 tagsContainer.appendChild(tagLabels)
+
+for (let i = 0; i<tagsList.length-1; i++){
+
+console.log(tagsList[i])
+
 
  var tagValues = document.createElement("span")
  tagValues.classList.add("project_label")
- tagValues.style = "background-color: red; color: white"
- tagValues.textContent = filtertags
+
+
+ //Change styles *HARD CODED*
+ if (tagsList[i] == "Art"){tagValues.style.background = " #939", tagValues.style.color = "white"}
+ if (tagsList[i] == "Business"){tagValues.style.background = " gray", tagValues.style.color = "black"}
+ if (tagsList[i] == "Desert"){tagValues.style.background = " #cc7", tagValues.style.color =  "black"}
+ if (tagsList[i] == "Fantasy"){tagValues.style.background = " #393", tagValues.style.color = "white"}
+ if (tagsList[i] == "Futuristic"){tagValues.style.background = " #aaf", tagValues.style.color =  "black"}
+ if (tagsList[i] == "House"){tagValues.style.background = " pink", tagValues.style.color =  "black"}
+ if (tagsList[i] == "Ice"){tagValues.style.background = " #eef", tagValues.style.color =  "black"}
+ if (tagsList[i] == "Medieval"){tagValues.style.background = " #333", tagValues.style.color =  "white"}
+ if (tagsList[i] == "Nordic"){tagValues.style.background = " brown", tagValues.style.color = "white"}
+ if (tagsList[i] == "Prototype"){tagValues.style.background = "red" , tagValues.style.color = "white"}
+ if (tagsList[i] == "Steampunk"){tagValues.style.background = " #993", tagValues.style.color = "black"}
+
+ tagValues.textContent = tagsList[i]
 
  tagLabels.appendChild(tagValues)
+
+}
+
+
 
 //info container
 var infoContainer = document.createElement("div")
@@ -86,6 +112,7 @@ contents.appendChild(infoContainer)
 
 var newdownloads = document.createElement("span")
 newdownloads.classList.add("build-num")
+newdownloads.textContent = "Downloads: " + filterDownloads
 infoContainer.appendChild(newdownloads)
 
 //Push everything to posts
