@@ -713,3 +713,94 @@ input[type=submit]:hover {
 }
 
 /*Individual ProjectPage Styles*/
+.projectPage-body {
+    background-color: rgb(213, 213, 250);
+    padding: 0px 10px 50px 10px;
+    /*padding-top: 10px;*/
+}
+
+.projectPage-title {
+    border-bottom: 1px solid black;
+    height: 70px;
+    display: block;
+    padding-top: 15px;
+    margin: 0px;
+    font-size: 35px;
+}
+
+.projectPage-project-description {
+    margin: 10px 0px 0px 10px;
+    font-size: 30px;
+}
+
+.projectPage-description-content {
+    font-size: 21px;
+    margin-top: 10px;
+    font-style: italic;
+}
+
+.projectPage-project-details {
+    margin-top: 40px;
+    padding: 10px 0px 30px 0px;
+    border: 1px solid black;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.projectPage-project-details-title {
+    font-size: 30px;
+    margin: 10px 0px;
+}
+
+.projectPage-image {
+    border: 3px solid black;
+    border-radius: 5px;
+    display: block;
+    margin: 0px auto;
+}
+
+.projectPage-labels {
+    margin-top: 15px;
+}
+
+.projectPage-downloads, .projectPage-projectId  {
+    margin: 5px 0px;
+}
+
+.projectPage-copyId-button {
+    width: 70px;
+    padding: 8px 10px;
+    background-color: #3f83fb;
+    color: black;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 10px;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+}
+
+.projectPage-copyId-button:hover {
+    background-color: #5f94f3;
+}
+
+.projectPage-remix {
+    margin-top: 10px;
+}
+
+.projectPage-remix-text {
+    padding: 20px 30px;
+    background-color: #04AA6D;
+    color: black;
+    border: none;
+    border-radius: 4px;
+    font-size: 20px;
+    letter-spacing: 2px;
+    text-decoration: none;
+    color: black;
+}
+
+.projectPage-remix-text:hover {
+    background-color: #03b979;
+}
