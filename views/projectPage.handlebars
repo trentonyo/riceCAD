@@ -15,6 +15,11 @@
 
         <div>
             <div class="projectPage-downloads">Downloaded: {{downloads}} times</div>
+
+            {{#if builds}}
+                <div class="projectPage-builds">Built: {{builds}} times \< insert cool icon here with a tooltip that says "Builds are those downloads from acknowledged robots in-game!"\></div>
+            {{/if}}
+
             <div class="projectPage-projectId">Project Id: <span id="clipboard_value">{{projectID}}</span></div>
             <button id="clipboard_button" value="Copy ID" class="projectPage-copyId-button"></button>
         </div>
@@ -26,7 +31,14 @@
             </div>
         {{/if}}
 
-        <div class="projectPage-remix"><a href="../edit/{{projectID}}" class="projectPage-remix-text">Remix this project</a></div>
+<!--        <div class="projectPage-remix"><a href="../edit/{{projectID}}" class="projectPage-remix-text">Remix this project</a></div>-->
+
+
+        <div class="publish-and-download-button">
+            <a href="../edit/{{projectID}}" class="projectPage-remix-text" id="postProject">Remix this project</a>
+            <a href="../project/{{projectID}}.plan/?download=true" download="{{title}}.plan" id="download-changes-button">Download .plan</a>
+        </div>
+
     </div>
 
 </div>

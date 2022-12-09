@@ -7,6 +7,7 @@ const fs = require("fs")
 
 const packageJSON = require("./package.json")
 const tagPropertiesJSON = require("./tagProperties.json")
+const approvedAddressesJSON = require("./approvedRobotAddresses.json")
 
 let app = express()
 
@@ -107,6 +108,59 @@ let getProjectMetaData = function(req, res, next)
 getProjectMetaData() //Initial load
 app.get("/projectMetaData.json", getProjectMetaData)
 
+let incrementDownloads = function(projectID)
+{
+    if (!(projectID in projectMetaDataJSON))
+    {
+        console.log("Attempting to increment downloads for invalid project ID.")
+        return
+    }
+
+    let newDownloads = ++projectMetaDataJSON[projectID].downloads
+
+    fs.writeFile("./projectMetaData.json", JSON.stringify(projectMetaDataJSON, null, 2), function (err) {
+        if(err)
+        {
+            console.log(err)
+        }
+        else
+        {
+            console.log("Incremented downloads for", projectID, ". New download count:", newDownloads)
+        }
+    })
+}
+let incrementBuilds = function(projectID, robotAddress)
+{
+    if (!(projectID in projectMetaDataJSON))
+    {
+        console.log("Attempting to increment builds for invalid project ID.")
+        return
+    }
+    if (!(robotAddress in approvedAddressesJSON))
+    {
+        console.log("Unapproved address attempted to increment approved builds")
+        return
+    }
+
+    if (!("builds" in projectMetaDataJSON[projectID]))
+    {
+        projectMetaDataJSON[projectID]["builds"] = 0
+    }
+
+    let newBuilds = ++projectMetaDataJSON[projectID].builds
+
+    fs.writeFile("./projectMetaData.json", JSON.stringify(projectMetaDataJSON, null, 2), function (err) {
+        if(err)
+        {
+            console.log(err)
+        }
+        else
+        {
+            console.log("Incremented approved builds for", projectID, ". New builds count:", newBuilds)
+        }
+    })
+}
+
 /**
  * Serve up project plans
  */
@@ -117,6 +171,16 @@ app.get("/project/:projectID.plan", function (req, res, next)
     try
     {
         fs.accessSync(path)
+
+        console.log("Query:", req.query)
+        if("download" in req.query && req.query.download)
+        {
+            incrementDownloads(req.params.projectID)
+        }
+        if("addr" in req.query && req.query.addr)
+        {
+            incrementBuilds(req.params.projectID, req.query.addr)
+        }
 
         res.set({ 'content-type': 'text/plain; charset=utf-8' }).status(200).sendFile(path)
     }
