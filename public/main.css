@@ -713,7 +713,7 @@ input[type=submit]:hover {
     display: none;
 }
 
-/*Individual ProjectPage Styles*/
+/*************************Individual ProjectPage Styles***********************/
 .projectPage-body {
     background-color: rgb(213, 213, 250);
     padding: 0px 10px 50px 10px;
@@ -768,11 +768,23 @@ input[type=submit]:hover {
     margin: 5px 0px;
 }
 
+.projectPage-downloads, .projectPage-builds {
+    display: inline;
+}
+
+.builds {
+    background-color: #f9ffff;
+
+    color: #05831f;
+
+    border-radius: 4px;
+    border: #05831f 1px solid;
+    padding: 3px;
+}
+
 .projectPage-copyId-button {
     width: 70px;
     padding: 8px 10px;
-    /*background-color: #3f83fb;*/
-    /*color: black;*/
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -782,18 +794,15 @@ input[type=submit]:hover {
     margin-bottom: 20px;
 }
 
-/*.projectPage-copyId-button:hover {*/
-/*    background-color: #5f94f3;*/
-/*}*/
-
-/*.projectPage-copyId-button:active {*/
-/*    background-color: green;*/
-/*}*/
+.projectPage-remix-and-downloads {
+    display: -webkit-inline-flex;
+}
 
 .projectPage-remix {
     margin-top: 10px;
     margin-bottom: 50px;
 }
+
 .projectPage-remix-text.pp {
     font-size: 16px;
     letter-spacing: 0px;
@@ -815,6 +824,9 @@ input[type=submit]:hover {
     background-color: #03b979;
 }
 
+.projectPage-download-plan-text {
+    text-decoration: none;
+}
 
 /* js injected code for copy id button */
 .success {

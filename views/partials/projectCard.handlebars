@@ -13,6 +13,13 @@
         </div>
         <div class="post-info-container">
             <span class="build-num">Downloads: {{downloads}}</span>
+
+            {{#if builds}}
+                <span class="build-num builds">Builds: {{builds}}
+                    <!--                    <i class='fa fa-bars'></i>-->
+                    <i class='fa fa-hammer'></i>
+                </span>
+            {{/if}}
         </div>
     </div>
 </div>

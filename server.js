@@ -134,12 +134,12 @@ let incrementBuilds = function(projectID, robotAddress)
     if (!(projectID in projectMetaDataJSON))
     {
         console.log("Attempting to increment builds for invalid project ID.")
-        return
+        return false
     }
     if (!(robotAddress in approvedAddressesJSON))
     {
         console.log("Unapproved address attempted to increment approved builds")
-        return
+        return false
     }
 
     if (!("builds" in projectMetaDataJSON[projectID]))
@@ -159,6 +159,8 @@ let incrementBuilds = function(projectID, robotAddress)
             console.log("Incremented approved builds for", projectID, ". New builds count:", newBuilds)
         }
     })
+
+    return true
 }
 
 /**
@@ -173,13 +175,17 @@ app.get("/project/:projectID.plan", function (req, res, next)
         fs.accessSync(path)
 
         console.log("Query:", req.query)
-        if("download" in req.query && req.query.download)
-        {
-            incrementDownloads(req.params.projectID)
-        }
+
+        let built = false
+
         if("addr" in req.query && req.query.addr)
         {
-            incrementBuilds(req.params.projectID, req.query.addr)
+            built = incrementBuilds(req.params.projectID, req.query.addr)
+        }
+
+        if(!built && "download" in req.query && req.query.download)
+        {
+            incrementDownloads(req.params.projectID)
         }
 
         res.set({ 'content-type': 'text/plain; charset=utf-8' }).status(200).sendFile(path)
@@ -560,6 +566,7 @@ let serveProjectPage = function (req, res, next)
                 "title" : projectMetaDataJSON[projectID].title,
                 "description" : projectMetaDataJSON[projectID].description,
                 "downloads" : projectMetaDataJSON[projectID].downloads,
+                "builds" : projectMetaDataJSON[projectID].builds,
                 "palette_materials" : projectMetaDataJSON[projectID].palette_materials,
                 "palette_viewport" : projectMetaDataJSON[projectID].palette_viewport,
                 "tags" : projectMetaDataJSON[projectID].tags,
