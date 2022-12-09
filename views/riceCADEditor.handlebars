@@ -42,7 +42,6 @@
         <h2>Text Editor</h2>
         <br>
         <textarea id="text_editor_textarea" wrap="off" cols="" rows="">1</textarea><br>
-        <button onclick="downloadChanges()" id="download-changes-button">Download Changes</button>
     </div>
 
     <div class="panel" id="material_settings">
@@ -64,21 +63,30 @@
             <input id="projectDownloads" value="{{downloads}}" hidden>
             <h2 id="project-title-h2">Title: <span id="projectTitle">{{title}}</span></h2>
             <button onclick="renameProject()" id="rename-project-button">Rename Project</button>
+            <div class="project-setting-divider"></div>
+
             <label id="project-description-label">Describe your project</label>
             <textarea id="projectDescription">{{description}}</textarea>
+            <div class="project-setting-divider"></div>
 
+            <label class="project-setting-tag-title">Tags</label><i class="fa fa-tag"></i>
             <div id="projectLabelsContainer">
                 {{#each tags}}
                     {{> labelCheckbox}}
                 {{/each}}
             </div>
+            <div class="project-setting-divider"></div>
 
             <label for="file-selector" id="upload-plan-file-label">Upload a .plan file</label>
             <input type="file" id="file-selector" accept=".plan">
+            <div class="project-setting-divider"></div>
 
             <input id="projectID" value="{{projectID}}" hidden>
             <input type="file" id="thumbnail" hidden>
-            <input type="submit" id="postProject" value="Publish Project">
+            <div class="publish-and-download-button">
+                <input type="submit" id="postProject" value="Publish Project">
+                <button onclick="downloadChanges()" id="download-changes-button">Download Changes</button>
+            </div>
         </div>
     </div>
 </div>
