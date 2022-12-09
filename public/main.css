@@ -772,7 +772,7 @@ input[type=submit]:hover {
     display: inline;
 }
 
-.projectPage-builds {
+.builds {
     background-color: #f9ffff;
 
     color: #05831f;
