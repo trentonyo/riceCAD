@@ -771,8 +771,8 @@ input[type=submit]:hover {
 .projectPage-copyId-button {
     width: 70px;
     padding: 8px 10px;
-    background-color: #3f83fb;
-    color: black;
+    /*background-color: #3f83fb;*/
+    /*color: black;*/
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -782,13 +782,13 @@ input[type=submit]:hover {
     margin-bottom: 20px;
 }
 
-.projectPage-copyId-button:hover {
-    background-color: #5f94f3;
-}
+/*.projectPage-copyId-button:hover {*/
+/*    background-color: #5f94f3;*/
+/*}*/
 
-.projectPage-copyId-button:active {
-    background-color: green;
-}
+/*.projectPage-copyId-button:active {*/
+/*    background-color: green;*/
+/*}*/
 
 .projectPage-remix {
     margin-top: 10px;
@@ -826,4 +826,7 @@ input[type=submit]:hover {
     color: #180000;
     border: #180000 1px;
     background-color: rgb(211, 115, 115);
+}
+.hovered {
+    background-color: #5f94f3;
 }
