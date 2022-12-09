@@ -1,20 +1,32 @@
-<img src="/project/{{projectID}}.png">
-<h1>{{title}}</h1>
-<p>{{description}}</p>
-<div class="labels">
-    {{#each tags}}
-        <span>{{> label}}</span>
-    {{/each}}
-</div>
-<div><a href="../edit/{{projectID}}">Remix this project</a></div>
-<div>Downloaded {{downloads}} times</div>
-<div>
-    <span id="clipboard_value">{{projectID}}</span>
-    <button id="clipboard_button" value="Copy ID">
-    </button>
-</div>
-{{#if parentProjectID}}
-    <div>
-        <a href="../projects/{{parentProjectID}}">Parent project: {{parentProjectID}}</a>
+<div class="projectPage-body">
+    <h1 class="projectPage-title">{{title}}</h1>
+    <div class="projectPage-project-description">Project Description
+        <p class="projectPage-description-content">{{description}}</p>
     </div>
-{{/if}}
+
+    <div class="projectPage-project-details">
+        <div class="projectPage-project-details-title">Project Details</div>
+        <img src="/project/{{projectID}}.png" class="projectPage-image" alt="the project could not be retrieved">
+        <div class="labels projectPage-labels">
+            {{#each tags}}
+                <span>{{> label}}</span>
+            {{/each}}
+        </div>
+
+        <div>
+            <div class="projectPage-downloads">Downloaded: {{downloads}} times</div>
+            <div class="projectPage-projectId">Project Id: <span id="clipboard_value">{{projectID}}</span></div>
+            <button id="clipboard_button" value="Copy ID" class="projectPage-copyId-button"></button>
+        </div>
+
+
+        {{#if parentProjectID}}
+            <div class="projectPage-remix">
+                <a href="../projects/{{parentProjectID}}" class="projectPage-remix-text pp">Parent project: {{parentProjectID}}</a>
+            </div>
+        {{/if}}
+
+        <div class="projectPage-remix"><a href="../edit/{{projectID}}" class="projectPage-remix-text">Remix this project</a></div>
+    </div>
+
+</div>
