@@ -282,8 +282,7 @@ input[type="color"]::-webkit-color-swatch-wrapper {
 
 .project-setting-divider {
     position: relative;
-    left: -5px;
-    width: 270px;
+    width: 94%;
     margin-left: 0px;
     margin-bottom: 10px;
     border-bottom: 3px solid black;
@@ -299,7 +298,7 @@ input[type="color"]::-webkit-color-swatch-wrapper {
 }
 
 #rename-project-button {
-    width: 70%;
+    width: 94%;
     background-color: #04AA6D;
     color: black;
     padding: 14px 20px;
@@ -320,18 +319,26 @@ input[type="color"]::-webkit-color-swatch-wrapper {
 #projectDescription {
     margin-top: 5px;
     margin-bottom: 15px;
-    width: 225px;
+    width: 94%;
     height: 65px;
     border: 1px solid black;
     border-radius: 5px;
 }
+.project-setting-tag-title {
+    margin-right: 5px;
+    font-size: 20px;
+}
 
 #projectLabelsContainer {
-   margin: 10px 0px;
+    max-width: 94%;
+    margin: 10px 0px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
 }
 
 #file-selector {
-    width: 70%;
+    width: 94%;
     background-color: #04AA6D;
     color: black;
     padding: 14px 20px;
@@ -339,10 +346,10 @@ input[type="color"]::-webkit-color-swatch-wrapper {
     border-radius: 4px;
     cursor: pointer;
     font-family: inherit;
-    font-size: 12px;
+    font-size: 15px;
     display: block;
     margin-bottom: 20px;
-    letter-spacing: 1px;
+    /*letter-spacing: 1px;*/
 }
 
 #file-selector:hover {
