@@ -143,25 +143,6 @@ canvas {
     margin-bottom: 10px;
 }
 
-#download-changes-button {
-    width: 70%;
-    padding: 14px 20px;
-    display: block;
-    margin: 0px 0px 10px 10px;
-    background-color: #04AA6D;
-    color: black;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-family: inherit;
-    font-size: 15px;
-    letter-spacing: 1px;
-}
-
-#download-changes-button:hover {
-    background-color: #03b979;
-}
-
 #content_file_naming {
     font-size: 10px;
     padding-bottom: 10px;
@@ -298,6 +279,16 @@ input[type="color"]::-webkit-color-swatch-wrapper {
     margin-top: 30px;
     margin-left: 20px;
 }
+
+.project-setting-divider {
+    position: relative;
+    width: 94%;
+    margin-left: 0px;
+    margin-bottom: 10px;
+    border-bottom: 3px solid black;
+    border-radius: 5px;
+}
+
 #project-title-h2, #project-description-label, #upload-plan-file-label {
     font-size: 20px;
 }
@@ -307,7 +298,7 @@ input[type="color"]::-webkit-color-swatch-wrapper {
 }
 
 #rename-project-button {
-    width: 70%;
+    width: 94%;
     background-color: #04AA6D;
     color: black;
     padding: 14px 20px;
@@ -327,18 +318,27 @@ input[type="color"]::-webkit-color-swatch-wrapper {
 
 #projectDescription {
     margin-top: 5px;
-    width: 225px;
+    margin-bottom: 15px;
+    width: 94%;
     height: 65px;
     border: 1px solid black;
     border-radius: 5px;
 }
+.project-setting-tag-title {
+    margin-right: 5px;
+    font-size: 20px;
+}
 
 #projectLabelsContainer {
-   margin: 10px 0px;
+    max-width: 94%;
+    margin: 10px 0px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
 }
 
 #file-selector {
-    width: 70%;
+    width: 94%;
     background-color: #04AA6D;
     color: black;
     padding: 14px 20px;
@@ -346,21 +346,46 @@ input[type="color"]::-webkit-color-swatch-wrapper {
     border-radius: 4px;
     cursor: pointer;
     font-family: inherit;
-    font-size: 12px;
+    font-size: 15px;
     display: block;
     margin-bottom: 20px;
-    letter-spacing: 1px;
+    /*letter-spacing: 1px;*/
 }
 
 #file-selector:hover {
     background-color: #03b979;
 }
 
+.publish-and-download-button{
+    display: flex;
+}
+
 /*publish button*/
 #postProject {
-    width: 90%;
+    margin: 0px 0px 0px 0px;
+    width: 65%;
     color: black;
     font-size: 20px;
+    letter-spacing: 1px;
+}
+/* download changes button */
+#download-changes-button {
+    width: 90px;
+    padding: 14px 20px;
+    display: block;
+    margin: 0px 20px 0px 10px;
+    background-color: #3f83fb;
+    color: black;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 14px;
+    letter-spacing: 1px;
+}
+
+#download-changes-button:hover {
+    background-color: #5f94f3;
 }
 
 #postProject:hover {
@@ -546,10 +571,11 @@ input[type=text] {
 
 .filter-container {
     /*position: relative;*/
-    display: block;
-    min-width: 200px;
-    max-width: 250px;
+    display: inline-block;
+    /*min-width: 200px;*/
+    /*max-width: 250px;*/
     width: 250px;
+    height: 350px;
     border-radius: 3px;
     margin: 10px 0px 0px 10px;
     padding: 0 20px 20px 10px;
@@ -576,14 +602,15 @@ input[type=text] {
     flex-wrap: wrap;
     flex-direction: row;
     width: 80%;
-    height: 350px;
+    /*height: 350px;*/
 }
 
 .post{
     background-color: rgb(206, 223, 199);
     display: inline-block;
     width: 420px;
-    height: 370px;
+    height: 450px;
+    /*min-height: auto;*/
     border: 3px solid rgb(0, 0, 0);
     border-radius: 5px;
     margin-bottom: 20px;
@@ -625,6 +652,9 @@ input[type=text] {
 .post-tags-container {
     margin-top: 5px;
     margin-bottom: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: stretch;
 }
 
 .project_label {
@@ -690,6 +720,171 @@ input[type=text] {
     padding: 20px;
 }
 
+.project_label input {
+    display: none;
+}
+
+/*************************Individual ProjectPage Styles***********************/
+.projectPage-body {
+    background-color: rgb(213, 213, 250);
+    padding: 0px 10px 50px 10px;
+    /*padding-top: 10px;*/
+}
+
+.projectPage-title {
+    border-bottom: 1px solid black;
+    height: 70px;
+    display: block;
+    padding-top: 15px;
+    margin: 0px;
+    font-size: 35px;
+}
+
+.projectPage-project-description {
+    margin: 10px 0px 0px 10px;
+    font-size: 30px;
+}
+
+.projectPage-description-content {
+    font-size: 21px;
+    margin-top: 10px;
+    font-style: italic;
+}
+
+.projectPage-project-details {
+    margin-top: 40px;
+    padding: 10px 0px 30px 0px;
+    border: 1px solid black;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.projectPage-project-details-title {
+    font-size: 30px;
+    margin: 10px 0px;
+}
+
+.projectPage-image {
+    border: 3px solid black;
+    border-radius: 5px;
+    display: block;
+    margin: 0px auto;
+}
+
+.projectPage-labels {
+    margin-top: 15px;
+}
+
+.projectPage-downloads, .projectPage-projectId  {
+    margin: 5px 0px;
+}
+
+.projectPage-downloads, .projectPage-builds {
+    display: inline;
+}
+
+.builds {
+    background-color: #f9ffff;
+
+    color: #05831f;
+
+    border-radius: 4px;
+    border: #05831f 1px solid;
+    padding: 3px;
+}
+
+.projectPage-copyId-button {
+    width: 70px;
+    padding: 8px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 10px;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+}
+
+.projectPage-remix-and-downloads {
+    display: -webkit-inline-flex;
+}
+
+.projectPage-remix {
+    margin-top: 10px;
+    margin-bottom: 50px;
+}
+
+.projectPage-remix-text.pp {
+    font-size: 16px;
+    letter-spacing: 0px;
+}
+
+.projectPage-remix-text {
+    padding: 20px 30px;
+    background-color: #04AA6D;
+    color: black;
+    border: none;
+    border-radius: 4px;
+    font-size: 20px;
+    letter-spacing: 2px;
+    text-decoration: none;
+    color: black;
+}
+
+.projectPage-remix-text:hover {
+    background-color: #03b979;
+}
+
+.projectPage-download-plan-text {
+    text-decoration: none;
+}
+
+/**********************Styling for 404 Page/Page Not Found*****************/
+.pageNF {
+    background-color: rgba(250, 142, 142, 0.72);
+    height: -webkit-fill-available;
+}
+
+.pageNF-content {
+    text-align: center;
+    padding-top: 150px;
+}
+
+.pageNF-404-text {
+    font-size: 200px;
+}
+
+.pageNF-page-not-found-text {
+    font-size: 50px;
+    margin: 0px 0px 20px 0px;
+}
+
+.pageNF-Opps-text {
+    font-style: italic;
+}
+
+.pageNF-explain-text {
+    font-size: 30px;
+    margin: 0px 0px 60px 0px;
+}
+
+.pageNF-goHome-text {
+    background-color: #04AA6D;
+    border: 2px solid black;
+    border-radius: 10px;
+    font-size: 20px;
+    letter-spacing: 2px;
+    text-decoration: none;
+    /*font-style: italic;*/
+    color: black;
+    padding: 20px 30px;
+}
+
+.pageNF-goHome-text:hover {
+    background-color: #03b979;
+}
+
+/* js injected code for copy id button */
 .success {
     color: #0a1800;
     border: #0a1800 1px;
@@ -700,11 +895,6 @@ input[type=text] {
     border: #180000 1px;
     background-color: rgb(211, 115, 115);
 }
-
-.project_label input {
-    display: none;
+.hovered {
+    background-color: #5f94f3;
 }
-
-/*.project_label input:checked {*/
-/*    display: inline;*/
-/*}*/
