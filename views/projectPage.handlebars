@@ -15,6 +15,11 @@
 
         <div>
             <div class="projectPage-downloads">Downloaded: {{downloads}} times</div>
+
+            {{#if builds}}
+                <div class="projectPage-builds">Built: {{builds}} times \< insert cool icon here with a tooltip that says "Builds are those downloads from acknowledged robots in-game!"\></div>
+            {{/if}}
+
             <div class="projectPage-projectId">Project Id: <span id="clipboard_value">{{projectID}}</span></div>
             <button id="clipboard_button" value="Copy ID" class="projectPage-copyId-button"></button>
         </div>
