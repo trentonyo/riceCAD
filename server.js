@@ -107,6 +107,28 @@ let getProjectMetaData = function(req, res, next)
 getProjectMetaData() //Initial load
 app.get("/projectMetaData.json", getProjectMetaData)
 
+let incrementDownloads = function(projectID)
+{
+    if (!(projectID in projectMetaDataJSON))
+    {
+        console.log("Attempting to increment downloads for invalid project ID.")
+        return
+    }
+
+    let newDownloads = ++projectMetaDataJSON[projectID].downloads
+
+    fs.writeFile("./projectMetaData.json", JSON.stringify(projectMetaDataJSON, null, 2), function (err) {
+        if(err)
+        {
+            console.log(err)
+        }
+        else
+        {
+            console.log("Incremented downloads for", projectID, ". New downloads:", newDownloads)
+        }
+    })
+}
+
 /**
  * Serve up project plans
  */
@@ -117,6 +139,12 @@ app.get("/project/:projectID.plan", function (req, res, next)
     try
     {
         fs.accessSync(path)
+
+        console.log("Query:", req.query)
+        if("download" in req.query && req.query.download)
+        {
+            incrementDownloads(req.params.projectID)
+        }
 
         res.set({ 'content-type': 'text/plain; charset=utf-8' }).status(200).sendFile(path)
     }
