@@ -9,6 +9,10 @@ const packageJSON = require("./package.json")
 const tagPropertiesJSON = require("./tagProperties.json")
 const approvedAddressesJSON = require("./approvedRobotAddresses.json")
 
+console.log(approvedAddressesJSON)
+
+console.log(approvedAddressesJSON.indexOf("1ba9a59e-2540-4b12-ae8e-9374162aec90") !== -1)
+
 let app = express()
 
 const DEFAULT_PORT = 8080
@@ -136,7 +140,7 @@ let incrementBuilds = function(projectID, robotAddress)
         console.log("Attempting to increment builds for invalid project ID.")
         return false
     }
-    if (!(robotAddress in approvedAddressesJSON))
+    if (approvedAddressesJSON.indexOf(robotAddress) === -1)
     {
         console.log("Unapproved address attempted to increment approved builds")
         return false
