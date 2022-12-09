@@ -704,17 +704,6 @@ input[type=submit]:hover {
     padding: 20px;
 }
 
-.success {
-    color: #0a1800;
-    border: #0a1800 1px;
-    background-color: rgb(200, 236, 171);
-}
-.failure {
-    color: #180000;
-    border: #180000 1px;
-    background-color: rgb(211, 115, 115);
-}
-
 .project_label input {
     display: none;
 }
@@ -792,8 +781,17 @@ input[type=submit]:hover {
     background-color: #5f94f3;
 }
 
+.projectPage-copyId-button:active {
+    background-color: green;
+}
+
 .projectPage-remix {
     margin-top: 10px;
+    margin-bottom: 50px;
+}
+.projectPage-remix-text.pp {
+    font-size: 16px;
+    letter-spacing: 0px;
 }
 
 .projectPage-remix-text {
@@ -810,4 +808,17 @@ input[type=submit]:hover {
 
 .projectPage-remix-text:hover {
     background-color: #03b979;
+}
+
+
+/* js injected code for copy id button */
+.success {
+    color: #0a1800;
+    border: #0a1800 1px;
+    background-color: rgb(200, 236, 171);
+}
+.failure {
+    color: #180000;
+    border: #180000 1px;
+    background-color: rgb(211, 115, 115);
 }
