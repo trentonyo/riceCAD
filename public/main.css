@@ -768,6 +768,20 @@ input[type=submit]:hover {
     margin: 5px 0px;
 }
 
+.projectPage-downloads, .projectPage-builds {
+    display: inline;
+}
+
+.projectPage-builds {
+    background-color: #f9ffff;
+
+    color: #05831f;
+
+    border-radius: 4px;
+    border: #05831f 1px solid;
+    padding: 3px;
+}
+
 .projectPage-copyId-button {
     width: 70px;
     padding: 8px 10px;
@@ -777,7 +791,7 @@ input[type=submit]:hover {
     font-family: inherit;
     font-size: 10px;
     letter-spacing: 1px;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 }
 
 .projectPage-remix-and-downloads {

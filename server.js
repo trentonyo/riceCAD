@@ -566,6 +566,7 @@ let serveProjectPage = function (req, res, next)
                 "title" : projectMetaDataJSON[projectID].title,
                 "description" : projectMetaDataJSON[projectID].description,
                 "downloads" : projectMetaDataJSON[projectID].downloads,
+                "builds" : projectMetaDataJSON[projectID].builds,
                 "palette_materials" : projectMetaDataJSON[projectID].palette_materials,
                 "palette_viewport" : projectMetaDataJSON[projectID].palette_viewport,
                 "tags" : projectMetaDataJSON[projectID].tags,
