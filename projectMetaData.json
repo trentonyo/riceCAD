@@ -1,6 +1,6 @@
 {
   "xas32": {
-    "title": "A Test Title",
+    "title": "Tiny House",
     "description": "This is a test project, it's not very interesting. It's more of a proof of concept than anything, really.",
     "tags": {
       "Prototype": {
@@ -63,7 +63,7 @@
     }
   },
   "3ba56": {
-    "title": "Another Test Title",
+    "title": "Ugly Wreath",
     "description": "This is also a test project, maybe you've seen the other one?",
     "tags": {
       "Prototype": {
@@ -126,7 +126,7 @@
     }
   },
   "v58f4i": {
-    "title": "All tags",
+    "title": "Ugly Crown",
     "description": "This remix was to test label propogation",
     "tags": {
       "Prototype": {
