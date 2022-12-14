@@ -328,7 +328,7 @@
         "background-color": "gray",
         "text-color": "black"
       },
-      "Hi-tech" : {
+      "Hi-tech": {
         "background-color": "#11b",
         "text-color": "white"
       },
@@ -382,6 +382,65 @@
       },
       "workingplane": {
         "color": "#edfeed",
+        "glass": false,
+        "viewport": true
+      }
+    }
+  },
+  "4ajyrl": {
+    "title": "Steeleplate Warehouse",
+    "description": "This is a very common sight in Kijima and Tabyaku, the Steeleplate Warehouse is a simple modular warehouse that includes an attractive storefront corner, a small raised office, and a factory floor accessible by several doors and two large bays.\n\nFoundation not included, roof not fully formed.",
+    "tags": {
+      "Business": {
+        "background-color": "gray",
+        "text-color": "black"
+      }
+    },
+    "downloads": "0",
+    "palette": {
+      "1": {
+        "color": "#643e24",
+        "glass": false
+      },
+      "2": {
+        "color": "#ce984e",
+        "glass": false
+      },
+      "3": {
+        "color": "#898c92",
+        "glass": false
+      },
+      "4": {
+        "color": "#316580",
+        "glass": true
+      },
+      "5": {
+        "color": "#68895f",
+        "glass": false
+      },
+      "6": {
+        "color": "#fefefe",
+        "glass": true
+      },
+      "7": {
+        "color": "#9d9d95",
+        "glass": false
+      },
+      "8": {
+        "color": "#464e50",
+        "glass": false
+      },
+      "9": {
+        "color": "#f18ba9",
+        "glass": false
+      },
+      "background": {
+        "color": "#baccb1",
+        "glass": false,
+        "viewport": true
+      },
+      "workingplane": {
+        "color": "#888f88",
         "glass": false,
         "viewport": true
       }
