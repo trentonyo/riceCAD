@@ -19,6 +19,10 @@
     "background-color": "#aaf",
     "text-color": "black"
   },
+  "Hi-tech" : {
+    "background-color": "#11b",
+    "text-color": "white"
+  },
   "House" : {
     "background-color": "pink",
     "text-color": "black"
@@ -30,6 +34,10 @@
   "Medieval" : {
     "background-color": "#333",
     "text-color": "white"
+  },
+  "Modern" : {
+    "background-color": "#acc",
+    "text-color": "black"
   },
   "Nordic" : {
     "background-color": "brown",
