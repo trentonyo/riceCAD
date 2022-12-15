@@ -161,7 +161,7 @@ function filterPosts(posts)
             // addPostHandlebars(filteredPosts[i], projectMetaData[filteredPosts[i]])
             let currentPost = projectMetaData[filteredPosts[i]]
 
-            Addpost(currentPost.tags, currentPost.downloads, currentPost.title, `../project/${filteredPosts[i]}.png`)
+            Addpost(currentPost.tags, currentPost.downloads, currentPost.title, `../project/${filteredPosts[i]}.png`, filteredPosts[i])
         }
     }
     else
@@ -172,7 +172,7 @@ function filterPosts(posts)
             // addPostHandlebars(projectID, projectMetaData[projectID])
             let currentPost = projectMetaData[projectID]
 
-            Addpost(currentPost.tags, currentPost.downloads, currentPost.title, `../project/${filteredPosts[projectID]}.png`)
+            Addpost(currentPost.tags, currentPost.downloads, currentPost.title, `../project/${projectID}.png`, projectID)
 
         }
     }
@@ -198,7 +198,7 @@ function addPostHandlebars(projectID, postData)
 
 }
 
-function Addpost(filtertags, filterDownloads, filterName, posturl){
+function Addpost(filtertags, filterDownloads, filterName, posturl, projectID){
 
 //Create Post / attributes
 var NewPost = document.createElement("div")
@@ -219,7 +219,7 @@ contents.appendChild(titleContainer)
 
 //New title
 var newTitle = document.createElement("a")
-newTitle.href = "#"
+newTitle.href = `/projects/${projectID}`
 newTitle.classList.add("post-title")
 newTitle.textContent = filterName
 titleContainer.appendChild(newTitle)
