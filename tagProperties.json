@@ -12,7 +12,7 @@
     "text-color": "black"
   },
   "Fantasy" : {
-    "background-color": "#393",
+    "background-color": "#397",
     "text-color": "white"
   },
   "Futuristic" : {
@@ -37,6 +37,10 @@
   },
   "Modern" : {
     "background-color": "#acc",
+    "text-color": "black"
+  },
+  "Nature" : {
+    "background-color": "#390",
     "text-color": "black"
   },
   "Nordic" : {
