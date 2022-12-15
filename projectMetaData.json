@@ -252,5 +252,329 @@
         "viewport": true
       }
     }
+  },
+  "zfl0rp": {
+    "title": "Graphite Building",
+    "description": "Large apartment complex, roughly based on buildings from the map \"World's Edge\" from the game \"Apex Legends.\" Five rooms per floor and 7 floors above the lobby/ground floor.\n\nPlan does not include a foundation, and leaves an aperture for stairway ascension.",
+    "tags": {
+      "Business": {
+        "background-color": "gray",
+        "text-color": "black"
+      },
+      "House": {
+        "background-color": "pink",
+        "text-color": "black"
+      },
+      "Modern": {
+        "background-color": "#acc",
+        "text-color": "black"
+      }
+    },
+    "downloads": "0",
+    "palette": {
+      "1": {
+        "color": "#90908c",
+        "glass": false
+      },
+      "2": {
+        "color": "#2d3037",
+        "glass": false
+      },
+      "3": {
+        "color": "#6a6a6a",
+        "glass": true
+      },
+      "4": {
+        "color": "#b41111",
+        "glass": false
+      },
+      "5": {
+        "color": "#3353b6",
+        "glass": false
+      },
+      "6": {
+        "color": "#159a9a",
+        "glass": false
+      },
+      "7": {
+        "color": "#9d9d95",
+        "glass": false
+      },
+      "8": {
+        "color": "#464e50",
+        "glass": false
+      },
+      "9": {
+        "color": "#f18ba9",
+        "glass": false
+      },
+      "background": {
+        "color": "#72a2a7",
+        "glass": false,
+        "viewport": true
+      },
+      "workingplane": {
+        "color": "#edfeed",
+        "glass": false,
+        "viewport": true
+      }
+    }
+  },
+  "14o5vu": {
+    "title": "AlchemX TAB Campus",
+    "description": "AlchemX is a Kamemotonese alchemical manufacturing company; this is their first campus ever built, currently operating in Tabyaku's Industrial district.\n\nThe building includes \n- a lobby and meeting room accessible from the ground floor\n- two levels of offices\n- two locker rooms\n- seven modular alchemy chambers\n\nNo foundation included, no rooftop access included",
+    "tags": {
+      "Business": {
+        "background-color": "gray",
+        "text-color": "black"
+      },
+      "Hi-tech": {
+        "background-color": "#11b",
+        "text-color": "white"
+      },
+      "Modern": {
+        "background-color": "#acc",
+        "text-color": "black"
+      }
+    },
+    "downloads": "0",
+    "palette": {
+      "1": {
+        "color": "#505344",
+        "glass": false
+      },
+      "2": {
+        "color": "#a2b7a6",
+        "glass": false
+      },
+      "3": {
+        "color": "#d4cfea",
+        "glass": false
+      },
+      "4": {
+        "color": "#31803a",
+        "glass": false
+      },
+      "5": {
+        "color": "#7fd8e4",
+        "glass": true
+      },
+      "6": {
+        "color": "#159a9a",
+        "glass": false
+      },
+      "7": {
+        "color": "#9d9d95",
+        "glass": false
+      },
+      "8": {
+        "color": "#464e50",
+        "glass": false
+      },
+      "9": {
+        "color": "#f18ba9",
+        "glass": false
+      },
+      "background": {
+        "color": "#72a2a7",
+        "glass": false,
+        "viewport": true
+      },
+      "workingplane": {
+        "color": "#edfeed",
+        "glass": false,
+        "viewport": true
+      }
+    }
+  },
+  "4ajyrl": {
+    "title": "Steeleplate Warehouse",
+    "description": "This is a very common sight in Kijima and Tabyaku, the Steeleplate Warehouse is a simple modular warehouse that includes an attractive storefront corner, a small raised office, and a factory floor accessible by several doors and two large bays.\n\nFoundation not included, roof not fully formed.",
+    "tags": {
+      "Business": {
+        "background-color": "gray",
+        "text-color": "black"
+      }
+    },
+    "downloads": "0",
+    "palette": {
+      "1": {
+        "color": "#643e24",
+        "glass": false
+      },
+      "2": {
+        "color": "#ce984e",
+        "glass": false
+      },
+      "3": {
+        "color": "#898c92",
+        "glass": false
+      },
+      "4": {
+        "color": "#316580",
+        "glass": true
+      },
+      "5": {
+        "color": "#68895f",
+        "glass": false
+      },
+      "6": {
+        "color": "#fefefe",
+        "glass": true
+      },
+      "7": {
+        "color": "#9d9d95",
+        "glass": false
+      },
+      "8": {
+        "color": "#464e50",
+        "glass": false
+      },
+      "9": {
+        "color": "#f18ba9",
+        "glass": false
+      },
+      "background": {
+        "color": "#baccb1",
+        "glass": false,
+        "viewport": true
+      },
+      "workingplane": {
+        "color": "#888f88",
+        "glass": false,
+        "viewport": true
+      }
+    }
+  },
+  "70i63t": {
+    "title": "Forest Altar",
+    "description": "A small altar\n\nMay also be used as a gazebo",
+    "tags": {
+      "Fantasy": {
+        "background-color": "#393",
+        "text-color": "white"
+      },
+      "Nature" : {
+        "background-color": "#390",
+        "text-color": "black"
+      }
+    },
+    "downloads": "0",
+    "palette": {
+      "1": {
+        "color": "#723825",
+        "glass": false
+      },
+      "2": {
+        "color": "#33180d",
+        "glass": false
+      },
+      "3": {
+        "color": "#c7c9c3",
+        "glass": false
+      },
+      "4": {
+        "color": "#815332",
+        "glass": false
+      },
+      "5": {
+        "color": "#8832b6",
+        "glass": false
+      },
+      "6": {
+        "color": "#159a9a",
+        "glass": false
+      },
+      "7": {
+        "color": "#9d9d95",
+        "glass": false
+      },
+      "8": {
+        "color": "#464e50",
+        "glass": false
+      },
+      "9": {
+        "color": "#f18ba9",
+        "glass": false
+      },
+      "background": {
+        "color": "#54af53",
+        "glass": false,
+        "viewport": true
+      },
+      "workingplane": {
+        "color": "#163516",
+        "glass": false,
+        "viewport": true
+      }
+    }
+  },
+  "6a99t2": {
+    "title": "Tiny House with Chimney",
+    "description": "A cute little house with a chimney!",
+    "tags": {
+      "House": {
+        "background-color": "pink",
+        "text-color": "black"
+      },
+      "Nordic": {
+        "background-color": "brown",
+        "text-color": "white"
+      },
+      "Prototype": {
+        "background-color": "red",
+        "text-color": "white"
+      }
+    },
+    "downloads": "3",
+    "palette": {
+      "1": {
+        "color": "#8a5b3d",
+        "glass": false
+      },
+      "2": {
+        "color": "#f8ed25",
+        "glass": false
+      },
+      "3": {
+        "color": "#c9c2be",
+        "glass": true
+      },
+      "4": {
+        "color": "#a10f0f",
+        "glass": false
+      },
+      "5": {
+        "color": "#f9a825",
+        "glass": false
+      },
+      "6": {
+        "color": "#f8f9a9",
+        "glass": false
+      },
+      "7": {
+        "color": "#b68825",
+        "glass": false
+      },
+      "8": {
+        "color": "#58f685",
+        "glass": false
+      },
+      "9": {
+        "color": "#a8f877",
+        "glass": false
+      },
+      "background": {
+        "color": "#91eef4",
+        "glass": false,
+        "viewport": true
+      },
+      "workingplane": {
+        "color": "#edfeed",
+        "glass": false,
+        "viewport": true
+      }
+    },
+    "parentProjectID": "xas32"
   }
 }
