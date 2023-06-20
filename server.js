@@ -6,6 +6,7 @@ const axios = require("axios")
 const fs = require("fs")
 
 const db = require('./app/db-connector')
+const tools = require('./lib/tools')
 
 const packageJSON = require("./package.json")
 const tagPropertiesJSON = require("./tagProperties.json")
@@ -122,7 +123,7 @@ let getProjectMetaData = function(req, res, next)
 getProjectMetaData() //Initial load
 app.get("/projectMetaData.json", getProjectMetaData)
 
-let incrementDownloads = function(projectID)
+let incrementDownloads = function(projectID)        // TODO refactor to UPDATE the server
 {
     if (!(projectID in projectMetaDataJSON))
     {
@@ -143,7 +144,7 @@ let incrementDownloads = function(projectID)
         }
     })
 }
-let incrementBuilds = function(projectID, robotAddress)
+let incrementBuilds = function(projectID, robotAddress) //TODO refactor to UPDATE the database
 {
     if (!(projectID in projectMetaDataJSON))
     {
@@ -238,7 +239,7 @@ app.get("/project/:projectID.png", function (req, res, next) {
 /**
  * Generate new project ID
  */
-let generateNewProjectID = function (title)
+let generateNewProjectID = function (title)         //TODO refactor to use database, instead of 'in' do a query (do a postcheck loop)
 {
     let salt = 0
     let newID = ""
@@ -290,6 +291,7 @@ let generateNewProjectID = function (title)
 /**
  * Handle a POST for new project metadata
  */
+//TODO FIRST STEP need to refactor this to INSERT into the database
 app.post("/projects/addProjectMetaData", function (req, res, next) {
 
     if(req.body && req.body["title"] && req.body["description"])
@@ -308,7 +310,8 @@ app.post("/projects/addProjectMetaData", function (req, res, next) {
             project["parentProjectID"] = req.body.existingProjectID
         }
 
-        console.log("Tags in the POST metadata request:", req.body.tags)
+        // console.log("Tags in the POST metadata request:", req.body.tags)
+        tools.consoleDebug(["Tags in the POST metadata request:", req.body.tags])
 
         for (let i = 0; i < req.body.tags.length; i++) {
             let currentTag = req.body.tags[i]
@@ -405,6 +408,7 @@ app.post("/projects/addProjectThumbnail", function (req, res, next) {
 /**
  * Render tool page with handlebars
  */
+//TODO last step probably, SELECT from the database
 let serveEditor = function(req, res, next)
 {
     let projectID = req.params.projectID
@@ -547,7 +551,7 @@ let serveEditor = function(req, res, next)
 app.get("/edit/:projectID", function (req, res, next) { serveEditor(req, res, next) })
 app.get("/edit", function (req, res, next) { serveEditor(req, res, next) })
 
-let serveHomepage = function (req, res, next)
+let serveHomepage = function (req, res, next)               //TODO use database SELECT
 {
     db.pool.query("SELECT * FROM projects;", function(err, results, fields)
     {
@@ -571,7 +575,7 @@ app.get("/projects", serveHomepage)
 /**
  * Handle project pages
  */
-let serveProjectPage = function (req, res, next)
+let serveProjectPage = function (req, res, next)                //TODO use database SELECT
 {
     let projectID = req.params.projectID
 
