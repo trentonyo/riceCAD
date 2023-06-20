@@ -112,6 +112,23 @@ app.get("/projectMetaData.json", getProjectMetaData)
 
 let incrementDownloads = function(projectID)        // TODO refactor to UPDATE the server
 {
+    db.pool.query(`SELECT downloads FROM public.projects WHERE project_id='${projectID}';`, function (err, results, fields)
+    {
+        console.log("SELECT downloads results:", results)
+        let incremented_downloads = results.rows[0].downloads
+        incremented_downloads++
+        console.log("Which makes downloads:", incremented_downloads)
+
+        db.pool.query(`UPDATE public.projects SET downloads = ${incremented_downloads} WHERE project_id='${projectID}';`, function (err, results, fields)
+        // db.pool.query(`-- UPDATE public.projects SET downloads = 69 WHERE project_id='${projectID}';`, function (err, results, fields)
+        {
+            if(err)
+            {
+                console.log(err)
+            }
+        })
+    })
+
     if (!(projectID in projectMetaDataJSON))
     {
         console.log("Attempting to increment downloads for invalid project ID.")
