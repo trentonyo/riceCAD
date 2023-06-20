@@ -308,10 +308,10 @@ app.post("/projects/addProjectMetaData", function (req, res, next) {
 
             tools.consoleDebug(["In the tags for,", currentTag])
 
-            project.tags[currentTag] = tagPropertiesJSON[currentTag]
+            project.tags[currentTag] = tagPropertiesJSON[currentTag] //TODO remove after refactor
         }
 
-        projectMetaDataJSON[projectID] = project
+        projectMetaDataJSON[projectID] = project //TODO remove after refactor
 
         let pal = project.palette
 
@@ -323,7 +323,7 @@ app.post("/projects/addProjectMetaData", function (req, res, next) {
         VALUES ('${projectID}', '${tools.sanitize(project.title)}', '${tools.sanitize(project.description)}', ${project.downloads}, null, ${parentID_digest},
                 '${pal['1'].color}', '${pal['2'].color}', '${pal['3'].color}', '${pal['4'].color}', '${pal['5'].color}', '${pal['6'].color}', '${pal['7'].color}', '${pal['8'].color}', '${pal['9'].color}', 
                 ${pal['1'].glass}, ${pal['2'].glass}, ${pal['3'].glass}, ${pal['4'].glass}, ${pal['5'].glass}, ${pal['6'].glass}, ${pal['7'].glass}, ${pal['8'].glass}, ${pal['9'].glass},
-                ${pal['background'].color}, ${pal['workingplane'].color});`
+                '${pal['background'].color}', '${pal['workingplane'].color}');`
 
         db.pool.query(insertProjectQuery, function(err, results, fields)
         {
@@ -335,6 +335,23 @@ app.post("/projects/addProjectMetaData", function (req, res, next) {
                 console.log("While INSERTing new project:", err)
             }
         })
+
+        for (let i = 0; i < req.body.tags.length; i++) {
+            let currentTag = req.body.tags[i]
+
+            let query = `INSERT INTO public.projects_tags (project_id, tag_id)
+                         SELECT '${projectID}', tags_id
+                         FROM public.tags
+                         WHERE name='${currentTag}';`
+
+            db.pool.query(query, function(err, results, fields)
+            {
+                if(err)
+                {
+                    console.log(err)
+                }
+            })
+        }
 
         fs.writeFile("./projectMetaData.json", JSON.stringify(projectMetaDataJSON, null, 2), function (err) {
             if(err)

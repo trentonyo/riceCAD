@@ -252,5 +252,77 @@
         "viewport": true
       }
     }
+  },
+  "3yg4la": {
+    "title": "Mornginsta",
+    "description": "This is a test project, it's not very interesting. It's more of a proof of concept than anything, really.",
+    "tags": {
+      "Art": {
+        "background-color": "#939",
+        "text-color": "white"
+      },
+      "Ice": {
+        "background-color": "#eef",
+        "text-color": "black"
+      },
+      "Nordic": {
+        "background-color": "brown",
+        "text-color": "white"
+      },
+      "Prototype": {
+        "background-color": "red",
+        "text-color": "white"
+      }
+    },
+    "downloads": "3",
+    "palette": {
+      "1": {
+        "color": "#f8f825",
+        "glass": false
+      },
+      "2": {
+        "color": "#f8ed25",
+        "glass": false
+      },
+      "3": {
+        "color": "#edf825",
+        "glass": true
+      },
+      "4": {
+        "color": "#f8aacc",
+        "glass": false
+      },
+      "5": {
+        "color": "#f9a825",
+        "glass": false
+      },
+      "6": {
+        "color": "#f8f9a9",
+        "glass": false
+      },
+      "7": {
+        "color": "#b68825",
+        "glass": false
+      },
+      "8": {
+        "color": "#58f685",
+        "glass": false
+      },
+      "9": {
+        "color": "#a8f877",
+        "glass": false
+      },
+      "background": {
+        "color": "#91eef4",
+        "glass": false,
+        "viewport": true
+      },
+      "workingplane": {
+        "color": "#edfeed",
+        "glass": false,
+        "viewport": true
+      }
+    },
+    "parentProjectID": "xas32"
   }
 }
