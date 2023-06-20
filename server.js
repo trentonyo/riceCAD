@@ -278,7 +278,7 @@ let generateNewProjectID = function (title)         //TODO refactor to use datab
 /**
  * Handle a POST for new project metadata
  */
-//TODO FIRST STEP need to refactor this to INSERT into the database
+//TODO FIRST STEP need to add the tag relationship
 app.post("/projects/addProjectMetaData", function (req, res, next) {
 
     if(req.body && req.body["title"] && req.body["description"])
@@ -333,10 +333,6 @@ app.post("/projects/addProjectMetaData", function (req, res, next) {
                 console.log(insertProjectQuery)
                 console.log("--- End Query ---")
                 console.log("While INSERTing new project:", err)
-            }
-            else
-            {
-                console.log(results) //TODO Debug delete
             }
         })
 
