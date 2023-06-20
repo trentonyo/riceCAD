@@ -5,6 +5,8 @@ const bodyParser = require("body-parser")
 const axios = require("axios")
 const fs = require("fs")
 
+const db = require('./app/db-connector')
+
 const packageJSON = require("./package.json")
 const tagPropertiesJSON = require("./tagProperties.json")
 const approvedAddressesJSON = require("./approvedRobotAddresses.json")
@@ -547,6 +549,11 @@ app.get("/edit", function (req, res, next) { serveEditor(req, res, next) })
 
 let serveHomepage = function (req, res, next)
 {
+    db.pool.query("SELECT * FROM projects;", function(err, results, fields)
+    {
+        console.log(results.rows)
+    })
+
     res.status(200).render("homePage", {
         "projects" : projectMetaDataJSON,
         "toolVersion" : packageJSON.version,
@@ -621,5 +628,5 @@ app.get("*", function (req, res, next)
 
 app.listen(port, undefined,function ()
 {
-    console.log("SERVER: I'm listening (on port "+port+")")
+    console.log("SERVER: I'm listening http://localhost:"+port)
 })
