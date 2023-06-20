@@ -313,21 +313,30 @@ app.post("/projects/addProjectMetaData", function (req, res, next) {
 
         projectMetaDataJSON[projectID] = project
 
+        let pal = project.palette
+
         let insertProjectQuery = `INSERT INTO public.projects (project_id, title, description, downloads, builds, 
                              parent_id, palette_1_hex, palette_2_hex, palette_3_hex, palette_4_hex, palette_5_hex, 
                              palette_6_hex, palette_7_hex, palette_8_hex, palette_9_hex, palette_1_glass, palette_2_glass, 
                              palette_3_glass, palette_4_glass, palette_5_glass, palette_6_glass, palette_7_glass, 
                              palette_8_glass, palette_9_glass, viewport_background_hex, viewport_workingplane_hex)
-        VALUES ('${projectID}', '${project.title}', '${project.description}', ${project.downloads}, null, ${parentID_digest}, 
-                DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, 
-                DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, 
-                DEFAULT, DEFAULT);`
+        VALUES ('${projectID}', '${tools.sanitize(project.title)}', '${tools.sanitize(project.description)}', ${project.downloads}, null, ${parentID_digest},
+                '${pal['1'].color}', '${pal['2'].color}', '${pal['3'].color}', '${pal['4'].color}', '${pal['5'].color}', '${pal['6'].color}', '${pal['7'].color}', '${pal['8'].color}', '${pal['9'].color}', 
+                ${pal['1'].glass}, ${pal['2'].glass}, ${pal['3'].glass}, ${pal['4'].glass}, ${pal['5'].glass}, ${pal['6'].glass}, ${pal['7'].glass}, ${pal['8'].glass}, ${pal['9'].glass},
+                ${pal['background'].color}, ${pal['workingplane'].color});`
 
         db.pool.query(insertProjectQuery, function(err, results, fields)
         {
             if(err)
             {
+                console.log("--- Query ---")
+                console.log(insertProjectQuery)
+                console.log("--- End Query ---")
                 console.log("While INSERTing new project:", err)
+            }
+            else
+            {
+                console.log(results) //TODO Debug delete
             }
         })
 
