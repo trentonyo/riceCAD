@@ -12,9 +12,7 @@ const packageJSON = require("./package.json")
 const tagPropertiesJSON = require("./tagProperties.json")
 const approvedAddressesJSON = require("./approvedRobotAddresses.json")
 
-console.log(approvedAddressesJSON)
-
-console.log(approvedAddressesJSON.indexOf("1ba9a59e-2540-4b12-ae8e-9374162aec90") !== -1)
+tools.consoleDebug(["Approved addresses for build:", approvedAddressesJSON])
 
 let app = express()
 
@@ -32,16 +30,6 @@ app.set('view engine', 'handlebars');
  * Middleware to parse POST body
  */
 app.use(express.json())
-
-/**
- * Log request information at the top of any request
- */
-app.use(function (req, res, next)
-{
-    console.log(`SERVER: ${req.method} Request received`)
-    console.log("--  URL", req.url)
-    next()
-})
 
 /**
  * Serve static files
@@ -86,10 +74,9 @@ let getProjectMetaData = function(req, res, next)
     if(!projectMetaDataJSON)
     {
         fs.readFile("./projectMetaData.json", "utf8", function (err, data) {
-            console.log("FILESYSTEM: First metadata read")
             if(err)
             {
-                console.log("FILESYSTEM:",err)
+                console.log("FILESYSTEM:", err)
                 next()
             }
             else
@@ -105,7 +92,7 @@ let getProjectMetaData = function(req, res, next)
                 }
                 catch (err)
                 {
-                    console.log("JSON:",err)
+                    console.log("JSON:", err)
                     next()
                 }
             }
@@ -140,7 +127,7 @@ let incrementDownloads = function(projectID)        // TODO refactor to UPDATE t
         }
         else
         {
-            console.log("Incremented downloads for", projectID, ". New download count:", newDownloads)
+            tools.consoleDebug(["Incremented downloads for", projectID, ". New download count:", newDownloads])
         }
     })
 }
@@ -171,7 +158,7 @@ let incrementBuilds = function(projectID, robotAddress) //TODO refactor to UPDAT
         }
         else
         {
-            console.log("Incremented approved builds for", projectID, ". New builds count:", newBuilds)
+            tools.consoleDebug(["Incremented approved builds for", projectID, ". New builds count:", newBuilds])
         }
     })
 
@@ -189,7 +176,7 @@ app.get("/project/:projectID.plan", function (req, res, next)
     {
         fs.accessSync(path)
 
-        console.log("Query:", req.query)
+        tools.consoleDebug(["Query:", req.query])
 
         let built = false
 
@@ -298,6 +285,8 @@ app.post("/projects/addProjectMetaData", function (req, res, next) {
     {
         let projectID = generateNewProjectID(req.body["title"])
 
+        tools.consoleDebug(req.body)
+
         let project = {
             title: req.body.title,
             description: req.body.description,
@@ -305,23 +294,42 @@ app.post("/projects/addProjectMetaData", function (req, res, next) {
             downloads: req.body.downloads,
             palette: req.body.palette
         }
+        let parentID_digest = "null"
         if("existingProjectID" in req.body)
         {
             project["parentProjectID"] = req.body.existingProjectID
+            parentID_digest = `'${req.body.existingProjectID}'`
         }
 
-        // console.log("Tags in the POST metadata request:", req.body.tags)
         tools.consoleDebug(["Tags in the POST metadata request:", req.body.tags])
 
         for (let i = 0; i < req.body.tags.length; i++) {
             let currentTag = req.body.tags[i]
 
-            console.log("In the tags for,", currentTag)
+            tools.consoleDebug(["In the tags for,", currentTag])
 
             project.tags[currentTag] = tagPropertiesJSON[currentTag]
         }
 
         projectMetaDataJSON[projectID] = project
+
+        let insertProjectQuery = `INSERT INTO public.projects (project_id, title, description, downloads, builds, 
+                             parent_id, palette_1_hex, palette_2_hex, palette_3_hex, palette_4_hex, palette_5_hex, 
+                             palette_6_hex, palette_7_hex, palette_8_hex, palette_9_hex, palette_1_glass, palette_2_glass, 
+                             palette_3_glass, palette_4_glass, palette_5_glass, palette_6_glass, palette_7_glass, 
+                             palette_8_glass, palette_9_glass, viewport_background_hex, viewport_workingplane_hex)
+        VALUES ('${projectID}', '${project.title}', '${project.description}', ${project.downloads}, null, ${parentID_digest}, 
+                DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, 
+                DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, 
+                DEFAULT, DEFAULT);`
+
+        db.pool.query(insertProjectQuery, function(err, results, fields)
+        {
+            if(err)
+            {
+                console.log("While INSERTing new project:", err)
+            }
+        })
 
         fs.writeFile("./projectMetaData.json", JSON.stringify(projectMetaDataJSON, null, 2), function (err) {
             if(err)
@@ -449,13 +457,13 @@ let serveEditor = function(req, res, next)
     //If a projectID is provided, and it IS in the database
     else if(projectID && (projectID in projectMetaDataJSON))
     {
-        console.log("Trying to open an existing project")
+        tools.consoleDebug("Trying to open an existing project")
         title = projectMetaDataJSON[projectID].title
         description = projectMetaDataJSON[projectID].description
         downloads = projectMetaDataJSON[projectID].downloads
 
         let projectTags = projectMetaDataJSON[projectID].tags
-        console.log("In serving the editor, project tags:", projectTags)
+        tools.consoleDebug(["In serving the editor, project tags:", projectTags])
 
         for (let currentTag in projectTags)
         {
@@ -555,7 +563,7 @@ let serveHomepage = function (req, res, next)               //TODO use database 
 {
     db.pool.query("SELECT * FROM projects;", function(err, results, fields)
     {
-        console.log(results.rows)
+        // console.log(results.rows)
     })
 
     res.status(200).render("homePage", {
@@ -579,7 +587,7 @@ let serveProjectPage = function (req, res, next)                //TODO use datab
 {
     let projectID = req.params.projectID
 
-    console.log("----SERVER: Serving project page", projectID)
+    tools.consoleDebug(["----SERVER: Serving project page", projectID])
 
     if(projectMetaDataJSON)
     {
