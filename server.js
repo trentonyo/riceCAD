@@ -147,7 +147,7 @@ let incrementDownloads = function(projectID)
 }
 let incrementBuilds = function(projectID, robotAddress) //TODO refactor to UPDATE the database
 {
-    if (!(projectID in projectMetaDataJSON))
+    if (!(projectID in projectMetaDataJSON)) // TODO update to use the database
     {
         console.log("Attempting to increment builds for invalid project ID.")
         return false
@@ -157,6 +157,26 @@ let incrementBuilds = function(projectID, robotAddress) //TODO refactor to UPDAT
         console.log("Unapproved address attempted to increment approved builds")
         return false
     }
+
+    db.pool.query(`SELECT builds FROM public.projects WHERE project_id='${projectID}';`, function (err, results, fields)
+    {
+        let newBuilds = 0
+        let firstResult = results.rows[0]
+
+        if(firstResult.prototype.hasOwnProperty("builds"))
+        {
+            //Increment builds
+            newBuilds = firstResult.rows[0].builds
+        }
+
+        db.pool.query(`UPDATE public.projects SET builds = ${newBuilds} WHERE project_id='${projectID}';`, function (err, results, fields)
+        {
+            if(err)
+            {
+                console.log(err)
+            }
+        })
+    })
 
     if (!("builds" in projectMetaDataJSON[projectID]))
     {
