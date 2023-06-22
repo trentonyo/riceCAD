@@ -110,7 +110,7 @@ let getProjectMetaData = function(req, res, next)
 getProjectMetaData() //Initial load
 app.get("/projectMetaData.json", getProjectMetaData)
 
-let incrementDownloads = function(projectID)        // TODO refactor to UPDATE the server
+let incrementDownloads = function(projectID)
 {
     db.pool.query(`SELECT downloads FROM public.projects WHERE project_id='${projectID}';`, function (err, results, fields)
     {
