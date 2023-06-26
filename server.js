@@ -40,6 +40,32 @@ app.use(express.static("lib/"))
 
 let projectMetaDataJSON
 
+let checkProjectID = function (projectID)
+{
+    return new Promise(function (resolve, reject)
+    {
+        let checkQuery = `SELECT * FROM public.projects WHERE project_id='${projectID}';`
+
+        db.pool.query(checkQuery, function (err, results, fields)
+        {
+            if(err) { tools.consoleDebug(err) }
+
+            if(results.rows.length > 0)
+            {
+                reject(`Project ID already exists: ${projectID}`)
+            }
+            else
+            {
+                resolve(projectID)
+            }
+        })
+    })
+}
+
+// checkProjectID("xas32").then(function() {
+//     console.log("xas32 is a valid projectID.")
+// }).catch()
+
 //// BACK-END
 
 app.get('/about', function (req, res, next) {
@@ -145,7 +171,7 @@ let incrementDownloads = function(projectID)
         }
     })
 }
-let incrementBuilds = function(projectID, robotAddress) //TODO refactor to UPDATE the database
+let incrementBuilds = function(projectID, robotAddress)
 {
     if (!(projectID in projectMetaDataJSON)) // TODO update to use the database
     {
@@ -262,6 +288,7 @@ app.get("/project/:projectID.png", function (req, res, next) {
  */
 let generateNewProjectID = function (title)         //TODO refactor to use database, instead of 'in' do a query (do a postcheck loop)
 {
+    let validID = false
     let salt = 0
     let newID = ""
 
@@ -270,36 +297,18 @@ let generateNewProjectID = function (title)         //TODO refactor to use datab
         title = "DEFAULT"
     }
 
-    while(!(newID in projectMetaDataJSON))
+    while(!validID)
     {
-        /**
-         * Returns a color from a string's hash
-         * based on esmiralha's StackOverflow response (https://stackoverflow.com/a/7616484)
-         */
-        let hash = 0
-        let chr
+        newID = hashTitle(title, salt)
 
-        for(let i = 1; i <= 3; i++)
-        {
-            for (let j = (title.length / 3) * (i - 1); j < (title.length / 3) * i; j++)
-            {
-                chr = title.charCodeAt(j)
-                hash = ((hash << 5) - hash) + chr + salt
-                hash |= 0 // Convert to 32bit integer
-            }
-            let next = "00" + Math.abs(hash % (36 * 36)).toString(36)
-            next = next.slice(-2)
-
-            newID = `${newID}${next}`
-        }
-
-        if(!(newID in projectMetaDataJSON))
+        if(!(newID in projectMetaDataJSON)) // If the hash is unique, create a new row in the JSON table and EXIT the loop
         {
             projectMetaDataJSON[newID] = {
                 "title" : title
             }
+            validID = true
         }
-        else
+        else                                // If the hash is not unique, reset the string and increment the salt
         {
             newID = ""
             salt++
@@ -308,6 +317,75 @@ let generateNewProjectID = function (title)         //TODO refactor to use datab
 
     return newID
 }
+
+let hashTitle = function (title, salt)
+{
+    let newID = ""
+    /**
+     * Returns a color from a string's hash
+     * based on esmiralha's StackOverflow response (https://stackoverflow.com/a/7616484)
+     */
+    let hash = 0
+    let chr
+
+    for(let i = 1; i <= 3; i++) // Hash the title with the current salt
+    {
+        for (let j = (title.length / 3) * (i - 1); j < (title.length / 3) * i; j++)
+        {
+            chr = title.charCodeAt(j)
+            hash = ((hash << 5) - hash) + chr + salt
+            hash |= 0 // Convert to 32bit integer
+        }
+        let next = "00" + Math.abs(hash % (36 * 36)).toString(36)
+        next = next.slice(-2)
+
+        newID = `${newID}${next}`
+    }
+
+    return newID
+}
+
+let db_generateNewProjectID = async function (title, salt = 0)
+{
+    let newID = hashTitle(title, salt)
+
+    await checkProjectID(newID).then(function(validID)
+    {
+        tools.consoleDebug("Project ID is valid")
+        //TODO delete this test INSERT
+        let insertProjectQuery = `INSERT INTO public.projects (project_id, title, description, downloads, builds, 
+                             parent_id, palette_1_hex, palette_2_hex, palette_3_hex, palette_4_hex, palette_5_hex, 
+                             palette_6_hex, palette_7_hex, palette_8_hex, palette_9_hex, palette_1_glass, palette_2_glass, 
+                             palette_3_glass, palette_4_glass, palette_5_glass, palette_6_glass, palette_7_glass, 
+                             palette_8_glass, palette_9_glass, viewport_background_hex, viewport_workingplane_hex)
+        VALUES ('${validID}', '${tools.sanitize(title)}', 'TEST', 0, null, null,
+                '#fff', '#fff', '#fff', '#fff', '#fff', '#fff', '#fff', '#fff', '#fff', 
+                false, false, false, false, false, false, false, false, false,
+                '#fff', '#fff');`
+        db.pool.query(insertProjectQuery, function (a, b, c) {
+            console.log("a", a)
+            console.log("b", b)
+            console.log("c", c)
+        })
+
+    }).catch(function()
+    {
+        newID = db_generateNewProjectID(title, ++salt)
+    })
+
+    return newID
+}
+
+let debugTest = async function(test)
+{
+    let validID  = await db_generateNewProjectID(test)
+    let validID2 = await db_generateNewProjectID(test)
+    let validID3 = await db_generateNewProjectID(test)
+
+    return {validID, validID2, validID3}
+}
+
+debugTest("Stretch")
 
 /**
  * Handle a POST for new project metadata
