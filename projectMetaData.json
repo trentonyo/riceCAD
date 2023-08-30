@@ -454,7 +454,7 @@
         "background-color": "#393",
         "text-color": "white"
       },
-      "Nature" : {
+      "Nature": {
         "background-color": "#390",
         "text-color": "black"
       }
@@ -504,6 +504,73 @@
       },
       "workingplane": {
         "color": "#163516",
+        "glass": false,
+        "viewport": true
+      }
+    }
+  },
+  "p3ua93": {
+    "title": "Kippu Tower, Base",
+    "description": "Ground floor of a 33x33 footprint high rise.\n\n1: Exterior main\n2: Exterior accent\n3: Glass\n4: Interior main\n5: UNUSED\n6: Glowstone\n7: Floor\n8: External highlight\n9: Dirt",
+    "tags": {
+      "Business": {
+        "background-color": "gray",
+        "text-color": "black"
+      },
+      "Hi-tech": {
+        "background-color": "#11b",
+        "text-color": "white"
+      },
+      "Modern": {
+        "background-color": "#acc",
+        "text-color": "black"
+      }
+    },
+    "downloads": "0",
+    "palette": {
+      "1": {
+        "color": "#2d2d2d",
+        "glass": false
+      },
+      "2": {
+        "color": "#626262",
+        "glass": false
+      },
+      "3": {
+        "color": "#ecda0b",
+        "glass": true
+      },
+      "4": {
+        "color": "#815332",
+        "glass": false
+      },
+      "5": {
+        "color": "#8832b6",
+        "glass": false
+      },
+      "6": {
+        "color": "#e9ec0b",
+        "glass": false
+      },
+      "7": {
+        "color": "#9b9b9b",
+        "glass": false
+      },
+      "8": {
+        "color": "#383f64",
+        "glass": false
+      },
+      "9": {
+        "color": "#815332",
+        "glass": false
+      },
+      "background": {
+        "color": "#72a2a7",
+        "glass": false,
+        "viewport": true
+      },
+      "workingplane": {
+        "color": "#edfeed",
         "glass": false,
         "viewport": true
       }
