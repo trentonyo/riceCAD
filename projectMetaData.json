@@ -575,5 +575,73 @@
         "viewport": true
       }
     }
+  },
+  "p3uavj": {
+    "title": "Kippu Tower, Main",
+    "description": "Two floors of a 33x27 footprint high rise.\n\n1: UNUSED\n2: Frame Main (match with 3)\n3: Glass Main\n4: Interior main\n5: UNUSED\n6: Glowstone",
+    "tags": {
+      "Business": {
+        "background-color": "gray",
+        "text-color": "black"
+      },
+      "Hi-tech": {
+        "background-color": "#11b",
+        "text-color": "white"
+      },
+      "Modern": {
+        "background-color": "#acc",
+        "text-color": "black"
+      }
+    },
+    "downloads": "0",
+    "palette": {
+      "1": {
+        "color": "#24213e",
+        "glass": false
+      },
+      "2": {
+        "color": "#94ecf8",
+        "glass": false
+      },
+      "3": {
+        "color": "#abdcf0",
+        "glass": true
+      },
+      "4": {
+        "color": "#805231",
+        "glass": false
+      },
+      "5": {
+        "color": "#970ce2",
+        "glass": false
+      },
+      "6": {
+        "color": "#e8eb0a",
+        "glass": false
+      },
+      "7": {
+        "color": "#9a9a9a",
+        "glass": false
+      },
+      "8": {
+        "color": "#373e63",
+        "glass": false
+      },
+      "9": {
+        "color": "#805231",
+        "glass": false
+      },
+      "background": {
+        "color": "#71a1a6",
+        "glass": false,
+        "viewport": true
+      },
+      "workingplane": {
+        "color": "#ecfdec",
+        "glass": false,
+        "viewport": true
+      }
+    },
+    "parentProjectID": "p3ua93"
   }
 }
