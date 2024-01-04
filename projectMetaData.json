@@ -1,6 +1,6 @@
 {
   "xas32": {
-    "title": "A Test Title",
+    "title": "Tiny House",
     "description": "This is a test project, it's not very interesting. It's more of a proof of concept than anything, really.",
     "tags": {
       "Prototype": {
@@ -15,7 +15,7 @@
     "downloads": 14,
     "palette": {
       "1": {
-        "color": "#f9f926",
+        "color": "#8b5c3e",
         "glass": false
       },
       "2": {
@@ -23,7 +23,7 @@
         "glass": false
       },
       "3": {
-        "color": "#eef926",
+        "color": "#cac3bf",
         "glass": true
       },
       "4": {
@@ -63,7 +63,7 @@
     }
   },
   "3ba56": {
-    "title": "Another Test Title",
+    "title": "Ugly Wreath",
     "description": "This is also a test project, maybe you've seen the other one?",
     "tags": {
       "Prototype": {
@@ -126,7 +126,7 @@
     }
   },
   "v58f4i": {
-    "title": "All tags",
+    "title": "Ugly Crown",
     "description": "This remix was to test label propogation",
     "tags": {
       "Prototype": {
@@ -251,6 +251,523 @@
         "glass": false,
         "viewport": true
       }
+    }
+  },
+  "zfl0rp": {
+    "title": "Graphite Building",
+    "description": "Large apartment complex, roughly based on buildings from the map \"World's Edge\" from the game \"Apex Legends.\" Five rooms per floor and 7 floors above the lobby/ground floor.\n\nPlan does not include a foundation, and leaves an aperture for stairway ascension.",
+    "tags": {
+      "Business": {
+        "background-color": "gray",
+        "text-color": "black"
+      },
+      "House": {
+        "background-color": "pink",
+        "text-color": "black"
+      },
+      "Modern": {
+        "background-color": "#acc",
+        "text-color": "black"
+      }
+    },
+    "downloads": "0",
+    "palette": {
+      "1": {
+        "color": "#90908c",
+        "glass": false
+      },
+      "2": {
+        "color": "#2d3037",
+        "glass": false
+      },
+      "3": {
+        "color": "#6a6a6a",
+        "glass": true
+      },
+      "4": {
+        "color": "#b41111",
+        "glass": false
+      },
+      "5": {
+        "color": "#3353b6",
+        "glass": false
+      },
+      "6": {
+        "color": "#159a9a",
+        "glass": false
+      },
+      "7": {
+        "color": "#9d9d95",
+        "glass": false
+      },
+      "8": {
+        "color": "#464e50",
+        "glass": false
+      },
+      "9": {
+        "color": "#f18ba9",
+        "glass": false
+      },
+      "background": {
+        "color": "#72a2a7",
+        "glass": false,
+        "viewport": true
+      },
+      "workingplane": {
+        "color": "#edfeed",
+        "glass": false,
+        "viewport": true
+      }
+    }
+  },
+  "14o5vu": {
+    "title": "AlchemX TAB Campus",
+    "description": "AlchemX is a Kamemotonese alchemical manufacturing company; this is their first campus ever built, currently operating in Tabyaku's Industrial district.\n\nThe building includes \n- a lobby and meeting room accessible from the ground floor\n- two levels of offices\n- two locker rooms\n- seven modular alchemy chambers\n\nNo foundation included, no rooftop access included",
+    "tags": {
+      "Business": {
+        "background-color": "gray",
+        "text-color": "black"
+      },
+      "Hi-tech": {
+        "background-color": "#11b",
+        "text-color": "white"
+      },
+      "Modern": {
+        "background-color": "#acc",
+        "text-color": "black"
+      }
+    },
+    "downloads": "0",
+    "palette": {
+      "1": {
+        "color": "#505344",
+        "glass": false
+      },
+      "2": {
+        "color": "#a2b7a6",
+        "glass": false
+      },
+      "3": {
+        "color": "#d4cfea",
+        "glass": false
+      },
+      "4": {
+        "color": "#31803a",
+        "glass": false
+      },
+      "5": {
+        "color": "#7fd8e4",
+        "glass": true
+      },
+      "6": {
+        "color": "#159a9a",
+        "glass": false
+      },
+      "7": {
+        "color": "#9d9d95",
+        "glass": false
+      },
+      "8": {
+        "color": "#464e50",
+        "glass": false
+      },
+      "9": {
+        "color": "#f18ba9",
+        "glass": false
+      },
+      "background": {
+        "color": "#72a2a7",
+        "glass": false,
+        "viewport": true
+      },
+      "workingplane": {
+        "color": "#edfeed",
+        "glass": false,
+        "viewport": true
+      }
+    }
+  },
+  "4ajyrl": {
+    "title": "Steeleplate Warehouse",
+    "description": "This is a very common sight in Kijima and Tabyaku, the Steeleplate Warehouse is a simple modular warehouse that includes an attractive storefront corner, a small raised office, and a factory floor accessible by several doors and two large bays.\n\nFoundation not included, roof not fully formed.",
+    "tags": {
+      "Business": {
+        "background-color": "gray",
+        "text-color": "black"
+      }
+    },
+    "downloads": "0",
+    "palette": {
+      "1": {
+        "color": "#643e24",
+        "glass": false
+      },
+      "2": {
+        "color": "#ce984e",
+        "glass": false
+      },
+      "3": {
+        "color": "#898c92",
+        "glass": false
+      },
+      "4": {
+        "color": "#316580",
+        "glass": true
+      },
+      "5": {
+        "color": "#68895f",
+        "glass": false
+      },
+      "6": {
+        "color": "#fefefe",
+        "glass": true
+      },
+      "7": {
+        "color": "#9d9d95",
+        "glass": false
+      },
+      "8": {
+        "color": "#464e50",
+        "glass": false
+      },
+      "9": {
+        "color": "#f18ba9",
+        "glass": false
+      },
+      "background": {
+        "color": "#baccb1",
+        "glass": false,
+        "viewport": true
+      },
+      "workingplane": {
+        "color": "#888f88",
+        "glass": false,
+        "viewport": true
+      }
+    }
+  },
+  "70i63t": {
+    "title": "Forest Altar",
+    "description": "A small altar\n\nMay also be used as a gazebo",
+    "tags": {
+      "Fantasy": {
+        "background-color": "#393",
+        "text-color": "white"
+      },
+      "Nature": {
+        "background-color": "#390",
+        "text-color": "black"
+      }
+    },
+    "downloads": "0",
+    "palette": {
+      "1": {
+        "color": "#723825",
+        "glass": false
+      },
+      "2": {
+        "color": "#00fea9",
+        "glass": false
+      },
+      "3": {
+        "color": "#c7c9c3",
+        "glass": false
+      },
+      "4": {
+        "color": "#815332",
+        "glass": false
+      },
+      "5": {
+        "color": "#8832b6",
+        "glass": false
+      },
+      "6": {
+        "color": "#159a9a",
+        "glass": false
+      },
+      "7": {
+        "color": "#9d9d95",
+        "glass": false
+      },
+      "8": {
+        "color": "#464e50",
+        "glass": false
+      },
+      "9": {
+        "color": "#f18ba9",
+        "glass": false
+      },
+      "background": {
+        "color": "#54af53",
+        "glass": false,
+        "viewport": true
+      },
+      "workingplane": {
+        "color": "#163516",
+        "glass": false,
+        "viewport": true
+      }
+    }
+  },
+  "p3ua93": {
+    "title": "Kippu Tower, Base",
+    "description": "Ground floor of a 33x33 footprint high rise.\n\n1: Exterior main\n2: Exterior accent\n3: Glass\n4: Interior main\n5: UNUSED\n6: Glowstone\n7: Floor\n8: External highlight\n9: Dirt",
+    "tags": {
+      "Business": {
+        "background-color": "gray",
+        "text-color": "black"
+      },
+      "Hi-tech": {
+        "background-color": "#11b",
+        "text-color": "white"
+      },
+      "Modern": {
+        "background-color": "#acc",
+        "text-color": "black"
+      }
+    },
+    "downloads": "0",
+    "palette": {
+      "1": {
+        "color": "#2d2d2d",
+        "glass": false
+      },
+      "2": {
+        "color": "#626262",
+        "glass": false
+      },
+      "3": {
+        "color": "#ecda0b",
+        "glass": true
+      },
+      "4": {
+        "color": "#815332",
+        "glass": false
+      },
+      "5": {
+        "color": "#8832b6",
+        "glass": false
+      },
+      "6": {
+        "color": "#e9ec0b",
+        "glass": false
+      },
+      "7": {
+        "color": "#9b9b9b",
+        "glass": false
+      },
+      "8": {
+        "color": "#383f64",
+        "glass": false
+      },
+      "9": {
+        "color": "#815332",
+        "glass": false
+      },
+      "background": {
+        "color": "#72a2a7",
+        "glass": false,
+        "viewport": true
+      },
+      "workingplane": {
+        "color": "#edfeed",
+        "glass": false,
+        "viewport": true
+      }
+    },
+    "u2wtqn": {
+      "title": "smiley",
+      "description": "very happy guy ",
+      "tags": {
+        "Art": {
+          "background-color": "#939",
+          "text-color": "white"
+        },
+        "Fantasy": {
+          "background-color": "#393",
+          "text-color": "white"
+        },
+        "Medieval": {
+          "background-color": "#333",
+          "text-color": "white"
+        }
+      },
+      "downloads": "0",
+      "palette": {
+        "1": {
+          "color": "#0000fe",
+          "glass": false
+        },
+        "2": {
+          "color": "#00fea9",
+          "glass": false
+        },
+        "3": {
+          "color": "#5d7b15",
+          "glass": false
+        },
+        "4": {
+          "color": "#815332",
+          "glass": false
+        },
+        "5": {
+          "color": "#8832b6",
+          "glass": false
+        },
+        "6": {
+          "color": "#159a9a",
+          "glass": false
+        },
+        "7": {
+          "color": "#9d9d95",
+          "glass": false
+        },
+        "8": {
+          "color": "#464e50",
+          "glass": false
+        },
+        "9": {
+          "color": "#f18ba9",
+          "glass": false
+        },
+        "background": {
+          "color": "#72a2a7",
+          "glass": false,
+          "viewport": true
+        },
+        "workingplane": {
+          "color": "#edfeed",
+          "glass": false,
+          "viewport": true
+        }
+      },
+      "uypzl9": {
+        "title": "A+ Project",
+        "description": "A monument to our efforts!",
+        "tags": {
+          "Art": {
+            "background-color": "#939",
+            "text-color": "white"
+          }
+        },
+        "downloads": 2,
+        "palette": {
+          "1": {
+            "color": "#d6372c",
+            "glass": false
+          },
+          "2": {
+            "color": "#0f0e0e",
+            "glass": false
+          },
+          "3": {
+            "color": "#5d7b15",
+            "glass": false
+          },
+          "4": {
+            "color": "#815332",
+            "glass": false
+          },
+          "5": {
+            "color": "#8832b6",
+            "glass": false
+          },
+          "6": {
+            "color": "#159a9a",
+            "glass": false
+          },
+          "7": {
+            "color": "#9d9d95",
+            "glass": false
+          },
+          "8": {
+            "color": "#464e50",
+            "glass": false
+          },
+          "9": {
+            "color": "#f18ba9",
+            "glass": false
+          },
+          "background": {
+            "color": "#72a2a7",
+            "glass": false,
+            "viewport": true
+          },
+          "workingplane": {
+            "color": "#edfeed",
+            "glass": false,
+            "viewport": true
+          }
+        }
+      }
+    },
+    "p3uavj": {
+      "title": "Kippu Tower, Main",
+      "description": "Two floors of a 33x27 footprint high rise.\n\n1: UNUSED\n2: Frame Main (match with 3)\n3: Glass Main\n4: Interior main\n5: UNUSED\n6: Glowstone",
+      "tags": {
+        "Business": {
+          "background-color": "gray",
+          "text-color": "black"
+        },
+        "Hi-tech": {
+          "background-color": "#11b",
+          "text-color": "white"
+        },
+        "Modern": {
+          "background-color": "#acc",
+          "text-color": "black"
+        }
+      },
+      "downloads": "0",
+      "palette": {
+        "1": {
+          "color": "#24213e",
+          "glass": false
+        },
+        "2": {
+          "color": "#94ecf8",
+          "glass": false
+        },
+        "3": {
+          "color": "#abdcf0",
+          "glass": true
+        },
+        "4": {
+          "color": "#805231",
+          "glass": false
+        },
+        "5": {
+          "color": "#970ce2",
+          "glass": false
+        },
+        "6": {
+          "color": "#e8eb0a",
+          "glass": false
+        },
+        "7": {
+          "color": "#9a9a9a",
+          "glass": false
+        },
+        "8": {
+          "color": "#373e63",
+          "glass": false
+        },
+        "9": {
+          "color": "#805231",
+          "glass": false
+        },
+        "background": {
+          "color": "#71a1a6",
+          "glass": false,
+          "viewport": true
+        },
+        "workingplane": {
+          "color": "#ecfdec",
+          "glass": false,
+          "viewport": true
+        }
+      },
+      "parentProjectID": "p3ua93"
     }
   },
   "3yg4la": {

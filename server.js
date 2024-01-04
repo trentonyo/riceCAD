@@ -69,11 +69,15 @@ let checkProjectID = function (projectID)
 //// BACK-END
 
 app.get('/about', function (req, res, next) {
-    res.status(200).render('aboutPage');
+    res.status(200).render('aboutPage', {
+        "toolVersion" : packageJSON.version
+    });
 });
 
 app.get('/tutorial', function (req, res, next){
-    res.status(200).render('tutorialPage');
+    res.status(200).render('tutorialPage', {
+        "toolVersion" : packageJSON.version
+    });
 });
 
 /**

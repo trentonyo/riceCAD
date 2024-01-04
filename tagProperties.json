@@ -12,12 +12,16 @@
     "text-color": "black"
   },
   "Fantasy" : {
-    "background-color": "#393",
+    "background-color": "#397",
     "text-color": "white"
   },
   "Futuristic" : {
     "background-color": "#aaf",
     "text-color": "black"
+  },
+  "Hi-tech" : {
+    "background-color": "#11b",
+    "text-color": "white"
   },
   "House" : {
     "background-color": "pink",
@@ -30,6 +34,14 @@
   "Medieval" : {
     "background-color": "#333",
     "text-color": "white"
+  },
+  "Modern" : {
+    "background-color": "#acc",
+    "text-color": "black"
+  },
+  "Nature" : {
+    "background-color": "#390",
+    "text-color": "black"
   },
   "Nordic" : {
     "background-color": "brown",
