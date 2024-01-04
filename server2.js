@@ -151,47 +151,61 @@ let serveEditor = async function(req, res, next) {
     // let output = {}
 
     db_pool.query(`SELECT * FROM public.projects WHERE project_id='${projectID}';`, function (err, results, fields) {
-        if (results.rows.length > 0) {
+        // Get the tags for this project
+        db_pool.query(`SELECT * FROM public.tags INNER JOIN public.projects_tags pt ON tags.tags_id = pt.tag_id WHERE pt.project_id = '${projectID}';`, function (tag_err, tag_results, tag_fields) {
+            if (results.rows.length > 0) {
 
-            let palette_materials = {}
-            let palette_viewport = {
-                background: {
-                    color: results.rows[0].viewport_background_hex,
-                    glass: false,
-                    viewport: true
-                },
-                workingplane: {
-                    color: results.rows[0].viewport_workingplane_hex,
-                    glass: false,
-                    viewport: true
+                let tags = {}
+
+                if (tag_results.rows.length > 0) {
+                    for (const tag in tag_results.rows) {
+                        tags[tag_results.rows[tag]["name"]] = {
+                            "background-color": tag_results.rows[tag]["background-color"],
+                            "text-color": tag_results.rows[tag]["text-color"]
+                        }
+                    }
                 }
-            }
 
-            for (let i = 1; i <= 9; i++) {
-                palette_materials[i] = {
-                    color: results.rows[0][`palette_${i}_hex`],
-                    glass: results.rows[0][`palette_${i}_glass`]
+                let palette_materials = {}
+                let palette_viewport = {
+                    background: {
+                        color: results.rows[0].viewport_background_hex,
+                        glass: false,
+                        viewport: true
+                    },
+                    workingplane: {
+                        color: results.rows[0].viewport_workingplane_hex,
+                        glass: false,
+                        viewport: true
+                    }
                 }
-            }
 
-            const output = {
-                "projectID": projectID,
-                "title": results.rows[0].title,
-                "description": results.rows[0].description,
-                "downloads": results.rows[0].downloads,
-                "palette_materials": palette_materials,
-                "palette_viewport": palette_viewport,
-                "tags": results.rows[0].tags,
-                // "projectMetaData": JSON.stringify(projectMetaDataBuilder),
-                "toolVersion": packageJSON.version
-            }
+                for (let i = 1; i <= 9; i++) {
+                    palette_materials[i] = {
+                        color: results.rows[0][`palette_${i}_hex`],
+                        glass: results.rows[0][`palette_${i}_glass`]
+                    }
+                }
 
-            res.status(200).render("riceCADEditor", output)
-        }
-        else
-        {
-            next()
-        }
+                const output = {
+                    "projectID": projectID,
+                    "title": results.rows[0].title,
+                    "description": results.rows[0].description,
+                    "downloads": results.rows[0].downloads,
+                    "palette_materials": palette_materials,
+                    "palette_viewport": palette_viewport,
+                    "tags": tags,
+                    // "projectMetaData": JSON.stringify(projectMetaDataBuilder),
+                    "toolVersion": packageJSON.version
+                }
+
+                res.status(200).render("riceCADEditor", output)
+            }
+            else
+            {
+                next()
+            }
+        })
     })
 }
 
