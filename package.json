@@ -29,6 +29,8 @@
         "express-handlebars": "^6.0.6",
         "filesaver": "^0.0.13",
         "handlebars": "^4.7.7",
+        "mysql": "^2.18.1",
+        "pg": "^8.11.0",
         "playcanvas": "^1.58.0",
         "vanilla-caret-js": "^1.1.0"
     },
