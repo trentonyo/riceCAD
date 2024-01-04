@@ -52,11 +52,15 @@ let projectMetaDataJSON
 //// BACK-END
 
 app.get('/about', function (req, res, next) {
-    res.status(200).render('aboutPage');
+    res.status(200).render('aboutPage', {
+        "toolVersion" : packageJSON.version
+    });
 });
 
 app.get('/tutorial', function (req, res, next){
-    res.status(200).render('tutorialPage');
+    res.status(200).render('tutorialPage', {
+        "toolVersion" : packageJSON.version
+    });
 });
 
 /**
@@ -86,7 +90,7 @@ let getProjectMetaData = function(req, res, next)
             console.log("FILESYSTEM: First metadata read")
             if(err)
             {
-                console.log("FILESYSTEM:",err)
+                console.log("FILESYSTEM:", err)
                 next()
             }
             else
@@ -102,7 +106,7 @@ let getProjectMetaData = function(req, res, next)
                 }
                 catch (err)
                 {
-                    console.log("JSON:",err)
+                    console.log("JSON:", err)
                     next()
                 }
             }
