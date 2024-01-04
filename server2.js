@@ -153,13 +153,34 @@ let serveEditor = async function(req, res, next) {
     db_pool.query(`SELECT * FROM public.projects WHERE project_id='${projectID}';`, function (err, results, fields) {
         if (results.rows.length > 0) {
 
+            let palette_materials = {}
+            let palette_viewport = {
+                background: {
+                    color: results.rows[0].viewport_background_hex,
+                    glass: false,
+                    viewport: true
+                },
+                workingplane: {
+                    color: results.rows[0].viewport_workingplane_hex,
+                    glass: false,
+                    viewport: true
+                }
+            }
+
+            for (let i = 1; i <= 9; i++) {
+                palette_materials[i] = {
+                    color: results.rows[0][`palette_${i}_hex`],
+                    glass: results.rows[0][`palette_${i}_glass`]
+                }
+            }
+
             const output = {
                 "projectID": projectID,
                 "title": results.rows[0].title,
                 "description": results.rows[0].description,
                 "downloads": results.rows[0].downloads,
-                "palette_materials": results.rows[0].palette_materials,
-                "palette_viewport": results.rows[0].palette_viewport,
+                "palette_materials": palette_materials,
+                "palette_viewport": palette_viewport,
                 "tags": results.rows[0].tags,
                 // "projectMetaData": JSON.stringify(projectMetaDataBuilder),
                 "toolVersion": packageJSON.version
