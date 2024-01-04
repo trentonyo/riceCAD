@@ -181,18 +181,31 @@ let serveSingleProject = async function(req, res, next) {
 }
 
 let serveHomepage = function (req, res, next) {
-    db_pool.query("SELECT * FROM projects;", function(err, results, fields)
-    {
-        let projects = {}
+    db_pool.query("SELECT * FROM projects;", function(err, results, fields) {
+        db_pool.query("SELECT * FROM public.tags;", function(tags_err, tags_results, tags_fields) {
 
-        for (const row in results.rows) {
-            projects[results.rows[row].project_id] = results.rows[row]
-        }
+            let tags = {}
 
-        res.status(200).render("homePage", {
-            "projects" : projects,
-            "toolVersion" : packageJSON.version,
-            "tags" : tagPropertiesJSON
+            if (tags_results.rows.length > 0) {
+                for (const tag in tags_results.rows) {
+                    tags[tags_results.rows[tag]["name"]] = {
+                        "background-color": tags_results.rows[tag]["background-color"],
+                        "text-color": tags_results.rows[tag]["text-color"]
+                    }
+                }
+            }
+
+            let projects = {}
+
+            for (const row in results.rows) {
+                projects[results.rows[row].project_id] = results.rows[row]
+            }
+
+            res.status(200).render("homePage", {
+                "projects" : projects,
+                "toolVersion" : packageJSON.version,
+                "tags" : tags
+            })
         })
     })
 }
