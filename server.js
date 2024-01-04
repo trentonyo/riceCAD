@@ -1,11 +1,12 @@
-const express = require("express")
-const handlebars = require('handlebars')
-const express_handlebars = require('express-handlebars')
-const bodyParser = require("body-parser")
 const axios = require("axios")
+const bodyParser = require("body-parser")
+const express = require("express")
+const express_handlebars = require('express-handlebars')
+const handlebars = require('handlebars')
 const fs = require("fs")
+const postgres = require('pg');
 
-const db = require('./app/db-connector')
+const db = require('./app/db-connectors')
 const tools = require('./lib/tools')
 
 const packageJSON = require("./package.json")
@@ -15,11 +16,17 @@ const approvedAddressesJSON = require("./approvedRobotAddresses.json")
 tools.consoleDebug(["Approved addresses for build:", approvedAddressesJSON])
 
 let app = express()
+let db_client = new postgres.Client({
+    host: db.remote_pool.host,
+    database: db.remote_pool.database,
+    user: db.remote_pool.user,
+    password: db.remote_pool.password,
+    port: db.remote_pool.port,
+    ssl: db.remote_pool.host,
+})
 
-const DEFAULT_PORT = 8080
-let port = process.env.PORT ? process.env.PORT : DEFAULT_PORT
-
-const DEFAULT_PROJECTID = "DEFAULT"
+let port = process.env.PORT ? process.env.PORT : tools.DEFAULT_PORT
+let projectMetaDataJSON
 
 app.engine('handlebars', express_handlebars.engine({
     defaultLayout: "main"
@@ -38,15 +45,14 @@ app.use(express.static("project/"))
 app.use(express.static("public/"))
 app.use(express.static("lib/"))
 
-let projectMetaDataJSON
-
 let checkProjectID = function (projectID)
 {
     return new Promise(function (resolve, reject)
     {
         let checkQuery = `SELECT * FROM public.projects WHERE project_id='${projectID}';`
 
-        db.pool.query(checkQuery, function (err, results, fields)
+        // db.pool.query(checkQuery, function (err, results, fields)
+        db_client.query(checkQuery, function (err, results, fields)
         {
             if(err) { tools.consoleDebug(err) }
 
@@ -61,10 +67,6 @@ let checkProjectID = function (projectID)
         })
     })
 }
-
-// checkProjectID("xas32").then(function() {
-//     console.log("xas32 is a valid projectID.")
-// }).catch()
 
 //// BACK-END
 
@@ -270,7 +272,7 @@ app.get("/project/:projectID.png", function (req, res, next) {
     res.set({ 'content-type': 'image/png' }).status(200).sendFile(__dirname+`/project/${req.params.projectID}.png`, function (err) {
         if(err && err.code === "ENOENT")
         {
-            res.set({ 'content-type': 'image/png' }).status(200).sendFile(__dirname+`/project/${DEFAULT_PROJECTID}.png`, function (err) {
+            res.set({ 'content-type': 'image/png' }).status(200).sendFile(__dirname+`/project/${tools.DEFAULT_PROJECT_ID}.png`, function (err) {
                 if(err)
                 {
                     console.log("---- SERVER: Unable to read default thumbnail!", err)
@@ -303,7 +305,7 @@ let generateNewProjectID = function (title)         //TODO remove after refactor
 
     while(!validID)
     {
-        newID = hashTitle(title, salt)
+        newID = tools.hashTitle(title, salt)
 
         if(!(newID in projectMetaDataJSON)) // If the hash is unique, create a new row in the JSON table and EXIT the loop
         {
@@ -322,36 +324,9 @@ let generateNewProjectID = function (title)         //TODO remove after refactor
     return newID
 }
 
-let hashTitle = function (title, salt)
-{
-    let newID = ""
-    /**
-     * Returns a color from a string's hash
-     * based on esmiralha's StackOverflow response (https://stackoverflow.com/a/7616484)
-     */
-    let hash = 0
-    let chr
-
-    for(let i = 1; i <= 3; i++) // Hash the title with the current salt
-    {
-        for (let j = (title.length / 3) * (i - 1); j < (title.length / 3) * i; j++)
-        {
-            chr = title.charCodeAt(j)
-            hash = ((hash << 5) - hash) + chr + salt
-            hash |= 0 // Convert to 32bit integer
-        }
-        let next = "00" + Math.abs(hash % (36 * 36)).toString(36)
-        next = next.slice(-2)
-
-        newID = `${newID}${next}`
-    }
-
-    return newID
-}
-
 let db_generateNewProjectID = async function (title, salt = 0)
 {
-    let newID = hashTitle(title, salt)
+    let newID = tools.hashTitle(title, salt)
 
     await checkProjectID(newID).then(function(validID)
     {

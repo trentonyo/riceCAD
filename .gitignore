@@ -4,4 +4,4 @@
 /node_modules/
 /hof_presentation_package/
 
-/app/db-connector.js
+/app/db-connectors.js
