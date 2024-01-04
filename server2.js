@@ -82,11 +82,11 @@ let generateNewProjectID = function (title) { /*TODO*/ }
  ********************************************/
 
 let incrementDownloads = function(projectID) {
-    db.pool.query(`SELECT downloads FROM public.projects WHERE project_id='${projectID}';`, function (err, results, fields) {
+    db_pool.query(`SELECT downloads FROM public.projects WHERE project_id='${projectID}';`, function (err, results, fields) {
         let incremented_downloads = results.rows[0].downloads
         incremented_downloads++
 
-        db.pool.query(`UPDATE public.projects SET downloads = ${incremented_downloads} WHERE project_id='${projectID}';`, function (err, results, fields) {
+        db_pool.query(`UPDATE public.projects SET downloads = ${incremented_downloads} WHERE project_id='${projectID}';`, function (err, results, fields) {
             if (err) {
                 console.log(err)
             }
@@ -100,7 +100,7 @@ let incrementBuilds = function(projectID, robotAddress) {
         return false
     }
 
-    db.pool.query(`SELECT builds FROM public.projects WHERE project_id='${projectID}';`, function (err, results, fields) {
+    db_pool.query(`SELECT builds FROM public.projects WHERE project_id='${projectID}';`, function (err, results, fields) {
         let newBuilds = 0
         let firstResult = results.rows[0]
 
@@ -109,7 +109,7 @@ let incrementBuilds = function(projectID, robotAddress) {
             newBuilds = firstResult.rows[0].builds
         }
 
-        db.pool.query(`UPDATE public.projects SET builds = ${newBuilds} WHERE project_id='${projectID}';`, function (err, results, fields) {
+        db_pool.query(`UPDATE public.projects SET builds = ${newBuilds} WHERE project_id='${projectID}';`, function (err, results, fields) {
             if (err) {
                 console.log(err)
             }
@@ -122,8 +122,8 @@ let incrementBuilds = function(projectID, robotAddress) {
  */
 let serveEditor = async function(req, res, next) {
     let projectID = req.params.projectID
-    let title
-    let description
+    // let title
+    // let description
 
     //Adds ALL tags
     let tags = {}
@@ -132,132 +132,45 @@ let serveEditor = async function(req, res, next) {
         tags[tag] = JSON.parse(JSON.stringify(tagPropertiesJSON[tag])) //Dirty clone, sorry
     }
 
-    let downloads
-    let palette_materials = {
-        "1" : {},
-        "2" : {},
-        "3" : {},
-        "4" : {},
-        "5" : {},
-        "6" : {},
-        "7" : {},
-        "8" : {},
-        "9" : {}
-    }
-    let palette_viewport = {
-        "background" : {},
-        "workingplane" : {}
-    }
-    let output = {}
+    // let downloads
+    // let palette_materials = {
+    //     "1" : {},
+    //     "2" : {},
+    //     "3" : {},
+    //     "4" : {},
+    //     "5" : {},
+    //     "6" : {},
+    //     "7" : {},
+    //     "8" : {},
+    //     "9" : {}
+    // }
+    // let palette_viewport = {
+    //     "background" : {},
+    //     "workingplane" : {}
+    // }
+    // let output = {}
 
-    //If a projectID is provided, but it is not in the database
-    //
-    // if(projectID && !(projectID in projectMetaDataJSON))
-    //     {
-    //         console.log(`Didn't find ${projectID} in the database`)
-    //         next() //Kick down to a 404
-    //     }
-
-    // TODO use checkID
-    let response = await checkProjectID(projectID).then(function (validID) {
-        // Project ID is validated
-
-        tools.consoleDebug("Trying to open an existing project")
-        title = projectMetaDataJSON[projectID].title
-        description = projectMetaDataJSON[projectID].description
-        downloads = projectMetaDataJSON[projectID].downloads
-
-        let projectTags = projectMetaDataJSON[projectID].tags
-        tools.consoleDebug(["In serving the editor, project tags:", projectTags])
-
-        for (let currentTag in projectTags)
-        {
-            tags[currentTag]["checked"] = true
-        }
-
-        for (let i = 1; i <= 9; i++)
-        {
-            palette_materials[i.toString()] = projectMetaDataJSON[projectID].palette[i]
-        }
-        palette_viewport["background"] = projectMetaDataJSON[projectID].palette["background"]
-        palette_viewport["workingplane"] = projectMetaDataJSON[projectID].palette["workingplane"]
-
-        if("parentProjectID" in projectMetaDataJSON[projectID])
-        {
-            output["parentProjectID"] = projectMetaDataJSON[projectID].parentProjectID
-        }
-    }).catch(function () {
-        // No valid project ID, serve default
-
-        projectID = "DEFAULT"
-        title = "Untitled Project"
-        description = "Enter a nice description"
-        downloads = 0
-        palette_materials = {
-            "1": {
-                "color": "#1c1c21",
-                "glass": false
-            },
-            "2": {
-                "color": "#af2d26",
-                "glass": false
-            },
-            "3": {
-                "color": "#5e7c16",
-                "glass": false
-            },
-            "4": {
-                "color": "#825433",
-                "glass": false
-            },
-            "5": {
-                "color": "#8933b7",
-                "glass": false
-            },
-            "6": {
-                "color": "#169b9b",
-                "glass": false
-            },
-            "7": {
-                "color": "#9e9e96",
-                "glass": false
-            },
-            "8": {
-                "color": "#474f51",
-                "glass": false
-            },
-            "9": {
-                "color": "#f28caa",
-                "glass": false
+    db_pool.query(`SELECT * FROM public.projects WHERE project_id='${projectID}';`, function (err, results, fields) {
+        if (results.rows.length > 0) {
+            const output = {
+                "projectID": results.rows[0].projectID,
+                "title": results.rows[0].title,
+                "description": results.rows[0].description,
+                "downloads": results.rows[0].downloads,
+                "palette_materials": results.rows[0].palette_materials,
+                "palette_viewport": results.rows[0].palette_viewport,
+                "tags": results.rows[0].tags,
+                "projectMetaData": JSON.stringify(results.rows[0]),
+                "toolVersion": packageJSON.version
             }
+
+            res.status(200).render("riceCADEditor", output)
         }
-        palette_viewport = {
-            "background": {
-                "color": "#73A3A8",
-                "glass": false,
-                "viewport": true
-            },
-            "workingplane": {
-                "color": "#eeffee",
-                "glass": false,
-                "viewport": true
-            }
+        else
+        {
+            next()
         }
     })
-
-    output = {
-        "projectID" : projectID,
-        "title" : title,
-        "description" : description,
-        "downloads" : downloads,
-        "palette_materials" : palette_materials,
-        "palette_viewport" : palette_viewport,
-        "tags" : tags,
-        "projectMetaData" : JSON.stringify(projectMetaDataJSON),
-        "toolVersion" : packageJSON.version
-    }
-
-    res.status(200).render("riceCADEditor", output)
 }
 
 /**
@@ -268,43 +181,11 @@ let serveProjectPage = function (req, res, next) {
 
     tools.consoleDebug(["----SERVER: Serving project page", projectID])
 
-    if(projectMetaDataJSON)
-    {
-        if(projectMetaDataJSON[projectID])
-        {
-            let output = {
-                "projectID" : projectID,
-                "title" : projectMetaDataJSON[projectID].title,
-                "description" : projectMetaDataJSON[projectID].description,
-                "downloads" : projectMetaDataJSON[projectID].downloads,
-                "builds" : projectMetaDataJSON[projectID].builds,
-                "palette_materials" : projectMetaDataJSON[projectID].palette_materials,
-                "palette_viewport" : projectMetaDataJSON[projectID].palette_viewport,
-                "tags" : projectMetaDataJSON[projectID].tags,
-                "toolVersion" : packageJSON.version
-            }
-
-            if("parentProjectID" in projectMetaDataJSON[projectID])
-            {
-                output["parentProjectID"] = projectMetaDataJSON[projectID].parentProjectID
-            }
-
-            res.status(200).render("projectPage", output)
-        }
-        else
-        {
-            console.log(`----SERVER: Project ID ${projectID} not found`)
-            next()
-        }
-    }
-    else
-    {
-        console.log("There's no project meta data loaded")
-    }
+    console.log("There's no project meta data loaded")
 }
 
 let serveHomepage = function (req, res, next) {
-    // db.pool.query("SELECT * FROM projects;", function(err, results, fields)
+    // db_pool.query("SELECT * FROM projects;", function(err, results, fields)
     db_pool.query("SELECT * FROM projects;", function(err, results, fields)
     {
         res.status(200).render("homePage", {
