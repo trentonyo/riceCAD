@@ -122,36 +122,8 @@ let incrementBuilds = function(projectID, robotAddress) {
  */
 let serveEditor = async function(req, res, next) {
     let projectID = req.params.projectID
-    // let title
-    // let description
-
-    //Adds ALL tags
-    let tags = {}
-    for (let tag in tagPropertiesJSON)
-    {
-        tags[tag] = JSON.parse(JSON.stringify(tagPropertiesJSON[tag])) //Dirty clone, sorry
-    }
-
-    // let downloads
-    // let palette_materials = {
-    //     "1" : {},
-    //     "2" : {},
-    //     "3" : {},
-    //     "4" : {},
-    //     "5" : {},
-    //     "6" : {},
-    //     "7" : {},
-    //     "8" : {},
-    //     "9" : {}
-    // }
-    // let palette_viewport = {
-    //     "background" : {},
-    //     "workingplane" : {}
-    // }
-    // let output = {}
 
     db_pool.query(`SELECT * FROM public.projects WHERE project_id='${projectID}';`, function (err, results, fields) {
-        // Get the tags for this project
         db_pool.query(`SELECT * FROM public.tags INNER JOIN public.projects_tags pt ON tags.tags_id = pt.tag_id WHERE pt.project_id = '${projectID}';`, function (tag_err, tag_results, tag_fields) {
             if (results.rows.length > 0) {
 
@@ -195,7 +167,6 @@ let serveEditor = async function(req, res, next) {
                     "palette_materials": palette_materials,
                     "palette_viewport": palette_viewport,
                     "tags": tags,
-                    // "projectMetaData": JSON.stringify(projectMetaDataBuilder),
                     "toolVersion": packageJSON.version
                 }
 
