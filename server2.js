@@ -183,28 +183,47 @@ let serveSingleProject = async function(req, res, next) {
 let serveHomepage = function (req, res, next) {
     db_pool.query("SELECT * FROM projects;", function(err, results, fields) {
         db_pool.query("SELECT * FROM public.tags;", function(tags_err, tags_results, tags_fields) {
+            db_pool.query("SELECT * FROM public.projects_tags;", function(relation_err, relation_results, relation_fields) {
 
-            let tags = {}
+                let relations = relation_results.rows
 
-            if (tags_results.rows.length > 0) {
-                for (const tag in tags_results.rows) {
-                    tags[tags_results.rows[tag]["name"]] = {
-                        "background-color": tags_results.rows[tag]["background-color"],
-                        "text-color": tags_results.rows[tag]["text-color"]
+                let tags = {}
+
+                if (tags_results.rows.length > 0) {
+                    for (const tag in tags_results.rows) {
+                        // Tags for use in the filter
+                        tags[tags_results.rows[tag]["name"]] = {
+                            "background-color": tags_results.rows[tag]["background-color"],
+                            "text-color": tags_results.rows[tag]["text-color"]
+                        }
                     }
                 }
-            }
 
-            let projects = {}
+                let projects = {}
 
-            for (const row in results.rows) {
-                projects[results.rows[row].project_id] = results.rows[row]
-            }
+                for (const row in results.rows) {
+                    let curr_project_id = results.rows[row].project_id
+                    projects[curr_project_id] = results.rows[row]
 
-            res.status(200).render("homePage", {
-                "projects" : projects,
-                "toolVersion" : packageJSON.version,
-                "tags" : tags
+                    let project_tags = relations.filter((rel) => rel.project_id === curr_project_id)
+
+                    if (project_tags.length > 0) {
+                        projects[curr_project_id]["tags"] = {}
+                        for (const tag in project_tags) {
+                            let tag_reference = tags_results.rows.filter((t) => t.tags_id == project_tags[tag].tag_id)[0]
+                            projects[curr_project_id]["tags"][tag_reference.name] = {
+                                "background-color": tag_reference["background-color"],
+                                "text-color": tag_reference["text-color"]
+                            }
+                        }
+                    }
+                }
+
+                res.status(200).render("homePage", {
+                    "projects" : projects,
+                    "toolVersion" : packageJSON.version,
+                    "tags" : tags
+                })
             })
         })
     })
