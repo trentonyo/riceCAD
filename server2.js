@@ -4,7 +4,7 @@ Date: 4 January 2024
  */
 
 /********************************************
-*   DEPENDENCIES
+*   ##DEPENDENCIES##
 ********************************************/
 
 /// Node Modules
@@ -23,7 +23,7 @@ const tagPropertiesJSON = require("./tagProperties.json")
 const approvedAddressesJSON = require("./approvedRobotAddresses.json")
 
 /********************************************
- *   SERVER SETTINGS
+ *   ##SERVER SETTINGS##
  ********************************************/
 
 let app = express()
@@ -42,7 +42,7 @@ app.engine('handlebars', express_handlebars.engine({
 app.set('view engine', 'handlebars');
 
 /********************************************
- *   EXPRESS MIDDLEWARE
+ *   ##EXPRESS MIDDLEWARE##
  ********************************************/
 
 /**
@@ -72,13 +72,13 @@ app.get("/axios.js", function (req, res, next) {
 })
 
 /********************************************
- *   DATA HELPERS
+ *   ##DATA HELPERS##
  ********************************************/
 
 let generateNewProjectID = function (title) { /*TODO*/ }
 
 /********************************************
- *   ROUTING HELPERS
+ *   ##ROUTING HELPERS##
  ********************************************/
 
 let incrementDownloads = function(projectID) {
@@ -198,7 +198,7 @@ let serveHomepage = function (req, res, next) {
 }
 
 /********************************************
- *   REQUEST ROUTING
+ *   ##REQUEST ROUTING##
  ********************************************/
 
 app.get('/about', function (req, res, next) {
@@ -298,7 +298,7 @@ app.get("*", function (req, res, next)  {
 })
 
 /********************************************
- *   SERVER INITIALIZATION
+ *   ##SERVER INITIALIZATION##
  ********************************************/
 
 app.listen(port, undefined,function () {
