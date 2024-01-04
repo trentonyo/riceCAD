@@ -120,7 +120,7 @@ let incrementBuilds = function(projectID, robotAddress) {
 /**
  * Render tool page with handlebars
  */
-let serveEditor = async function(req, res, next) {
+let serveSingleProject = async function(req, res, next) {
     let projectID = req.params.projectID
 
     db_pool.query(`SELECT * FROM public.projects WHERE project_id='${projectID}';`, function (err, results, fields) {
@@ -170,7 +170,7 @@ let serveEditor = async function(req, res, next) {
                     "toolVersion": packageJSON.version
                 }
 
-                res.status(200).render("riceCADEditor", output)
+                res.status(200).render(req._ricecad_singleproject_target, output)
             }
             else
             {
@@ -178,17 +178,6 @@ let serveEditor = async function(req, res, next) {
             }
         })
     })
-}
-
-/**
- * Handle project pages
- */
-let serveProjectPage = function (req, res, next) {
-    let projectID = req.params.projectID
-
-    tools.consoleDebug(["----SERVER: Serving project page", projectID])
-
-
 }
 
 let serveHomepage = function (req, res, next) {
@@ -280,7 +269,10 @@ app.get("/project/:projectID.png", function (req, res, next) {
     })
 })
 
-app.get("/edit/:projectID", function (req, res, next) { serveEditor(req, res, next) })
+app.get("/edit/:projectID", function (req, res, next) {
+    req._ricecad_singleproject_target = "riceCADEditor"
+    serveSingleProject(req, res, next)
+})
 
 app.get("/edit", function (req, res, next) { serveEditor(req, res, next) })
 
@@ -291,7 +283,10 @@ app.get("/", serveHomepage)
 app.get("/home", serveHomepage)
 app.get("/projects", serveHomepage)
 
-app.get("/projects/:projectID", serveProjectPage)
+app.get("/projects/:projectID", function (req, res, next) {
+    req._ricecad_singleproject_target = "projectPage"
+    serveSingleProject(req, res, next)
+})
 
 /**
  * 404 - final fallthrough reached
