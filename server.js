@@ -68,6 +68,24 @@ let checkProjectID = function (projectID)
     })
 }
 
+let db_checkProjectID = function (projectID)
+{
+    let checkQuery = `SELECT * FROM public.projects WHERE project_id='${projectID}';`
+    return db_client.query(checkQuery, function (err, results, fields)
+    {
+        if(err) { tools.consoleDebug(err) }
+
+        if(results.rows.length > 0)
+        {
+            reject(`Project ID already exists: ${projectID}`)
+        }
+        else
+        {
+            resolve(projectID)
+        }
+    })
+}
+
 //// BACK-END
 
 app.get('/about', function (req, res, next) {
@@ -328,7 +346,8 @@ let db_generateNewProjectID = async function (title, salt = 0)
 {
     let newID = tools.hashTitle(title, salt)
 
-    await checkProjectID(newID).then(function(validID)
+    // await checkProjectID(newID).then(function(validID)
+    await db_checkProjectID(newID).then(function(validID)
     {
         tools.consoleDebug(`Project ID ${validID} is valid`)
         // //TODO delete this test INSERT
