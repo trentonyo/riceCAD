@@ -188,15 +188,20 @@ let serveProjectPage = function (req, res, next) {
 
     tools.consoleDebug(["----SERVER: Serving project page", projectID])
 
-    console.log("There's no project meta data loaded")
+
 }
 
 let serveHomepage = function (req, res, next) {
-    // db_pool.query("SELECT * FROM projects;", function(err, results, fields)
     db_pool.query("SELECT * FROM projects;", function(err, results, fields)
     {
+        let projects = {}
+
+        for (const row in results.rows) {
+            projects[results.rows[row].project_id] = results.rows[row]
+        }
+
         res.status(200).render("homePage", {
-            "projects" : results,
+            "projects" : projects,
             "toolVersion" : packageJSON.version,
             "tags" : tagPropertiesJSON
         })
