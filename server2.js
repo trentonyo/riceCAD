@@ -152,15 +152,16 @@ let serveEditor = async function(req, res, next) {
 
     db_pool.query(`SELECT * FROM public.projects WHERE project_id='${projectID}';`, function (err, results, fields) {
         if (results.rows.length > 0) {
+
             const output = {
-                "projectID": results.rows[0].projectID,
+                "projectID": projectID,
                 "title": results.rows[0].title,
                 "description": results.rows[0].description,
                 "downloads": results.rows[0].downloads,
                 "palette_materials": results.rows[0].palette_materials,
                 "palette_viewport": results.rows[0].palette_viewport,
                 "tags": results.rows[0].tags,
-                "projectMetaData": JSON.stringify(results.rows[0]),
+                // "projectMetaData": JSON.stringify(projectMetaDataBuilder),
                 "toolVersion": packageJSON.version
             }
 
