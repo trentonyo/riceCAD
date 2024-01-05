@@ -1,5 +1,7 @@
-/node_modules/
 /.idea
-.DS_Store
+/.DS_Store
 
+/node_modules/
 /hof_presentation_package/
+
+/app/db-connectors.js
