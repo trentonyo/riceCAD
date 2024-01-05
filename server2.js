@@ -11,7 +11,10 @@ Date: 4 January 2024
 const express = require("express")
 const express_handlebars = require('express-handlebars')
 const fs = require("fs")
+const minimist = require("minimist")
 const postgres = require('pg');
+const winston = require('winston');
+const expressWinston = require('express-winston');
 
 /// Local Modules
 const db = require('./app/db-connectors')
@@ -28,15 +31,63 @@ let projectID_cache = []
  *   ##SERVER SETTINGS##
  ********************************************/
 
+//  ####################
+//  ##Settings Parsing##
+//  ####################
+
+let argv = minimist(process.argv.slice(2));
+
+let _use_connectionString = ""
+let _use_debug = false
+let _use_port = tools.DEFAULT_PORT
+
+/*
+DATABASE CONNECTION STRING
+    priority:
+    1. env's connectionString if supplied `RICECAD_CONNECTIONSTRING`
+    2. argv's connectionString if supplied `--db-connectionstring`
+    3. programmatic connectionString, found in `app/db-connectors.js`
+ */
+if (process.env.RICECAD_CONNECTIONSTRING) { _use_connectionString = process.env.RICECAD_CONNECTIONSTRING }
+else if (argv.hasOwnProperty('db-connectionstring')) { _use_connectionString = argv['db-connectionstring'] }
+else { _use_connectionString = db.remote_url }
+
+/*
+LOGGING SETTINGS
+    priority:
+    1. env's debug flag if supplied `RICECAD_LOG_DEBUG`
+    2. argv's debug flag if supplied `--debug`
+    3. defaults to false
+ */
+if (process.env.RICECAD_LOG_DEBUG) { _use_debug = process.env.RICECAD_LOG_DEBUG }
+else if (argv.hasOwnProperty('debug')) { _use_debug = argv['debug'] }
+else { _use_debug = false }
+
+/*
+PORT SETTING
+    priority:
+    1. env's port if supplied `PORT`
+    2. argv's port if supplied `--port OR -p`
+    3. defaults to tools.DEFAULT_PORT
+ */
+if (process.env.PORT) { _use_port = process.env.PORT }
+else if (argv.hasOwnProperty('port')) { _use_port = argv['port'] }
+else if (argv.hasOwnProperty('p')) { _use_port = argv['p'] }
+else { _use_port = tools.DEFAULT_PORT }
+
+//  #################
+//  ##Server Set-up##
+//  #################
+
 let app = express()
 const db_pool = new postgres.Pool({
-    connectionString: db.remote_url,
+    connectionString: _use_connectionString,
     ssl: {
         rejectUnauthorized: false,
     }
 })
 
-let port = process.env.PORT ? process.env.PORT : tools.DEFAULT_PORT
+tools.setDebug(_use_debug)
 
 app.engine('handlebars', express_handlebars.engine({
     defaultLayout: "main"
@@ -72,6 +123,22 @@ app.get("/playcanvas.js", function (req, res, next) {
 app.get("/axios.js", function (req, res, next) {
     res.status(200).sendFile(__dirname+"/node_modules/axios/dist/axios.js")
 })
+
+/**
+ * Use winston middleware logging
+ */
+if (_use_debug)
+{
+    app.use(expressWinston.logger({
+        transports: [
+            new winston.transports.Console()
+        ],
+        format: winston.format.combine(
+            winston.format.json()
+        ),
+        meta: false
+    }))
+}
 
 /********************************************
  *   ##DATA HELPERS##
@@ -515,6 +582,6 @@ app.get("*", function (req, res, next)  {
  *   ##SERVER INITIALIZATION##
  ********************************************/
 
-app.listen(port, undefined,function () {
-    console.log("SERVER: I'm listening http://localhost:"+port)
+app.listen(_use_port, undefined,function () {
+    console.log("SERVER: I'm listening http://localhost:"+_use_port)
 })
