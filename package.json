@@ -1,43 +1,57 @@
 {
-    "name": "riceCAD",
-    "version": "0.8.0",
-    "main": "server2.js",
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
-        "build_label": "handlebars views/partials/label.handlebars -f public/labelTemplate.js",
-        "build_labelCheckbox": "handlebars views/partials/labelCheckbox.handlebars -f public/labelCheckboxTemplate.js",
-        "build_materialCard": "handlebars views/partials/materialCard.handlebars -f public/materialCardTemplate.js",
-        "build_projectCard": "handlebars views/partials/projectCard.handlebars -f public/projectCardTemplate.js",
-        "prestart": "npm run build_label && npm run build_labelCheckbox && npm run build_materialCard && npm run build_projectCard",
-        "dev": "nodemon --use-openssl-ca server2.js"
-    },
-    "keywords": [
-        "util",
-        "functional",
-        "server",
-        "client",
-        "browser",
-        "minecraft",
-        "CAD"
-    ],
-    "author": "trentonyo",
-    "contributors": [],
-    "dependencies": {
-        "axios": "^1.2.0",
-        "body-parser": "^1.20.1",
-        "express": "^4.18.2",
-        "express-handlebars": "^6.0.6",
-        "express-winston": "^4.2.0",
-        "filesaver": "^0.0.13",
-        "handlebars": "^4.7.7",
-        "minimist": "^1.2.8",
-        "mysql": "^2.18.1",
-        "pg": "^8.11.0",
-        "playcanvas": "^1.58.0",
-        "vanilla-caret-js": "^1.1.0",
-        "winston": "^3.11.0"
-    },
-    "devDependencies": {
-        "nodemon": "^2.0.20"
-    }
+  "name": "ricecad",
+  "version": "0.8.0",
+  "main": "server2.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build_label": "handlebars views/partials/label.handlebars -f public/labelTemplate.js",
+    "build_labelCheckbox": "handlebars views/partials/labelCheckbox.handlebars -f public/labelCheckboxTemplate.js",
+    "build_materialCard": "handlebars views/partials/materialCard.handlebars -f public/materialCardTemplate.js",
+    "build_projectCard": "handlebars views/partials/projectCard.handlebars -f public/projectCardTemplate.js",
+    "prestart": "npm run build_label && npm run build_labelCheckbox && npm run build_materialCard && npm run build_projectCard",
+    "dev": "nodemon --use-openssl-ca server2.js",
+    "start": "node server.js"
+  },
+  "keywords": [
+    "util",
+    "functional",
+    "server",
+    "client",
+    "browser",
+    "minecraft",
+    "CAD"
+  ],
+  "author": "trentonyo",
+  "contributors": [],
+  "dependencies": {
+    "axios": "^1.2.0",
+    "body-parser": "^1.20.1",
+    "express": "^4.18.2",
+    "express-handlebars": "^6.0.6",
+    "express-winston": "^4.2.0",
+    "filesaver": "^0.0.13",
+    "handlebars": "^4.7.7",
+    "minimist": "^1.2.8",
+    "mysql": "^2.18.1",
+    "pg": "^8.11.0",
+    "playcanvas": "^1.58.0",
+    "vanilla-caret-js": "^1.1.0",
+    "winston": "^3.11.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  },
+  "description": "In-browser CAD program for riceBUILD schematics",
+  "directories": {
+    "lib": "lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/trentonyo/riceCAD.git"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/trentonyo/riceCAD/issues"
+  },
+  "homepage": "https://github.com/trentonyo/riceCAD#readme"
 }
