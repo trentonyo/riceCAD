@@ -75,7 +75,31 @@ app.get("/axios.js", function (req, res, next) {
  *   ##DATA HELPERS##
  ********************************************/
 
-let generateNewProjectID = function (title) { /*TODO*/ }
+let generateNewProjectID = function(title) {
+    const promiseNewID = new Promise((resolve, reject) => {
+        // if (title.length === 0) {
+        //     title = "DEFAULT"
+        // }
+        resolve("H2a2o")
+
+        // return await _rec_generateNewProjectID(title, 0)
+    })
+
+}
+
+let _rec_generateNewProjectID = async function (title, salt) {
+    let newID = tools.hashTitle(title, salt)
+
+    return db_pool.query(`SELECT * FROM public.projects WHERE project_id='${newID}';`, function (err, results, fields) {
+        if (results.rows.length > 0) {
+            _rec_generateNewProjectID(title, ++salt)
+        }
+        else
+        {
+            return newID
+        }
+    })
+}
 
 /********************************************
  *   ##ROUTING HELPERS##
@@ -132,6 +156,8 @@ let serveSingleProject = async function(req, res, next) {
     db_pool.query(`SELECT * FROM public.projects WHERE project_id='${projectID}';`, function (err, results, fields) {
         db_pool.query(`SELECT * FROM public.tags INNER JOIN public.projects_tags pt ON tags.tags_id = pt.tag_id WHERE pt.project_id = '${projectID}';`, function (tag_err, tag_results, tag_fields) {
             db_pool.query(allTagsNeeded, function (all_tags_err, all_tags_results, all_tags_fields) {
+                let output = tools.DEFAULT_PROJECT_DETAILS
+
                 if (results.rows.length > 0) {
 
                     let tags = {}
@@ -178,7 +204,7 @@ let serveSingleProject = async function(req, res, next) {
                         }
                     }
 
-                    const output = {
+                    output = {
                         "projectID": projectID,
                         "title": results.rows[0].title,
                         "description": results.rows[0].description,
@@ -188,13 +214,9 @@ let serveSingleProject = async function(req, res, next) {
                         "tags": tags,
                         "toolVersion": packageJSON.version
                     }
+                }
 
-                    res.status(200).render(req._ricecad_singleproject_target, output)
-                }
-                else
-                {
-                    next()
-                }
+                res.status(200).render(req._ricecad_singleproject_target, output)
             })
         })
     })
@@ -327,7 +349,16 @@ app.get("/edit/:projectID", function (req, res, next) {
     serveSingleProject(req, res, next)
 })
 
-app.get("/edit", function (req, res, next) { serveEditor(req, res, next) })
+app.get("/edit", function (req, res, next) {
+    // generateNewProjectID("DEFAULT")
+    generateNewProjectID("DEFAULT").then(function(generatedID) {
+        req.projectID = generatedID
+        req._ricecad_singleproject_target = "riceCADEditor"
+        req._ricecad_singleproject_serveAllTags = true
+
+        serveSingleProject(req, res, next)
+    })
+})
 
 /**
  * Serve homepages from several URLs

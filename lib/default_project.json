@@ -1,0 +1,103 @@
+{
+  "projectID": "DEFAULT",
+  "title": "Project Title",
+  "description": "A nice description of the project.",
+  "downloads": 0,
+  "palette_materials": {
+    "1": {
+      "color": "#1c1c21",
+      "glass": false
+    },
+    "2": {
+      "color": "#af2d26",
+      "glass": false
+    },
+    "3": {
+      "color": "#5e7c16",
+      "glass": false
+    },
+    "4": {
+      "color": "#825433",
+      "glass": false
+    },
+    "5": {
+      "color": "#8933b7",
+      "glass": false
+    },
+    "6": {
+      "color": "#169b9b",
+      "glass": false
+    },
+    "7": {
+      "color": "#9e9e96",
+      "glass": false
+    },
+    "8": {
+      "color": "#474f51",
+      "glass": false
+    },
+    "9": {
+      "color": "#f28caa",
+      "glass": false
+    }
+  },
+  "palette_viewport": {
+    "background": {
+      "color": "#91eef4",
+      "glass": false,
+      "viewport": true
+    },
+    "workingplane": {
+      "color": "#edfeed",
+      "glass": false,
+      "viewport": true
+    }
+  },
+  "tags": {
+    "Art": {
+      "background-color": "#939",
+      "text-color": "white"
+    },
+    "Ice": {
+      "background-color": "#eef",
+      "text-color": "black"
+    },
+    "Nordic": {
+      "background-color": "brown",
+      "text-color": "white"
+    },
+    "Prototype": {
+      "background-color": "red",
+      "text-color": "white"
+    },
+    "Business": {
+      "background-color": "gray",
+      "text-color": "black"
+    },
+    "Desert": {
+      "background-color": "#cc7",
+      "text-color": "black"
+    },
+    "Fantasy": {
+      "background-color": "#393",
+      "text-color": "white"
+    },
+    "Futuristic": {
+      "background-color": "#aaf",
+      "text-color": "black"
+    },
+    "House": {
+      "background-color": "pink",
+      "text-color": "black"
+    },
+    "Medieval": {
+      "background-color": "#333",
+      "text-color": "white"
+    },
+    "Steampunk": {
+      "background-color": "#993",
+      "text-color": "black"
+    }
+  },
+  "toolVersion": "OFFLINE"
+}
