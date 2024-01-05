@@ -22,6 +22,8 @@ const packageJSON = require("./package.json")
 const tagPropertiesJSON = require("./tagProperties.json")
 const approvedAddressesJSON = require("./approvedRobotAddresses.json")
 
+let projectID_cache = []
+
 /********************************************
  *   ##SERVER SETTINGS##
  ********************************************/
@@ -76,29 +78,16 @@ app.get("/axios.js", function (req, res, next) {
  ********************************************/
 
 let generateNewProjectID = function(title) {
-    const promiseNewID = new Promise((resolve, reject) => {
-        // if (title.length === 0) {
-        //     title = "DEFAULT"
-        // }
-        resolve("H2a2o")
-
-        // return await _rec_generateNewProjectID(title, 0)
-    })
-
-}
-
-let _rec_generateNewProjectID = async function (title, salt) {
+    let salt = 0
     let newID = tools.hashTitle(title, salt)
 
-    return db_pool.query(`SELECT * FROM public.projects WHERE project_id='${newID}';`, function (err, results, fields) {
-        if (results.rows.length > 0) {
-            _rec_generateNewProjectID(title, ++salt)
-        }
-        else
-        {
-            return newID
-        }
-    })
+    while (projectID_cache.includes(newID))
+    {
+        newID = tools.hashTitle(title, ++salt)
+    }
+
+    projectID_cache.push(newID)
+    return newID
 }
 
 /********************************************
@@ -157,6 +146,8 @@ let serveSingleProject = async function(req, res, next) {
         db_pool.query(`SELECT * FROM public.tags INNER JOIN public.projects_tags pt ON tags.tags_id = pt.tag_id WHERE pt.project_id = '${projectID}';`, function (tag_err, tag_results, tag_fields) {
             db_pool.query(allTagsNeeded, function (all_tags_err, all_tags_results, all_tags_fields) {
                 let output = tools.DEFAULT_PROJECT_DETAILS
+                output.projectID = projectID
+                output.toolVersion = packageJSON.version
 
                 if (results.rows.length > 0) {
 
@@ -246,6 +237,9 @@ let serveHomepage = function (req, res, next) {
                 for (const row in results.rows) {
                     let curr_project_id = results.rows[row].project_id
                     projects[curr_project_id] = results.rows[row]
+
+                    // Update cache of project IDs
+                    if (!(curr_project_id in projectID_cache)) projectID_cache.push(curr_project_id)
 
                     let project_tags = relations.filter((rel) => rel.project_id === curr_project_id)
 
@@ -350,15 +344,146 @@ app.get("/edit/:projectID", function (req, res, next) {
 })
 
 app.get("/edit", function (req, res, next) {
-    // generateNewProjectID("DEFAULT")
-    generateNewProjectID("DEFAULT").then(function(generatedID) {
-        req.projectID = generatedID
-        req._ricecad_singleproject_target = "riceCADEditor"
-        req._ricecad_singleproject_serveAllTags = true
+    req.params.projectID = "DEFAULT"
+    req._ricecad_singleproject_target = "riceCADEditor"
+    req._ricecad_singleproject_serveAllTags = true
 
-        serveSingleProject(req, res, next)
-    })
+    serveSingleProject(req, res, next)
 })
+
+/**
+ * Handle a POST for new project metadata
+ */
+app.post("/projects/addProjectMetaData", function (req, res, next) {
+
+    if(req.body && req.body["title"] && req.body["description"])
+    {
+        let projectID = generateNewProjectID(req.body["title"])
+
+        let project = {
+            title: req.body.title,
+            description: req.body.description,
+            tags: {},
+            downloads: req.body.downloads,
+            palette: req.body.palette
+        }
+        let parentID_digest = "null"
+        if("existingProjectID" in req.body)
+        {
+            project["parentProjectID"] = req.body.existingProjectID
+            parentID_digest = `'${req.body.existingProjectID}'`
+        }
+
+        tools.consoleDebug(["Tags in the POST metadata request:", req.body.tags])
+
+        for (let i = 0; i < req.body.tags.length; i++) {
+            let currentTag = req.body.tags[i]
+
+            tools.consoleDebug(["In the tags for,", currentTag])
+
+            project.tags[currentTag] = tagPropertiesJSON[currentTag] //TODO remove after refactor
+        }
+
+        let pal = project.palette
+
+        let insertProjectQuery = `INSERT INTO public.projects (project_id, title, description, downloads, builds, 
+                             parent_id, palette_1_hex, palette_2_hex, palette_3_hex, palette_4_hex, palette_5_hex, 
+                             palette_6_hex, palette_7_hex, palette_8_hex, palette_9_hex, palette_1_glass, palette_2_glass, 
+                             palette_3_glass, palette_4_glass, palette_5_glass, palette_6_glass, palette_7_glass, 
+                             palette_8_glass, palette_9_glass, viewport_background_hex, viewport_workingplane_hex)
+        VALUES ('${projectID}', '${tools.sanitize(project.title)}', '${tools.sanitize(project.description)}', ${project.downloads}, null, ${parentID_digest},
+                '${pal['1'].color}', '${pal['2'].color}', '${pal['3'].color}', '${pal['4'].color}', '${pal['5'].color}', '${pal['6'].color}', '${pal['7'].color}', '${pal['8'].color}', '${pal['9'].color}', 
+                ${pal['1'].glass}, ${pal['2'].glass}, ${pal['3'].glass}, ${pal['4'].glass}, ${pal['5'].glass}, ${pal['6'].glass}, ${pal['7'].glass}, ${pal['8'].glass}, ${pal['9'].glass},
+                '${pal['background'].color}', '${pal['workingplane'].color}');`
+
+        db_pool.query(insertProjectQuery, function(err, results, fields)
+        {
+            for (let i = 0; i < req.body.tags.length; i++)
+            {
+                let currentTag = req.body.tags[i]
+                let query = `INSERT INTO public.projects_tags (project_id, tag_id)
+                     SELECT '${projectID}', tags_id
+                     FROM public.tags
+                     WHERE name='${currentTag}';`
+
+                if (i === req.body.tags.length - 1) {
+                    db_pool.query(query, function (err, results, fields) {
+                        res.status(200).send(projectID)
+                    })
+                }
+                else
+                {
+                    db_pool.query(query, function (err, results, fields) {})
+                }
+            }
+        })
+    }
+    else
+    {
+        next()
+    }
+})
+
+/**
+ * Handle a POST for new project plan
+ */
+app.post("/projects/addProjectPlan", function (req, res, next) {
+
+    if(req.body && req.body["plan"] && req.body["projectID"])
+    {
+        let projectID = req.body.projectID
+        let planContent = req.body.plan
+
+        fs.writeFile(`./project/${projectID}.plan`, planContent, function (err) {
+            if(err)
+            {
+                res.status(500).send("SERVER: Something went wrong. It's not you, it's me.")
+                console.log(err)
+            }
+            else
+            {
+                req.params.projectID = projectID
+                req._ricecad_singleproject_target = "projectPage"
+                serveSingleProject(req, res, next)
+            }
+        })
+    }
+    else
+    {
+        console.log(`-- SERVER: Got an invalid POST request, req.body: ${req.body}`)
+        res.status(400).send("Missing/invalid POST request, need a title and description")
+    }
+})
+
+/**
+ * Handle a PUT for new project thumbnail
+ */
+app.post("/projects/addProjectThumbnail", function (req, res, next) {
+
+    if(req.body && req.body["thumbnail"] && req.body["projectID"])
+    {
+        let projectID = req.body.projectID
+        let thumbnail = req.body.thumbnail
+
+        fs.writeFile(`./project/${projectID}.png`, thumbnail, undefined, function (err) {
+            if(err)
+            {
+                res.status(500).send("SERVER: Something went wrong. It's not you, it's me.")
+                console.log(err)
+            }
+            else
+            {
+                res.status(200).send(projectID)
+            }
+        })
+    }
+    else
+    {
+        console.log(`-- SERVER: Got an invalid POST request, req.body: ${req.body}`)
+        res.status(400).send("Missing/invalid POST request, need a title and description")
+    }
+})
+
 
 /**
  * Serve homepages from several URLs
