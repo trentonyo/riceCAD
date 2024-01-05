@@ -205,6 +205,11 @@ let serveSingleProject = async function(req, res, next) {
                         "tags": tags,
                         "toolVersion": packageJSON.version
                     }
+
+                    if (results.rows[0].parent_id)
+                    {
+                        output["parentProjectID"] = results.rows[0].parent_id
+                    }
                 }
 
                 res.status(200).render(req._ricecad_singleproject_target, output)
